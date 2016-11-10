@@ -2,58 +2,135 @@
 
 namespace NTRNX_MYSQLI;
 
+/* display statement debug */
+const NMCC_DEBUG = FALSE;
+
 /* define shorthand directory separator constant */
-if (!defined('DS')) { define('DS', DIRECTORY_SEPARATOR); }
-if (!defined('PS')) { define('PS', PATH_SEPARATOR); }
+if (!defined("NMCC_DS")) {          define("NMCC_DS",       DIRECTORY_SEPARATOR); }
+if (!defined("NMCC_PS")) {          define("NMCC_PS",       PATH_SEPARATOR); }
+
+/* NMCC = nitrinax mysqli class const */
+if (!defined("NMCC_DOT")) {         define("NMCC_DOT",      "."); }         /* SQL REFERENCE/CONDITION SEPARATOR */
+if (!defined("NMCC_COMMA")) {       define("NMCC_COMMA",    ","); }         /* SQL MULTIPLY FIELD SEPARATOR */
+if (!defined("NMCC_IQ")) {          define("NMCC_IQ",       "`"); }         /* SQL INSTRUCTION QUOTE */
+if (!defined("NMCC_VQ")) {          define("NMCC_VQ",       "'"); }         /* SQL VALUE QUOTE */
+
+if (!defined("NMCC_OPEN_BRACKET")) {            define("NMCC_OPEN_BRACKET",             "<"); }
+if (!defined("NMCC_CLOSE_BRACKET")) {           define("NMCC_CLOSE_BRACKET",            ">"); }
+if (!defined("NMCC_CURVED_OPEN_BRACKET")) {     define("NMCC_CURVED_OPEN_BRACKET",      "{"); }
+if (!defined("NMCC_CURVED_CLOSE_BRACKET")) {    define("NMCC_CURVED_CLOSE_BRACKET",     "}"); }
+if (!defined("NMCC_SQUARE_BRACKET_OPEN")) {     define("NMCC_SQUARE_BRACKET_OPEN",      "["); }
+if (!defined("NMCC_SQUARE_BRACKET_CLOSE")) {    define("NMCC_SQUARE_BRACKET_CLOSE",     "]"); }
+if (!defined("NMCC_LEFT_PARENTHESIS")) {        define("NMCC_LEFT_PARENTHESIS",         "("); }
+if (!defined("NMCC_RIGHT_PARENTHESIS")) {       define("NMCC_RIGHT_PARENTHESIS",        ")"); }
+
+if (!defined("NMCC_PERCENT")) {     define("NMCC_PERCENT",  "%"); }
+if (!defined("NMCC_BLANK")) {       define("NMCC_BLANK",    " "); }
+if (!defined("NMCC_BR")) {          define("NMCC_BR",       "<br />"); }    /* HTML break row */
+
+/* commands */
+if (!defined("NMCC_SELECT")) {      define("NMCC_SELECT",   "SELECT "); }
+if (!defined("NMCC_INSERT")) {      define("NMCC_INSERT",   "INSERT INTO "); }
+if (!defined("NMCC_UPDATE")) {      define("NMCC_UPDATE",   "UPDATE "); }
+if (!defined("NMCC_DELETE")) {      define("NMCC_DELETE",   "DELETE "); }
+
+/* conditions */
+if (!defined("NMCC_FROM")) {        define("NMCC_FROM",     " FROM "); }
+if (!defined("NMCC_WHERE")) {       define("NMCC_WHERE",    " WHERE "); }
+if (!defined("NMCC_ORDER")) {       define("NMCC_ORDER",    " ORDER BY "); }
+if (!defined("NMCC_GROUP")) {       define("NMCC_GROUP",    " GROUP BY "); }
+
+/* logical operators */
+if (!defined("NMCC_EQUAL")) {       define("NMCC_EQUAL",    "="); }         /* Equal */
+if (!defined("NMCC_UNEQUAL")) {     define("NMCC_UNEQUAL",  "!="); }        /* Not equal */
+if (!defined("NMCC_NOTEQUAL")) {    define("NMCC_NOTEQUAL", "<>"); }        /* Not equal */
+if (!defined("NMCC_NSEQUAL")) {     define("NMCC_NSEQUAL",  "<=>"); }       /* NULL-safe equal */
+if (!defined("NMCC_GT"))            define("NMCC_GT",       ">");           /* Greater than */
+if (!defined("NMCC_GTOE")) {        define("NMCC_GTOE",     ">="); }        /* Greater than or equal */
+if (!defined("NMCC_LT")) {          define("NMCC_LT",       "<"); }         /* Less than */
+if (!defined("NMCC_LTOE")) {        define("NMCC_LTOE",     "<="); }        /* Less than or equal */
+if (!defined("NMCC_AND")) {         define("NMCC_AND",      "AND"); }
+if (!defined("NMCC_OR")) {          define("NMCC_OR",       "OR"); }
+if (!defined("NMCC_XOR")) {         define("NMCC_XOR",      "XOR"); }
+if (!defined("NMCC_LIKE")) {        define("NMCC_LIKE",     "LIKE"); }
+if (!defined("NMCC_NLIKE")) {       define("NMCC_NLIKE",    "NOT LIKE"); }
+if (!defined("NMCC_NOT")) {         define("NMCC_NOT",      "NOT"); }
+
+/* value conditions */
+if (!defined("NMCC_AS")) {          define("NMCC_AS",       "AS"); }
+if (!defined("NMCC_LIMIT")) {       define("NMCC_LIMIT",    "LIMIT"); }
+if (!defined("NMCC_VALUES")) {      define("NMCC_VALUES",   "VALUES"); }
+if (!defined("NMCC_ON")) {          define("NMCC_ON",       "ON"); }
+if (!defined("NMCC_USING")) {       define("NMCC_USING",    "USING"); }
+
+/* join types */
+if (!defined("NMCC_I_JOIN")) {      define("NMCC_I_JOIN",   " INNER JOIN "); }
+if (!defined("NMCC_C_JOIN")) {      define("NMCC_C_JOIN",   " CROSS JOIN "); }
+if (!defined("NMCC_S_JOIN")) {      define("NMCC_S_JOIN",   " STRAIGHT_JOIN "); }
+if (!defined("NMCC_L_JOIN")) {      define("NMCC_L_JOIN",   " LEFT JOIN "); }
+if (!defined("NMCC_R_JOIN")) {      define("NMCC_R_JOIN",   " RIGHT JOIN "); }
+if (!defined("NMCC_LO_JOIN")) {     define("NMCC_LO_JOIN",  " LEFT OUTER JOIN "); }
+if (!defined("NMCC_RO_JOIN")) {     define("NMCC_RO_JOIN",  " RIGHT OUTER JOIN "); }
+if (!defined("NMCC_FO_JOIN")) {     define("NMCC_FO_JOIN",  " FULL OUTER JOIN "); }
+if (!defined("NMCC_N_JOIN")) {      define("NMCC_N_JOIN",   " NATURAL JOIN "); }
+if (!defined("NMCC_NL_JOIN")) {     define("NMCC_NL_JOIN",  " NATURAL LEFT JOIN "); }
+if (!defined("NMCC_NR_JOIN")) {     define("NMCC_NR_JOIN",  " NATURAL RIGHT JOIN "); }
+if (!defined("NMCC_NLO_JOIN")) {    define("NMCC_NLO_JOIN", " NATURAL LEFT OUTER JOIN "); }
+if (!defined("NMCC_NRO_JOIN")) {    define("NMCC_NRO_JOIN", " NATURAL RIGHT OUTER JOIN "); }
 
 /* set error messages */
-if (!defined('ERROR_DIRECTORY_DOES_NOT_EXISTS')) { define('ERROR_DIRECTORY_DOES_NOT_EXISTS', 'directory "%d" does not exist<br/>'); }
-if (!defined('ERROR_FILE_DOES_NOT_EXISTS')) { define('ERROR_FILE_DOES_NOT_EXISTS', 'file "%s" does not exist<br/>'); }
+if (!defined("ERROR_DIRECTORY_DOES_NOT_EXISTS")) { define("ERROR_DIRECTORY_DOES_NOT_EXISTS", "Directory \"%d\" does not exist."); }
+if (!defined("ERROR_FILE_DOES_NOT_EXISTS")) { define("ERROR_FILE_DOES_NOT_EXISTS", "File \"%s\" does not exist."); }
+
+/* mysqli class errors */
+if (!defined("ERROR_MYSQLI_INIT_FAILED")) { define("ERROR_MYSQLI_INIT_FAILED", "Mysqli_init failed."); }
+if (!defined("ERROR_DB_HANDLE_NOT_INITIALIZED")) { define("ERROR_DB_HANDLE_NOT_INITIALIZED", "DB handle not initialized."); }
+if (!defined("ERROR_FIELD_NUMBER_AND_NUMBER_OF_VALUES_​​DO_NOT_MATCH")) { define("ERROR_FIELD_NUMBER_AND_NUMBER_OF_VALUES_​​DO_NOT_MATCH", "Field number and number of values ​​do not match."); }
+if (!defined("ERROR_ON_LOADING_CHARACTER_SET")) { define("ERROR_ON_LOADING_CHARACTER_SET", "Error loading character set : \"%s\"."); }
+
+if (!defined("ERROR_ON_SETTINGS_VALUE_FOR_OPTION")) { define("ERROR_ON_SETTINGS_VALUE_FOR_OPTION", "Error on setting value \"{VALUE}\" for option \"{OPTION}\"."); }
+if (!defined("ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER")) { define("ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER", "Error on setting value \"{VALUE}\" for option \"{OPTION}\". Value must be integer."); }
+if (!defined("ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_BOOLEAN")) { define("ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_BOOLEAN", "Error on setting value \"{VALUE}\" for option \"{OPTION}\". Value must be boolean."); }
+if (!defined("ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_STRING")) { define("ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_STRING", "Error on setting value \"{VALUE}\" for option \"{OPTION}\". Value must be string."); }
+
+if (!defined("ERROR_ON_SETTINGS_PATH_TO_FILE")) { define("ERROR_ON_SETTINGS_PATH_TO_FILE", "Error on setting path to {FILE}."); }
+if (!defined("ERROR_ON_SETTINGS_PATH_TO_DIR")) { define("ERROR_ON_SETTINGS_PATH_TO_DIR", "Error on setting path to dir {DIR} that contain {FILE}."); }
+
+/* mysqli class messages */
+if (!defined("NMCC_MSG_CURRENT_CHARACTER_SET")) { define("NMCC_MSG_CURRENT_CHARACTER_SET", "Default client character set is changed to : \"%s\"."); }
 
 /* set DIR to absolute path to library files */
-if (!defined('CLASS_NTRNX_MYSQLI_DIR')) { define('CLASS_NTRNX_MYSQLI_DIR', dirname(__FILE__) . DS); }
+if (!defined("CLASS_NTRNX_MYSQLI_DIR")) { define("CLASS_NTRNX_MYSQLI_DIR", dirname(__FILE__) . NMCC_DS); }
 
 /* define dir for sysplugins */
-if (!defined('CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR')) { define('CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR', CLASS_NTRNX_MYSQLI_DIR . 'sysplugins' . DS); }
-if (!is_dir(CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR)) { die(str_replace('%d', CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR, ERROR_DIRECTORY_DOES_NOT_EXISTS)); }
+if (!defined("CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR")) { define("CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR", CLASS_NTRNX_MYSQLI_DIR . "sysplugins" . NMCC_DS); }
+if (!is_dir(CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR)) { die(str_replace("%d", CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR, ERROR_DIRECTORY_DOES_NOT_EXISTS)); }
 
 /* define dir for class config */
-if (!defined('CLASS_NTRNX_MYSQLI_CONFIG_DIR')) { define('CLASS_NTRNX_MYSQLI_CONFIG_DIR', CLASS_NTRNX_MYSQLI_DIR . 'configs' . DS); }
-if (!is_dir(CLASS_NTRNX_MYSQLI_CONFIG_DIR)) { die(str_replace('%d', CLASS_NTRNX_MYSQLI_CONFIG_DIR, ERROR_DIRECTORY_DOES_NOT_EXISTS)); }
+if (!defined("CLASS_NTRNX_MYSQLI_CONFIG_DIR")) { define("CLASS_NTRNX_MYSQLI_CONFIG_DIR", CLASS_NTRNX_MYSQLI_DIR . "configs" . NMCC_DS); }
+if (!is_dir(CLASS_NTRNX_MYSQLI_CONFIG_DIR)) { die(str_replace("%d", CLASS_NTRNX_MYSQLI_CONFIG_DIR, ERROR_DIRECTORY_DOES_NOT_EXISTS)); }
 
 /* check and load config and subclasses */
-if (!defined('CLASS_NTRNX_MYSQLI_CONFIG_FILE')) { define('CLASS_NTRNX_MYSQLI_CONFIG_FILE', CLASS_NTRNX_MYSQLI_CONFIG_DIR . 'ntrnx_mysqli_config.php'); }
-if (!file_exists(CLASS_NTRNX_MYSQLI_CONFIG_FILE)) { die(str_replace('%s', CLASS_NTRNX_MYSQLI_CONFIG_FILE, ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once CLASS_NTRNX_MYSQLI_CONFIG_FILE; }
+if (!defined("CLASS_NTRNX_MYSQLI_CONFIG_FILE")) { define("CLASS_NTRNX_MYSQLI_CONFIG_FILE", CLASS_NTRNX_MYSQLI_CONFIG_DIR . "ntrnx_mysqli_config.php"); }
+if (!file_exists(CLASS_NTRNX_MYSQLI_CONFIG_FILE)) { die(str_replace("%s", CLASS_NTRNX_MYSQLI_CONFIG_FILE, ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once CLASS_NTRNX_MYSQLI_CONFIG_FILE; }
 
-if (!defined('CLASS_NTRNX_MYSQLI_CORE_DATA')) { define('CLASS_NTRNX_MYSQLI_CORE_DATA', CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR . 'ntrnx_mysqli_core_data.php'); }
-if (!file_exists(CLASS_NTRNX_MYSQLI_CORE_DATA)) { die(str_replace('%s', CLASS_NTRNX_MYSQLI_CORE_DATA, ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once CLASS_NTRNX_MYSQLI_CORE_DATA; }
+if (!defined("CLASS_NTRNX_MYSQLI_CORE_DATA")) { define("CLASS_NTRNX_MYSQLI_CORE_DATA", CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR . "ntrnx_mysqli_core_data.php"); }
+if (!file_exists(CLASS_NTRNX_MYSQLI_CORE_DATA)) { die(str_replace("%s", CLASS_NTRNX_MYSQLI_CORE_DATA, ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once CLASS_NTRNX_MYSQLI_CORE_DATA; }
 
-if (!defined('CLASS_NTRNX_MYSQLI_CORE_BASE')) { define('CLASS_NTRNX_MYSQLI_CORE_BASE', CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR . 'ntrnx_mysqli_core_base.php'); }
-if (!file_exists(CLASS_NTRNX_MYSQLI_CORE_BASE)) { die(str_replace('%s', CLASS_NTRNX_MYSQLI_CORE_BASE, ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once CLASS_NTRNX_MYSQLI_CORE_BASE; }
+if (!defined("CLASS_NTRNX_MYSQLI_CORE_BASE")) { define("CLASS_NTRNX_MYSQLI_CORE_BASE", CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR . "ntrnx_mysqli_core_base.php"); }
+if (!file_exists(CLASS_NTRNX_MYSQLI_CORE_BASE)) { die(str_replace("%s", CLASS_NTRNX_MYSQLI_CORE_BASE, ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once CLASS_NTRNX_MYSQLI_CORE_BASE; }
 
-if (!defined('CLASS_NTRNX_MYSQLI_CORE')) { define('CLASS_NTRNX_MYSQLI_CORE', CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR . 'ntrnx_mysqli_core.php'); }
-if (!file_exists(CLASS_NTRNX_MYSQLI_CORE)) { die(str_replace('%s', CLASS_NTRNX_MYSQLI_CORE, ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once CLASS_NTRNX_MYSQLI_CORE; }
+if (!defined("CLASS_NTRNX_MYSQLI_CORE")) { define("CLASS_NTRNX_MYSQLI_CORE", CLASS_NTRNX_MYSQLI_SYSPLUGINS_DIR . "ntrnx_mysqli_core.php"); }
+if (!file_exists(CLASS_NTRNX_MYSQLI_CORE)) { die(str_replace("%s", CLASS_NTRNX_MYSQLI_CORE, ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once CLASS_NTRNX_MYSQLI_CORE; }
 
 /* begin of class ntrnx_mysqli */
 class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
+    
+    /* var for last query statemanet */
+    static $last_query = NULL;
 
-    /*
-    const DB_HOST = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_HOST;
-    const DB_USER = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_USER;
-    const DB_PASS = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_PASS;
-    const DB_NAME = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_NAME;
-    const DB_PORT = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_PORT;
-    const DB_SOCKET = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_SOCKET;
-    const DB_PID = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_PID;
-
-    const DB_LOGIN_HOST = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_LOGIN_HOST;
-    const DB_LOGIN_USER = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_LOGIN_USER;
-    const DB_LOGIN_PASS = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_LOGIN_PASS;
-    const DB_LOGIN_NAME = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_LOGIN_NAME;
-    const DB_LOGIN_PORT = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_LOGIN_PORT;
-    const DB_LOGIN_SOCKET = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_LOGIN_SOCKET;
-    const DB_LOGIN_PID = \NTRNX_MYSQLI\ntrnx_mysqli_config::DB_LOGIN_PID; 
-    */
+    /* var for persistent_connection status */
+    static $persistent_connection = FALSE;
 
 	/* begin of class constructor */
 	function __construct (){
@@ -63,174 +140,557 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
 	function __destruct() {
 	} /* end of class destructor */
 
-//mysqli_affected_rows() 	Returns the number of affected rows in the previous MySQL operation
+    //mysqli_affected_rows() 	Returns the number of affected rows in the previous MySQL operation
     static function affected_rows(
         
         $mysqli_handle
         
     ) {
 
-        $row_cnt = $mysqli_handle->affected_rows;
-
-        //printf("affected %d rows.<br />", $row_cnt);
-
-        return $row_cnt;
+        return mysqli_affected_rows ($mysqli_handle);
 
     }
 
-//mysqli_affected_fields() {}
-    static function affected_fields() {}
+    //mysqli_affected_fields() {}
+    static function affected_fields(
 
-//mysqli_affected_tables() {}
+        $mysqli_handle
+
+    ) {
+
+        return mysqli_field_count ($mysqli_handle);
+
+    }
+
+    //mysqli_affected_tables() {}
     static function affected_tables() {}
 
-//mysqli_autocommit() 	Turns on or off auto-committing database modifications
+    //mysqli_autocommit() 	Turns on or off auto-committing database modifications
     static function autocommit() {}
 
-
+    //mysqli_begin_transaction — Starts a transaction
     static function begin_transaction() {}
 
-//mysqli_change_user() 	Changes the user of the specified database connection
+    //mysqli_change_user() 	Changes the user of the specified database connection
     static function change_user() {}
 
-//mysqli_character_set_name() 	Returns the default character set for the database connection
-    static function character_set_name() {}
-
-    static function client_info() {}
-
-    static function client_version() {}
-
-//mysqli_close() 	Closes a previously opened database connection
-/**/static function close(
+    //mysqli_character_set_name() 	Returns the default character set for the database connection
+    static function character_set_name(
 
         $mysqli_handle
 
     ) {
 
-        $mysqli_handle->close();
+        return mysqli_character_set_name ($mysqli_handle);
 
     }
 
-//mysqli_commit() 	Commits the current transaction
-    static function commit() {}
+    //mysqli_get_client_info — Get MySQL client info
+    static function client_info() {}
 
-//mysqli_connect_errno() 	Returns the error code from the last connection error
-    static function connect_errno() {}
+    //mysqli_get_client_version — Returns the MySQL client version as a string
+    static function client_version() {}
 
-//mysqli_connect_error() 	Returns the error description from the last connection error
-    static function connect_error() {}
+    //mysqli_close() 	Closes a previously opened database connection
+    static function close(
 
-//mysqli_connect() 	Opens a new connection to the MySQL server
-    static function connect() {}
-
-//mysqli_pconnect()   Opens a new persistent connection to the MySQL server
-    static function pconnect() {}
-
-    static function current_field() {}
-
-//mysqli_data_seek() 	Adjusts the result pointer to an arbitrary row in the result-set
-    static function data_seek() {}
-
-//mysqli_debug() 	Performs debugging operations
-    static function debug() {}
-
-//mysqli_dump_debug_info() 	Dumps debugging info into the log
-    static function dump_debug_info() {}
-
-//mysqli_errno() 	Returns the last error code for the most recent function call
-    static function errno() {}
-
-//mysqli_error_list() 	Returns a list of errors for the most recent function call
-    static function error_list() {}
-
-//mysqli_error() 	Returns the last error description for the most recent function call
-    static function error() {}
-
-//mysqli_fetch_all() 	Fetches all result rows as an associative array, a numeric array, or both
-    static function fetch_all() {}
-
-//mysqli_fetch_array() 	Fetches a result row as an associative, a numeric array, or both
-    static function fetch_array() {}
-
-//mysqli_fetch_assoc() 	Fetches a result row as an associative array
-    static function fetch_assoc() {}
-
-//mysqli_fetch_field_direct() 	Returns meta-data for a single field in the result set, as an object
-    static function fetch_field_direct() {}
-
-//mysqli_fetch_field() 	Returns the next field in the result set, as an object
-    static function fetch_field() {}
-
-//mysqli_fetch_fields() 	Returns an array of objects that represent the fields in a result set
-    static function fetch_fields() {}
-
-//mysqli_fetch_lengths() 	Returns the lengths of the columns of the current row in the result set
-    static function fetch_lengths() {}
-
-//mysqli_fetch_object() 	Returns the current row of a result set, as an object
-    static function fetch_object() {}
-
-//mysqli_fetch_row() 	Fetches one row from a result-set and returns it as an enumerated array
-    static function fetch_row() {}
-
-//mysqli_field_count() 	Returns the number of columns for the most recent query
-    static function field_count() {}
-
-//mysqli_field_seek() 	Sets the field cursor to the given field offset
-    static function field_seek() {}
-
-//mysqli_field_tell() 	Returns the position of the field cursor
-    static function field_tell() {}
-
-//mysqli_free_result() 	Frees the memory associated with a result
-    static function free_result() {}
-
-//mysqli_get_charset() 	Returns a character set object
-    static function get_charset() {}
-
-//mysqli_get_client_info() 	Returns the MySQL client library version
-    static function get_client_info() {}
-
-//mysqli_get_client_stats() 	Returns statistics about client per-process
-    static function get_client_stats() {}
-
-//mysqli_get_client_version() 	Returns the MySQL client library version as an integer
-    static function get_client_version() {}
-
-//mysqli_get_connection_stats() 	Returns statistics about the client connection
-    static function get_connection_stats() {}
-
-//mysqli_get_host_info() 	Returns the MySQL server hostname and the connection type
-    static function get_host_info() {}
-
-//mysqli_get_proto_info() 	Returns the MySQL protocol version
-    static function get_proto_info() {}
-
-//mysqli_get_server_info() 	Returns the MySQL server version
-    static function get_server_info() {}
-
-//mysqli_get_server_version() 	Returns the MySQL server version as an integer
-    static function get_server_version() {}
-
-//mysqli_info() 	Returns information about the most recently executed query
-    static function info() {}
-
-//mysqli_init() 	Initializes MySQLi and returns a resource for use with mysqli_real_connect()
-/**/static function init(
-    
         $mysqli_handle
 
     ) {
 
-        $mysqli_handle = mysqli_init();
+        if ($mysqli_handle) {
 
-        if (!$mysqli_handle) {
+            if (self::$persistent_connection === FALSE) {
 
-            die('mysqli_init failed');
+                mysqli_close ($mysqli_handle);
+
+            }
+
+            /* workaround for persistent connections */
+            else if (self::$persistent_connection === TRUE) {
+
+                /* determine our thread id */
+                $thread_id = mysqli_thread_id ($mysqli_handle);
+            
+                /* Kill connection */
+                mysqli_kill($mysqli_handle, $thread_id);
+
+            }
+
+        }
+
+    }
+
+    //mysqli_commit() 	Commits the current transaction
+    static function commit() {}
+
+    //mysqli_connect_errno() 	Returns the error code from the last connection error
+    static function connect_errno(
+
+    ) {
+
+        return mysqli_connect_errno ();
+
+    }
+
+    //mysqli_connect_error() 	Returns the error description from the last connection error
+    static function connect_error(
+        
+    ) {
+
+        return mysqli_connect_error ();
+
+    }
+
+    //mysqli_connect() 	Opens a new connection to the MySQL server
+    static function connect(
+
+        $host, 
+        $username,
+        $passwd,
+        $dbname,
+        $port = NULL,
+        $socket = NULL
+
+    ) {
+
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print "host: " . $host . NMCC_COMMA;
+            print " username: " . $username . NMCC_COMMA;
+            print " passwd: " . $passwd . NMCC_COMMA;
+            print " dbname: " . $dbname . NMCC_COMMA;
+            print " port: " . $port . NMCC_COMMA;
+            print " socket: " . $socket . NMCC_BR;
+        }
+
+        /* check porrt value */
+        if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
+            $placeholder_array = array ("{VALUE}", "{OPTION}");
+            $string_array = array ($port, "port");
+            die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER));
+        }
+
+        /* create connection */
+        $mysqli_handle = mysqli_connect ($host, $username, $passwd, $dbname, $port, $socket);
+        if (!$mysqli_handle) { die('Connect Error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error()); }
+
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print 'Success... ' . mysqli_get_host_info ($mysqli_handle) . NMCC_BR;
+        }
+
+        self::$persistent_connection = FALSE;
+
+        return $mysqli_handle;
+
+    }
+
+    //mysqli_pconnect()   Opens a new persistent connection to the MySQL server
+    static function pconnect(
+
+        $host, 
+        $username,
+        $passwd,
+        $dbname,
+        $port = NULL,
+        $socket = NULL
+
+    ) {
+
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print "host: " . $host . NMCC_COMMA;
+            print " username: " . $username . NMCC_COMMA;
+            print " passwd: " . $passwd . NMCC_COMMA;
+            print " dbname: " . $dbname . NMCC_COMMA;
+            print " port: " . $port . NMCC_COMMA;
+            print " socket: " . $socket . NMCC_BR;
+        }
+
+        /* check porrt value */
+        if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
+            $placeholder_array = array ("{VALUE}", "{OPTION}");
+            $string_array = array ($port, "port");
+            die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER));
+        }
+
+        /* create connection */
+        $mysqli_handle = mysqli_connect ("p:" . $host, $username, $passwd, $dbname, $port, $socket);
+        if (!$mysqli_handle) { die('Connect Error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error()); }
+
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print 'Success... ' . mysqli_get_host_info ($mysqli_handle) . NMCC_BR;
+        }
+
+        self::$persistent_connection = TRUE;
+
+        return $mysqli_handle;
+
+    }
+
+    //mysqli_data_seek() 	Adjusts the result pointer to an arbitrary row in the result-set
+    static function data_seek(
+
+        $mysqli_result,
+        $offset
+
+    ) {
+
+        return mysqli_data_seek ($mysqli_result , $offset);
+
+    }
+
+    //mysqli_debug() 	Performs debugging operations
+    static function debug() {}
+
+    //mysqli_dump_debug_info() 	Dumps debugging info into the log
+    static function dump_debug_info() {}
+
+    //mysqli_errno() 	Returns the last error code for the most recent function call
+    static function errno(
+
+        $mysqli_handle
+
+    ) {
+
+        return mysqli_errno ($mysqli_handle);
+
+    }
+
+    //mysqli_error_list() 	Returns a list of errors for the most recent function call
+    static function error_list(
+
+        $mysqli_handle
+
+    ) {
+
+        return mysqli_error_list ($mysqli_handle);
+
+    }
+
+    //mysqli_error() 	Returns the last error description for the most recent function call
+    static function error(
+
+        $mysqli_handle
+
+    ) {
+
+        return mysqli_error ($mysqli_handle);
+
+    }
+
+    //mysqli_fetch_all() 	Fetches all result rows as an associative array, a numeric array, or both
+    static function fetch_all(
+
+        $mysqli_result,
+        $resulttype = NULL
+
+    ) {
+
+        return mysqli_fetch_all ($mysqli_result, $resulttype);
+
+    }
+
+    //mysqli_fetch_array() 	Fetches a result row as an associative, a numeric array, or both
+    static function fetch_array(
+
+        $mysqli_result,
+        $resulttype = NULL
+
+    ) {
+
+        return mysqli_fetch_array ($mysqli_result, $resulttype = NULL);
+
+    }
+
+    //mysqli_fetch_assoc() 	Fetches a result row as an associative array
+    static function fetch_assoc(
+
+        $mysqli_result
+        
+    ) {
+
+        return mysqli_fetch_assoc ($mysqli_result);
+
+    }
+
+    //mysqli_fetch_field_direct() 	Returns meta-data for a single field in the result set, as an object
+    static function fetch_field_direct(
+
+        $mysqli_result,
+        $fieldnr
+
+    ) {
+
+        return mysqli_fetch_field_direct ($mysqli_result , $fieldnr);
+
+    }
+
+    //mysqli_fetch_field() 	Returns the next field in the result set, as an object
+    static function fetch_field(
+
+        $mysqli_result
+
+    ) {
+
+        return mysqli_fetch_field ($mysqli_result);
+
+    }
+
+    //mysqli_fetch_fields() 	Returns an array of objects that represent the fields in a result set
+    static function fetch_fields(
+        
+        $mysqli_result
+
+    ) {
+
+        return mysqli_fetch_fields ($mysqli_result);
+
+    }
+
+    //mysqli_fetch_lengths() 	Returns the lengths of the columns of the current row in the result set
+    static function fetch_lengths(
+
+        $mysqli_result
+
+    ) {
+
+        return mysqli_fetch_lengths ($mysqli_result);
+
+    }
+
+    //mysqli_fetch_object() 	Returns the current row of a result set, as an object
+    static function fetch_object(
+
+        $mysqli_result,
+        $class_name,
+        $params = NULL
+
+    ) {
+
+        return mysqli_fetch_object ($mysqli_result, $class_name, $params);
+
+    }
+
+    //mysqli_fetch_row() 	Fetches one row from a result-set and returns it as an enumerated array
+    static function fetch_row(
+
+        $mysqli_result
+
+    ) {
+
+        return mysqli_fetch_row ($mysqli_result);
+
+    }
+
+    //mysqli_field_count() 	Returns the number of columns for the most recent query
+    static function field_count(
+
+        $mysqli_handle
+
+    ) {
+
+        return  mysqli_field_count ($mysqli_handle);
+
+    }
+
+    //mysqli_field_seek() 	Sets the field cursor to the given field offset
+    static function field_seek(
+
+        $mysqli_result,
+        $fieldnr
+
+    ) {
+
+        return mysqli_field_seek ($mysqli_result , $fieldnr);
+
+    }
+
+    //mysqli_field_tell() 	Returns the position of the field cursor
+    static function field_tell(
+
+        $mysqli_result
+
+    ) {
+
+        return  mysqli_field_tell ($mysqli_result);
+
+    }
+
+    //mysqli_free_result() 	Frees the memory associated with a result
+    static function free_result(
+        
+        $mysqli_result
+        
+    ) {
+
+        mysqli_free_result($mysqli_result);
+
+    }
+
+    //mysqli_get_charset() 	Returns a character set object
+    static function get_charset(
+
+        $mysqli_handle,
+        $options = NULL
+
+    ) {
+
+        /* get object */
+        $charset_obj = mysqli_get_charset($mysqli_handle);
+
+        /* convert to array */
+        $charset_array = (array) $charset_obj;
+
+        switch ($options) {
+
+            case 'charset': return $charset_array['charset']; break;
+            case 'collation': return $charset_array['collation']; break;
+            case 'dir': return $charset_array['dir']; break;
+            case 'min_length': return $charset_array['min_length']; break;
+            case 'max_length': return $charset_array['max_length']; break;
+            case 'number': return $charset_array['number']; break;
+            case 'state': return $charset_array['state']; break;
+            case 'comment': return $charset_array['comment']; break;
+
+            default: return $charset_obj; break;
+
+        }    
+
+    }
+
+    //mysqli_get_client_info() 	Returns the MySQL client library version
+    static function get_client_info() {}
+
+    //mysqli_get_client_stats() 	Returns statistics about client per-process
+    static function get_client_stats() {}
+
+    //mysqli_get_client_version() 	Returns the MySQL client library version as an integer
+    static function get_client_version() {}
+
+    //mysqli_get_connection_stats() 	Returns statistics about the client connection
+    static function get_connection_stats() {}
+
+    //mysqli_get_host_info() 	Returns the MySQL server hostname and the connection type
+    static function get_host_info(
+
+        $mysqli_handle
+
+    ) {
+
+        return mysqli_get_host_info ($mysqli_handle);
+
+    }
+
+    // get all tables in a given database
+    static function get_tables(
+
+        $mysqli_handle,
+        $database
+
+    ) {
+
+        $statement = "SHOW TABLES FROM " . NMCC_IQ . $database . NMCC_IQ . ";";
+
+        if ($mysqli_handle) {
+ 
+            if (!$result = mysqli_query ($mysqli_handle, $statement)) {
+
+                /* debug output */
+                if (NMCC_DEBUG == TRUE) {
+                    print mysqli_error ($mysqli_handle) . NMCC_BR;
+                    print $statement . NMCC_BR;
+                }
+
+                $result = FALSE;
+
+            }
 
         } else {
 
-            //print 'mysqli_init successfully';
+            /* debug output */
+            if (NMCC_DEBUG == TRUE) {
+                print ERROR_DB_HANDLE_NOT_INITIALIZED . NMCC_BR;
+                print $statement . NMCC_BR;
+            }            
+
+            $result = FALSE;
+
+        }
+
+        return $result;
+
+    }
+
+    // get all fields in a given database table
+    static function get_fields(
+
+        $mysqli_handle,
+        $database,
+        $table
+
+    ) {
+
+        $statement = "SHOW COLUMNS FROM " . NMCC_IQ . $database . NMCC_IQ . NMCC_DOT . NMCC_IQ . $table . NMCC_IQ . ";";
+
+        if ($mysqli_handle) {
+ 
+            if (!$result = mysqli_query ($mysqli_handle, $statement)) {
+
+                /* debug output */
+                if (NMCC_DEBUG == TRUE) {
+                    print mysqli_error ($mysqli_handle) . NMCC_BR;
+                    print $statement . NMCC_BR;
+                }
+
+                $result = FALSE;
+
+            }
+
+        } else {
+
+            /* debug output */
+            if (NMCC_DEBUG == TRUE) {
+                print ERROR_DB_HANDLE_NOT_INITIALIZED . NMCC_BR;
+                print $statement . NMCC_BR;
+            }            
+
+            $result = FALSE;
+
+        }
+
+        return $result;
+
+    }
+
+    //mysqli_get_proto_info() 	Returns the MySQL protocol version
+    static function get_proto_info() {}
+
+    //mysqli_get_server_info() 	Returns the MySQL server version
+    static function get_server_info() {}
+
+    //mysqli_get_server_version() 	Returns the MySQL server version as an integer
+    static function get_server_version() {}
+
+    //mysqli_info() 	Returns information about the most recently executed query
+    static function info() {}
+
+    //mysqli_init() 	Initializes MySQLi and returns a resource for use with mysqli_real_connect()
+    static function init(
+
+    ) {
+
+        /* init handle */
+        $mysqli_handle = mysqli_init();
+
+        /* check if error */
+        if (!$mysqli_handle) {
+
+            die(ERROR_MYSQLI_INIT_FAILED);
+
+        } else {
 
             return $mysqli_handle;
 
@@ -238,470 +698,941 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
 
     }
 
-//mysqli_insert_id() 	Returns the auto-generated id used in the last query
-    static function insert_id() {}
+    //mysqli_insert_id() 	Returns the auto-generated id used in the last query
+    static function insert_id(
 
-//mysqli_kill() 	Asks the server to kill a MySQL thread
+        $mysqli_handle
+
+    ) {
+
+        return mysqli_insert_id (mysqli_handle);
+
+    }
+
+    //mysqli_kill() 	Asks the server to kill a MySQL thread
     static function kill() {}
 
-    static function lengths() {}
-
-//mysqli_more_results() 	Checks if there are more results from a multi query
+    //mysqli_more_results() 	Checks if there are more results from a multi query
     static function more_results() {}
 
-//mysqli_multi_query() 	Performs one or more queries on the database
+    //mysqli_multi_query() 	Performs one or more queries on the database
     static function multi_query() {}
 
-//mysqli_next_result() 	Prepares the next result set from mysqli_multi_query()
+    //mysqli_next_result() 	Prepares the next result set from mysqli_multi_query()
     static function next_result() {}
 
-//mysqli_num_fields() 	Returns the number of fields in a result set
-    static function num_fields() {}
+    //mysqli_num_fields() 	Returns the number of fields in a result set
+    static function num_fields(
 
-//mysqli_num_rows() 	Returns the number of rows in a result set
+        $mysqli_result
+
+    ) {
+
+        return mysqli_num_fields ($mysqli_result);
+
+    }
+
+    //mysqli_num_rows() 	Returns the number of rows in a result set
     static function num_rows(
         
-        $result
+        $mysqli_result
         
     ) {
 
-        $row_cnt = $result->num_rows;
-
-        //printf("num %d rows.<br />", $row_cnt);
-
-        return $row_cnt;
+        return mysqli_num_rows ($mysqli_result);
 
     }
 
-//mysqli_options() 	Sets extra connect options and affect behavior for a connection
-/**/static function options(
+    //mysqli_options() 	Sets extra connect options and affect behavior for a connection
+    static function options(
 
         $mysqli_handle,
-        $connect_timeout = NULL,
-        $local_infile = NULL,
-        $init_command = NULL,
-        $read_default_file = NULL,
-        $read_default_group = NULL,
-        $server_public_key = NULL,
-        $net_cmd_buffer_size = NULL,
-        $net_read_buffer_size = NULL,
-        $int_and_float_native = NULL,
-        $ssl_verify_server_cert = NULL
+        $option,
+        $value
 
     ) {
 
-        if (!$mysqli_handle) {
-            die('no mysqli link');
-        }
+        $placeholder_array = array ("{VALUE}", "{OPTION}");
+        $string_array = array ($value, $option);
 
-        /* (argument type: unsigned int *) - connection timeout in seconds (supported on Windows with TCP/IP since PHP 5.3.1)  */
-        if (isset($connect_timeout)) {
-            $connect_timeout = htmlspecialchars($connect_timeout);
-            if(!filter_var( $connect_timeout, FILTER_VALIDATE_INT) ) { die('error on value for MYSQLI_OPT_CONNECT_TIMEOUT : ' . $connect_timeout); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_OPT_CONNECT_TIMEOUT, $connect_timeout)) { die('Setting MYSQLI_OPT_CONNECT_TIMEOUT failed'); }
-        }
+        switch ($option) {
 
-        /* (argument type: optional pointer to unsigned int) - enable/disable use of LOAD LOCAL INFILE */
-        if (isset($local_infile)) {
-            $local_infile = htmlspecialchars($local_infile);
-            if(!filter_var( $local_infile, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ) { die('error on value for MYSQLI_OPT_LOCAL_INFILE : ' . $local_infile); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_OPT_LOCAL_INFILE, $local_infile)) { die('Setting MYSQLI_OPT_LOCAL_INFILE failed'); }
-        }
+            /* connection timeout in seconds (supported on Windows with TCP/IP since PHP 5.3.1) */
+            /* (argument type: unsigned int *) */
+            case "MYSQLI_OPT_CONNECT_TIMEOUT":
+                if (filter_var( $value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_OPT_CONNECT_TIMEOUT, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+            break;
 
-        /* (argument type: char *) - command to execute after when connecting to MySQL server */
-        if (isset($init_command)) { 
-            //$init_command = htmlspecialchars($init_command);
-            if(!filter_var( $init_command, FILTER_SANITIZE_STRING) ) { die('error on value for MYSQLI_INIT_COMMAND : ' . $init_command); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_INIT_COMMAND, $init_command)) { die('Setting MYSQLI_INIT_COMMAND failed'); }  
-        }
+            /* enable/disable use of LOAD LOCAL INFILE */
+            /* (argument type: optional pointer to unsigned int) */
+            case "MYSQLI_OPT_LOCAL_INFILE":
+                if (filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_BOOLEAN)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_OPT_LOCAL_INFILE, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+            break;
 
-        /* (argument type: char *) - Read options from named option file instead of my.cnf */
-        if (isset($read_default_file)) {
-            $read_default_file = htmlspecialchars($read_default_file);
-            if(!filter_var( $read_default_file, FILTER_SANITIZE_STRING) ) { die('error on value for MYSQLI_READ_DEFAULT_FILE : ' . $read_default_file); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_READ_DEFAULT_FILE, $read_default_file)) { die('Setting MYSQLI_READ_DEFAULT_FILE failed'); }   
-        }
+            /* command to execute after when connecting to MySQL server */
+            /* (argument type: char *) */
+            case "MYSQLI_INIT_COMMAND":
+                if (filter_var( $value, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_STRING)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_INIT_COMMAND, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+            break;
 
-        /* (argument type: char *) - Read options from the named group from my.cnf or the file specified with MYSQL_READ_DEFAULT_FILE. */
-        if (isset($read_default_group)) {
-            $read_default_group = htmlspecialchars($read_default_group);
-            if(!filter_var( $read_default_group, FILTER_SANITIZE_STRING) ) { die('error on value for MYSQLI_READ_DEFAULT_GROUP : ' . $read_default_group); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_READ_DEFAULT_GROUP, $read_default_group)) { die('Setting MYSQLI_READ_DEFAULT_GROUP failed'); }   
-        }
+            /* Read options from named option file instead of my.cnf */
+            /* (argument type: char *) */
+            case "MYSQLI_READ_DEFAULT_FILE":
+                if (filter_var( $value, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_STRING)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_READ_DEFAULT_FILE, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+            break;
+            /* Read options from the named group from my.cnf or the file specified with MYSQL_READ_DEFAULT_FILE. */
+            /* (argument type: char *) */
+            case "MYSQLI_READ_DEFAULT_GROUP":
+                if (filter_var( $value, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_STRING)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_READ_DEFAULT_GROUP, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+            break;
 
-        /* (argument type: char *) - RSA public key file used with the SHA-256 based authentication. */
-        if (isset($server_public_key)) {
-            $server_public_key = htmlspecialchars($server_public_key);
-            if(!filter_var( $server_public_key, FILTER_SANITIZE_STRING) ) { die('error on value for MYSQLI_SERVER_PUBLIC_KEY : ' . $server_public_key); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_SERVER_PUBLIC_KEY, $server_public_key)) { die('Setting MYSQLI_SERVER_PUBLIC_KEY failed'); } 
-        }
+            /* RSA public key file used with the SHA-256 based authentication. */
+            /* (argument type: char *) */
+            case "MYSQLI_SERVER_PUBLIC_KEY":
+                if (filter_var( $value, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_STRING)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_SERVER_PUBLIC_KEY, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+            break;
 
-        /* The size of the internal command/network buffer. Only valid for mysqlnd. */
-        if (isset($net_cmd_buffer_size)) {
-            $net_cmd_buffer_size = htmlspecialchars($net_cmd_buffer_size);
-            if(!filter_var( $net_cmd_buffer_size, FILTER_VALIDATE_INT) ) { die('error on value for MYSQLI_OPT_NET_CMD_BUFFER_SIZE : ' . $net_cmd_buffer_size); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_OPT_NET_CMD_BUFFER_SIZE, $net_cmd_buffer_size)) { die('Setting MYSQLI_OPT_NET_CMD_BUFFER_SIZE failed'); }
-        }
+            /* The size of the internal command/network buffer. Only valid for mysqlnd. */
+            /* */
+            case "MYSQLI_OPT_NET_CMD_BUFFER_SIZE":
+                if (filter_var( $value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_OPT_NET_CMD_BUFFER_SIZE, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+            break;
 
-        /* Maximum read chunk size in bytes when reading the body of a MySQL command packet. Only valid for mysqlnd. */
-        if (isset($net_read_buffer_size)) {
-            $net_read_buffer_size = htmlspecialchars($net_read_buffer_size);
-            if(!filter_var( $net_read_buffer_size, FILTER_VALIDATE_INT) ) { die('error on value for MYSQLI_OPT_NET_READ_BUFFER_SIZE : ' . $net_read_buffer_size); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_OPT_NET_READ_BUFFER_SIZE, $net_read_buffer_size)) { die('Setting MYSQLI_OPT_NET_READ_BUFFER_SIZE failed'); }
-        }
+            /* Maximum read chunk size in bytes when reading the body of a MySQL command packet. Only valid for mysqlnd. */
+            /* */
+            case "MYSQLI_OPT_NET_READ_BUFFER_SIZE":
+                if (filter_var( $value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_OPT_NET_READ_BUFFER_SIZE, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+            break;
 
-        /* Convert integer and float columns back to PHP numbers. Only valid for mysqlnd. */
-        if (isset($int_and_float_native)) {
-            $int_and_float_nativehost = htmlspecialchars($int_and_float_native);            
-            if(!filter_var( $int_and_float_nativehost, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ) { die('error on value for MYSQLI_OPT_INT_AND_FLOAT_NATIVE : ' . $int_and_float_nativehost); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_OPT_INT_AND_FLOAT_NATIVE, $int_and_float_nativehost)) { die('Setting MYSQLI_OPT_INT_AND_FLOAT_NATIVE failed'); }
-        }
+            /* Convert integer and float columns back to PHP numbers. Only valid for mysqlnd. */
+            /* */
+            case "MYSQLI_OPT_INT_AND_FLOAT_NATIVE":
+                if (filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_BOOLEAN)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_OPT_INT_AND_FLOAT_NATIVE, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+            break;
 
-        /* (argument type: my_bool *) - Enable or disable verification of the server's Common Name value in its certificate against the host name used when connecting to the server. */
-        if (isset($ssl_verify_server_cert)) {
-            $ssl_verify_server_cert = htmlspecialchars($ssl_verify_server_cert);
-            if(!filter_var( $ssl_verify_server_cert, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ) { die('error on value for MYSQLI_OPT_SSL_VERIFY_SERVER_CERT : ' . $ssl_verify_server_cert); }
-            if (!mysqli_options($mysqli_handle, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, $ssl_verify_server_cert)) { die('Setting MYSQLI_OPT_SSL_VERIFY_SERVER_CERT failed'); }
-        }
+            /* the following does not work, mysqli_options generates an error always */
+            /* Enable or disable verification of the server's Common Name value in its certificate against the host name used when connecting to the server. */
+            /* (argument type: my_bool *) */
+            case "MYSQLI_OPT_SSL_VERIFY_SERVER_CERT":
+                if (filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === NULL) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_BOOLEAN)); }
+                if (mysqli_options($mysqli_handle, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, $value) === FALSE) { die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION)); }
+             break;
 
-        return $mysqli_handle;
+            default:
+            break;
+
+        }
 
     }
 
-//mysqli_ping() 	Pings a server connection, or tries to reconnect if the connection has gone down
-    static function ping() {}
+    //mysqli_ping() 	Pings a server connection, or tries to reconnect if the connection has gone down
+    static function ping(
 
-//mysqli_prepare() 	Prepares an SQL statement for execution
+        $mysqli_handle
+
+    ) {
+
+        return mysqli_ping ($mysqli_handle);
+
+    }
+
+    //mysqli_prepare() 	Prepares an SQL statement for execution
     static function prepare() {}
 
-//mysqli_query() 	Performs a query against the database
-/**/static function select_raw(
+    static function query(
 
         $mysqli_handle,
-
-        /* http://dev.mysql.com/doc/refman/5.7/en/select.html */
-
-        /* select_expr [, select_expr ...] */
-        $select_expression,
-        /* [FROM table_references */
-        $table_reference,
-        /* [WHERE where_condition] */
-        $where_condition = NULL,
-        /* [GROUP BY {col_name | expr | position} [ASC | DESC], ... [WITH ROLLUP]] */
-        $order_condition = NULL,
-        /* [LIMIT {[offset,] row_count | row_count OFFSET offset}] */  
-        $group_condition = NULL,
-        /* [ORDER BY {col_name | expr | position} [ASC | DESC], ...] */
-        $limit = NULL
+        $statement,
+        $options = NULL
 
     ) {
 
-        /* prepare statement */
-        $select_statement = "SELECT " . $select_expression;
-        $from_statement = " FROM " . $table_reference;
-        if ($where_condition) { $where_statement .= " WHERE " . $where_condition; }
-        if ($order_condition) { $order_statement .= " ORDER BY " . $order_condition; }
-        if ($group_condition) { $group_statement .= " GROUP BY " . $group_condition; }
-        if ($limit) { $limit_statement .= " LIMIT " . $limit; }
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print '<pre>' . $statement . '</pre>';
+        }
 
-        $statement = $select_statement
-        . $from_statement
-        . $where_statement;
-        if ($group_condition) { $statement .= $group_statement; }
-        if ($order_condition) { $statement .= $order_statement; }
-        if ($limit) { $statement .= $limit_statement; }  
+        self::$last_query = $statement;
 
-        //print 'select_raw = ' . $statement . '<br />';
-    
         if ($mysqli_handle) {
 
-            /* Select queries return a result set */
-            if ($result = $mysqli_handle->query($statement)) {
+            if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {
 
-                //printf("Select returned %d rows.<br />", $result->num_rows);
-                if ($result->num_rows > 0) { $data = $result; } else { $data = FALSE; } 
+                /* debug output */
+                if (NMCC_DEBUG == TRUE) {
+                    print mysqli_error ($mysqli_handle) . NMCC_BR;
+                    print $statement . NMCC_BR;
+                }
 
-            } else {
-
-                print $mysqli_handle->error . '<br />';
-                print $statement . '<br />';
-
-                $data = FALSE;
+                $result = FALSE;
 
             }
 
-            return $data;
+        } else {
+
+            /* debug output */
+            if (NMCC_DEBUG == TRUE) {
+                print ERROR_DB_HANDLE_NOT_INITIALIZED . NMCC_BR;
+                print $statement . NMCC_BR;
+            }            
+
+            $result = FALSE;
 
         }
 
-        }
+        return $result;        
 
-//mysqli_query() 	Performs a query against the database
-/**/static function select(
+    }
+
+    /* return last query */
+    static function get_last_query() {
+
+        return self::$last_query;
+
+    }
+
+    //mysqli_query() 	Performs a query against the database
+    static function select(
 
         $mysqli_handle,
 
         /* http://dev.mysql.com/doc/refman/5.7/en/select.html */
 
-        /* select_expr [, select_expr ...] */
+        /* SELECT 
+                [ALL | DISTINCT | DISTINCTROW ]
+                [HIGH_PRIORITY]
+                [MAX_STATEMENT_TIME = N]
+                [STRAIGHT_JOIN]
+                [SQL_SMALL_RESULT] [SQL_BIG_RESULT] [SQL_BUFFER_RESULT]
+                [SQL_CACHE | SQL_NO_CACHE] [SQL_CALC_FOUND_ROWS]
+                select_expr [, select_expr ...]
+        */
         $select_expression,
-        /* [FROM table_references */
+
+        /*  [FROM table_references
+                [PARTITION partition_list]
+        */
         $table_reference,
+
+        /*  join_table:
+                  table_reference [INNER | CROSS] JOIN table_factor [join_condition]
+                | table_reference STRAIGHT_JOIN table_factor
+                | table_reference STRAIGHT_JOIN table_factor ON conditional_expr
+                | table_reference {LEFT|RIGHT} [OUTER] JOIN table_reference join_condition
+                | table_reference NATURAL [{LEFT|RIGHT} [OUTER]] JOIN table_factor
+
+            join_condition:
+                  ON conditional_expr
+                | USING (column_list)
+        
+        */
+        $join_expression = NULL,
+
         /* [WHERE where_condition] */
         $where_condition = NULL,
+
         /* [GROUP BY {col_name | expr | position} [ASC | DESC], ... [WITH ROLLUP]] */
-        $order_condition = NULL,
-        /* [LIMIT {[offset,] row_count | row_count OFFSET offset}] */  
         $group_condition = NULL,
+
+        /* [HAVING where_condition] */
+        $having_condition = NULL,
+
         /* [ORDER BY {col_name | expr | position} [ASC | DESC], ...] */
-        $limit = NULL
+        $order_condition = NULL,
+
+        /* [LIMIT {[offset,] row_count | row_count OFFSET offset}] */
+        $limit = NULL,
+
+        /* [PROCEDURE procedure_name(argument_list)] */
+        $procedure = NULL,
+
+        /* [INTO OUTFILE 'file_name' [CHARACTER SET charset_name] export_options | INTO DUMPFILE 'file_name' | INTO var_name [, var_name]] */
+        $into_target = NULL,
+
+        /* [FOR UPDATE | LOCK IN SHARE MODE]] */
+        $for_options = NULL,
+
+        $options = NULL
 
     ) {
 
         /* prepare select_statement */
-        $select_statement = "SELECT ";        
-        $count = count($select_expression);
-        for ($i = 0; $i < $count; $i++) {
-            $select_statement .= PRJ_CONST_SQLIQ . $select_expression[$i] . PRJ_CONST_SQLIQ;
-            if ($i < $count - 1) { $select_statement .= ", "; }
-        }
-        //print $select_statement . '<br />';
+        $select_statement = NMCC_SELECT;
 
-        /* set db and table name */
-        //$db_name = $table_reference[0];
-        $table_name = $table_reference[0];  
+        $dot_mode = TRUE;
+        $comma_mode = FALSE;
 
-        $from_statement .= " FROM " . PRJ_CONST_SQLIQ . \NTRNX_MYSQLI\ntrnx_mysqli::DB_LOGIN_NAME . PRJ_CONST_SQLIQ . "." . PRJ_CONST_SQLIQ . $table_name . PRJ_CONST_SQLIQ;
-        //print $from_statement . '<br />';
+        $count_select = count($select_expression);
 
-        /* prepare where_statement */
-        if ($where_condition) {
+        for ($i = 0; $i < $count_select; $i++) {
 
-            $where_statement .= " WHERE ";
+            $select_statement .= NMCC_IQ . $select_expression[$i] . NMCC_IQ;
 
-            $count = count($where_condition);
-            for ($i = 0; $i < $count; $i++) {
+            if ($i < $count_select - 1) {
 
-                if ($where_condition[$i]=='NOT') {
+                if ($dot_mode == TRUE) {
 
-                    //$where_statement .= " NOT " . PRJ_CONST_SQLIQ . $where_condition[$i+1] . PRJ_CONST_SQLIQ;
-                    //$where_statement .= " NOT " . PRJ_CONST_SQLIQ . mysqli_real_escape_string($mysqli_handle, trim($where_condition[$i+1])) . PRJ_CONST_SQLIQ;
-                    $where_statement .= " NOT " . PRJ_CONST_SQLIQ . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $where_condition[$i+1]) . PRJ_CONST_SQLIQ;
+                    $select_statement .= NMCC_DOT;
 
-                    /* NULL, =, LIKE, */
-                    if ($where_condition[$i+2]==NULL) { $where_statement .= '='; } else { $where_statement .= $where_condition[$i+2]; }
-                    
-                    //$where_statement .= PRJ_CONST_SQLVQ . $where_condition[$i+3] . PRJ_CONST_SQLVQ;
-                    //$where_statement .= PRJ_CONST_SQLVQ . mysqli_real_escape_string($mysqli_handle, trim($where_condition[$i+3])) . PRJ_CONST_SQLVQ;
-                    $where_statement .= PRJ_CONST_SQLVQ . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $where_condition[$i+3]) . PRJ_CONST_SQLVQ;
+                    $dot_mode = FALSE;
+                    $comma_mode = TRUE;
 
-                    //$where_statement .= " " . $where_condition[$i+4] . " ";
-                    //$where_statement .= " " . mysqli_real_escape_string($mysqli_handle, trim($where_condition[$i+4])) . " ";
-                    $where_statement .= " " . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $where_condition[$i+4]) . " ";
+                }
 
-                    $i=$i+4;
+                else if ($comma_mode == TRUE) {
 
-                } else {
+                    $select_statement .= NMCC_COMMA . NMCC_BLANK;
 
-                    $where_statement .= PRJ_CONST_SQLIQ . $where_condition[$i] . PRJ_CONST_SQLIQ;
-
-                    /* NULL, =, LIKE, */
-                    if ($where_condition[$i+1] != 'LIKE') {
-
-                        $where_statement .= ' = ';
-
-                        //$where_statement .= PRJ_CONST_SQLVQ . $where_condition[$i+2] . PRJ_CONST_SQLVQ;
-                        //$where_statement .= PRJ_CONST_SQLVQ . mysqli_real_escape_string($mysqli_handle, trim($where_condition[$i+2])) . PRJ_CONST_SQLVQ;
-                        $where_statement .= PRJ_CONST_SQLVQ . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $where_condition[$i+2]) . PRJ_CONST_SQLVQ;
-
-                    } else { 
-
-                        //$where_statement .= " " . $where_condition[$i+1] . " ";
-                        //$where_statement .= " " . mysqli_real_escape_string($mysqli_handle, trim($where_condition[$i+1])) . " ";
-                        $where_statement .= " " . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $where_condition[$i+1]) . " ";
-
-                        //$where_statement .= PRJ_CONST_SQLVQ . "%" . $where_condition[$i+2] . "%" . PRJ_CONST_SQLVQ;
-                        //$where_statement .= PRJ_CONST_SQLVQ . "%" . mysqli_real_escape_string($mysqli_handle, trim($where_condition[$i+2])) . "%" . PRJ_CONST_SQLVQ;
-                        $where_statement .= PRJ_CONST_SQLVQ . "%" . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $where_condition[$i+2]) . "%" . PRJ_CONST_SQLVQ;
-                    
-                    }
-
-                    /* AND, OR, NOT */
-                    if ($where_condition[$i+3]=='AND' || $where_condition[$i+3]=='OR') {
-
-                        //$where_statement .= " " . $where_condition[$i+3] . " ";
-                        //$where_statement .= " " . mysqli_real_escape_string($mysqli_handle, trim($where_condition[$i+3])) . " ";
-                        $where_statement .= " " . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $where_condition[$i+3]) . " ";
-
-                        $i=$i+3;
-
-                    } else {
-
-                        $i=$i+2;
-
-                    }
+                    $dot_mode = TRUE;
+                    $comma_mode = FALSE;
 
                 }
 
             }
 
         }
-        //print $where_statement . '<br />';
+        //print $select_statement . NMCC_BR;
 
-        /* prepare order_statement */
-        if ($order_condition) {
-            $order_statement .= " ORDER BY ";
+        /* prepare from_statement */
+        $from_statement = NMCC_FROM;
 
-            $count = count($order_condition);
-            for ($i = 0; $i < $count; $i++) {
-                $order_statement .= PRJ_CONST_SQLIQ . $order_condition[$i] . PRJ_CONST_SQLIQ;
-                if ($order_condition[$i+1] != NULL) { $order_statement .= " " . $order_condition[$i]; } else { $order_statement .= " ASC"; }
+        $dot_mode = TRUE;
+        $comma_mode = FALSE;
+
+        $count_from = count($table_reference);
+
+        for ($i = 0; $i < $count_from; $i++) {
+
+            if ($table_reference[$i] != NMCC_AS) {
+
+                $from_statement .= NMCC_IQ . $table_reference[$i] . NMCC_IQ;
+
+                if ($i < $count_from - 1) {
+
+                    if ($dot_mode == TRUE) {
+
+                        $from_statement .= NMCC_DOT;
+
+                        $dot_mode = FALSE;
+                        $comma_mode = TRUE;
+
+                    }
+
+                    else if ($comma_mode == TRUE) {
+
+                        if ($table_reference[$i+1] != NMCC_AS) {
+
+                            $from_statement .= NMCC_COMMA . NMCC_BLANK;
+
+                        }
+
+                        $dot_mode = TRUE;
+                        $comma_mode = FALSE;
+
+                    }
+
+                }
+
+            } else {
+
+                $from_statement .= $table_reference[$i] . NMCC_BLANK . $table_reference[$i+1];
+
                 $i=$i+1;
-                if ($i < $count - 1) { $order_statement .= ", "; }
+
+                if ($i < $count_from - 1) {
+
+                    $from_statement .= NMCC_COMMA . NMCC_BLANK;
+
+                }
+
             }
+
         }
-        //print $order_statement . '<br />';
+        //print $from_statement . NMCC_BR;
+
+        /* prepare join_statement */
+        if ($join_expression) {
+
+            $count_join = count($join_expression);
+
+            for ($i = 0; $i < $count_join; $i++) {
+
+                switch ($join_expression[$i]) {
+
+                    //INNER', $db_name, 'account_keys', 'ON', 'accounts', 'account_id', 'EQUAL', 'account_keys', 'account_id'
+                    case "INNER":
+                        $join_statement .= NMCC_I_JOIN;
+
+                        $join_statement .= NMCC_IQ
+                        . $join_expression[$i+1]
+                        . NMCC_IQ
+                        . NMCC_DOT
+                        . NMCC_IQ
+                        . $join_expression[$i+2]
+                        . NMCC_IQ
+
+                        . NMCC_BLANK
+                        . NMCC_ON
+                        . NMCC_BLANK
+
+                        . NMCC_IQ
+                        . $join_expression[$i+4]
+                        . NMCC_IQ
+                        . NMCC_DOT
+                        . NMCC_IQ
+                        . $join_expression[$i+5]
+                        . NMCC_IQ;
+
+                        switch ($join_expression[$i+6]) {
+
+                            case "EQUAL": $join_statement .= NMCC_BLANK . NMCC_EQUAL . NMCC_BLANK; break;
+                            case "UNEQUAL": $join_statement .= NMCC_BLANK . NMCC_UNEQUAL . NMCC_BLANK; break;
+                            case "NOTEQUAL": $join_statement .= NMCC_BLANK . NMCC_NOTEQUAL . NMCC_BLANK; break;
+                            case "NSEQUAL": $join_statement .= NMCC_BLANK . NMCC_NSEQUAL . NMCC_BLANK; break;
+                            case "GT": $join_statement .= NMCC_BLANK . NMCC_GT . NMCC_BLANK; break;
+                            case "GTOE": $join_statement .= NMCC_BLANK . NMCC_GTOE . NMCC_BLANK; break;
+                            case "LT": $join_statement .= NMCC_BLANK . NMCC_LT . NMCC_BLANK; break;
+                            case "LTOE": $join_statement .= NMCC_BLANK . NMCC_LTOE . NMCC_BLANK; break;
+                            default:
+                                /* temporary message */
+                                die ("operator " . $join_expression[$i+6] . " for join_expression not supported");
+                            break;
+                        }
+
+                        $join_statement .= NMCC_IQ
+                        . $join_expression[$i+7]
+                        . NMCC_IQ
+                        . NMCC_DOT
+                        . NMCC_IQ
+                        . $join_expression[$i+8]
+                        . NMCC_IQ;
+
+                        $i=$i+8;
+
+                        /* only for browser output */
+                        /*
+                        if ($i < $count_join - 1) {
+
+                            $join_statement .= NMCC_BR;
+
+                        }
+                        */
+
+                    break;
+
+                    case "OUTER":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_FO_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "CROSS":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_C_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "STRAIGHT":
+                        $join_statement .= NMCC_BR;
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_S_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "LEFT":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_L_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "LEFTO":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_LO_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "NLEFT":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_NL_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "NLEFTO":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_NLO_JOIN
+                            . NMCC_BLANK;
+                    break;                  
+
+                    case "RIGHT":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_R_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "RIGHTO":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_RO_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "NRIGHT":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_NR_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "NRIGHTO":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_NRO_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "NATURAL":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_N_JOIN
+                            . NMCC_BLANK;
+                    break;
+
+                    case "AS":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_AS
+                            . NMCC_BLANK;
+                    break;
+
+                    case "ON":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_ON
+                            . NMCC_BLANK;
+                    break;
+
+                    case "USING":
+                        $join_statement .= NMCC_BLANK
+                            . NMCC_USING
+                            . NMCC_BLANK;
+                    break;
+
+                    default:
+                    break;
+
+                }                
+
+            }
+            //print $join_statement . NMCC_BR;
+
+        }
+
+        /* prepare where_statement */
+        if ($where_condition) {
+
+            $where_statement = NMCC_WHERE;
+
+            $dot_mode = TRUE;
+            $value_mode = FALSE;
+
+            $count_where = count($where_condition);
+
+            for ($i = 0; $i < $count_where; $i++) {
+
+                switch ($where_condition[$i]) {
+
+                    case "OR":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_OR
+                        . NMCC_BLANK;
+                    break;                    
+                    case "AND":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_AND
+                        . NMCC_BLANK;
+                    break;
+                    case "EQUAL":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_EQUAL
+                        . NMCC_BLANK;
+                    break;
+                    case "UNEQUAL":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_UNEQUAL
+                        . NMCC_BLANK;
+                    break;
+
+                    case "NOTEQUAL":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_NOTEQUAL
+                        . NMCC_BLANK;
+                    break;
+
+                    case "NSEQUAL":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_NSEQUAL
+                        . NMCC_BLANK;
+                    break;
+                    case "GT":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_GT
+                        . NMCC_BLANK;
+                    break;
+                    case "GTOE":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_GTOE
+                        . NMCC_BLANK;
+                    break;
+                    case "LT":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_LT
+                        . NMCC_BLANK;
+                    break;
+                    case "LTOE":
+                        $where_statement .= NMCC_BLANK
+                        . NMCC_LTOE
+                        . NMCC_BLANK;
+                    break;
+
+                    //case "XOR": break;
+                    //case "NOT": break;
+                    //case "IS": break;
+                    //case "ISNOT": break;
+                    //case "IN": break;
+                    //case "NOTIN": break;
+                    //case "BETWEEN": break;
+                    //case "NOTBETWEEN": break;
+                    //case "SOUNDSLIKE": break;
+                    //case "LIKE": break;
+                    //case "NOTLIKE": break;
+                    //case "REGEXP": break;
+                    //case "NOTREGEXP": break;
+
+                    case "STRING":
+                        $value_mode = TRUE;
+                    break;
+
+                    default:
+
+                        if ($value_mode == TRUE) {
+
+                            $where_statement .= NMCC_VQ . $where_condition[$i] . NMCC_VQ;
+
+                            $value_mode = FALSE;
+                            $dot_mode = FALSE;
+
+                        } else {
+
+                            $where_statement .= NMCC_IQ . $where_condition[$i] . NMCC_IQ;
+
+                        }
+
+                        if ($i < $count_where - 1) {
+
+                            if ($dot_mode == TRUE) {
+
+                                $where_statement .= NMCC_DOT;
+
+                                $dot_mode = FALSE;
+
+                            } else {
+
+                                $dot_mode = TRUE;
+
+                            }
+
+                        }
+
+                     break;
+
+                }
+
+            }
+            //print $where_statement . NMCC_BR;
+
+        }
 
         /* prepare group_statement  */
         if ($group_condition) {
 
-            $group_statement .= " GROUP BY ";
+            $group_statement .= NMCC_GROUP;
 
             $count = count($group_condition);
+
             for ($i = 0; $i < $count; $i++) {
-                $group_statement .= PRJ_CONST_SQLIQ . $group_condition[$i] . PRJ_CONST_SQLIQ;
-                if ($group_condition[$i+1] != NULL) { $group_statement .= " " . $group_condition[$i]; } else { $group_statement .= " ASC"; }
+
+                $group_statement .= NMCC_IQ
+                . $group_condition[$i]
+                . NMCC_IQ;
+
+                if ($group_condition[$i+1] != NULL) { $group_statement .= NMCC_BLANK . $group_condition[$i]; } else { $group_statement .= " ASC"; }
+
                 $i=$i+1;
-                if ($i < $count - 1) { $group_statement .= ", "; }
+
+                if ($i < $count - 1) { $group_statement .= NMCC_COMMA . NMCC_BLANK; }
+
             }
+            //print $group_statement . NMCC_BR;
+
+            /* prepare group_statement  */
+            if ($having_condition) {
+
+                /* temporary message */
+                print $having_statement . ' not supported' . NMCC_BR;
+
+            }            
+
         }
-        //print $group_statement . '<br />';
+
+        /* prepare order_statement */
+        if ($order_condition) {
+
+            $order_statement .= NMCC_ORDER;
+
+            $count = count($order_condition);
+
+            for ($i = 0; $i < $count; $i++) {
+
+                $order_statement .= NMCC_IQ . $order_condition[$i] . NMCC_IQ;
+
+                if ($order_condition[$i+1] != NULL) { $order_statement .= NMCC_BLANK . $order_condition[$i]; } else { $order_statement .= " ASC"; }
+
+                $i=$i+1;
+
+                if ($i < $count - 1) { $order_statement .= NMCC_COMMA . NMCC_BLANK; }
+
+            }
+            //print $order_statement . NMCC_BR;
+
+        }
 
         /* prepare limit_statement */
-        if ($limit) { $limit_statement .= " LIMIT " . $limit; }
-        //print $limit_statement . '<br />';
+        if ($limit) {
+
+            $limit_statement .= NMCC_BLANK
+            . NMCC_LIMIT
+            . NMCC_BLANK
+            . $limit;
+
+            //print $limit_statement . NMCC_BR;
+
+        }
+
+        /* prepare procedure_name */
+        /* [PROCEDURE procedure_name(argument_list)] */
+        if ($procedure) {
+
+            /* temporary message */
+            print $procedure . ' not supported' . NMCC_BR;
+
+        }
+
+        /* prepare into_target */
+        /* [INTO OUTFILE 'file_name' [CHARACTER SET charset_name] export_options | INTO DUMPFILE 'file_name' | INTO var_name [, var_name]] */
+        if ($into_target) {
+
+            /* temporary message */
+            print $into_target . ' not supported'. NMCC_BR;
+
+        }
+
+        /* prepare for_options */
+        /* [FOR UPDATE | LOCK IN SHARE MODE]] */
+        if ($for_options) {
+
+            /* temporary message */
+            print $for_options . ' not supported'. NMCC_BR;
+    
+        }
 
         /* prepare complete statement */
         $statement = $select_statement
-        . $from_statement
-        . $where_statement;
-        if ($group_condition) { $statement .= $group_statement; }
-        if ($order_condition) { $statement .= $order_statement; }
-        if ($limit) { $statement .= $limit_statement; }
-        //print 'select = ' . $statement . '<br />';   
+        . $from_statement;
 
-        if ($mysqli_handle) {
+        if ($join_expression) {
 
-            /* Select queries return a result set */
-            if ($result = $mysqli_handle->query($statement)) {
-
-                //printf("Select returned %d rows.<br />", $result->num_rows);
-                if (\NTRNX_MYSQLI\ntrnx_mysqli::num_rows($result) > 0) { $data = $result; } else { $data = FALSE; } 
-
-            } else {
-
-                print $mysqli_handle->error . '<br />';
-                print $statement . '<br />';
-
-                $data = FALSE;
-
-            }
-
-            return $data;
-
-        } else {
-
-            print 'no db_handle' . '<br />';
-            print $statement . '<br />';
+            $statement .= $join_statement;
 
         }
 
+        if ($where_condition) { $statement .= $where_statement; }
+
+        if ($group_condition) { 
+
+            $statement .= $group_statement;
+
+            /*
+            if ($having_condition) { 
+
+                $statement .= $having_statement;
+
+            }
+            */
+
+        }
+
+        if ($order_condition) { $statement .= $order_statement; }
+
+        if ($limit) { $statement .= $limit_statement; }
+
+        //if ($procedure) { $statement .= $procedure; }
+
+        //if ($into_target) { $statement .= $into_target; }
+
+        //if ($for_options) { $statement .= $for_options; }
+
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print '<pre>' . $statement . '</pre>';
+        }
+
+        self::$last_query = $statement;
+
+        if ($mysqli_handle) {
+
+            if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {
+
+                /* debug output */
+                if (NMCC_DEBUG == TRUE) {
+                    print mysqli_error ($mysqli_handle) . NMCC_BR;
+                    print $statement . NMCC_BR;
+                }
+
+                $result = FALSE;
+
+            }
+
+        } else {
+
+            /* debug output */
+            if (NMCC_DEBUG == TRUE) {
+                print ERROR_DB_HANDLE_NOT_INITIALIZED . NMCC_BR;
+                print $statement . NMCC_BR;
+            }            
+
+            $result = FALSE;
+
+        }
+
+        return $result;
+
     }
 
-//mysqli_query() 	Performs a query against the database
+    //mysqli_query() 	Performs a query against the database
     static function insert(
 
         $mysqli_handle,
 
         /* http://dev.mysql.com/doc/refman/5.7/en/insert.html */
 
-        //INSERT INTO `epc`.`articles` (`article_id`, `article_name`, `article_desciption`, `manufacturer_id`) VALUES ('1', 'name', 'description', 'manufacturer');
-        //INSERT INTO `epc_login`.`accounts` (`account_id`, `name`, `created`, `updated`) VALUES ('86f2cc71-7007-43b3-8f26-94eacc8014ff', 'test', '2016-10-30 09:30:26', '2016-10-30 09:30:26')
-
         /* [INTO] db_name, tbl_name */
-        $table_target,
+        $tbl_name,
 
         /* [(col_name,...)] */
-        $column_target,
+        $col_name,
 
         /* {VALUES | VALUE} ({expr | DEFAULT},...),(...),... */
-        $values
+        $values,
+
+        $options = NULL
 
     ) {
 
-        $count_columns = count($column_target);
+        $count_columns = count($col_name);
         $count_values = count($values);
 
         if ($count_columns == $count_values) {
 
             /* set db and table name */
-            //$db_name = $table_target[0];
-            $table_name = $table_target[0];
+            $db_name = $tbl_name[0];
+            $table_name = $tbl_name[1];
 
-            $table_statement = "INSERT INTO " . PRJ_CONST_SQLIQ . \NTRNX_MYSQLI\ntrnx_mysqli::DB_LOGIN_NAME . PRJ_CONST_SQLIQ . "." . PRJ_CONST_SQLIQ . $table_name . PRJ_CONST_SQLIQ;
+            $table_statement = NMCC_INSERT
+            . NMCC_IQ
+            . $db_name
+            . NMCC_IQ
+            . NMCC_DOT
+            . NMCC_IQ
+            . $table_name
+            . NMCC_IQ;
 
-            $column_statement = " " . PRJ_CONST_PARENTHESIS_OPEN;
+            $column_statement = NMCC_BLANK . NMCC_LEFT_PARENTHESIS;
             for ($i = 0; $i < $count_columns; $i++) {
-                $column_statement .= PRJ_CONST_SQLIQ . $column_target[$i] . PRJ_CONST_SQLIQ;
-                if ($i < $count_columns - 1) { $column_statement .= ", "; }
-            }
-            $column_statement .= PRJ_CONST_PARENTHESIS_CLOSE;
 
-            $value_statement = " VALUES " . PRJ_CONST_PARENTHESIS_OPEN;
+                $column_statement .= NMCC_IQ . $col_name[$i] . NMCC_IQ;
+
+                if ($i < $count_columns - 1) { $column_statement .= NMCC_COMMA . NMCC_BLANK; }
+
+            }
+            $column_statement .= NMCC_RIGHT_PARENTHESIS;
+
+            $value_statement = NMCC_BLANK . NMCC_VALUES . NMCC_BLANK . NMCC_LEFT_PARENTHESIS;
             for ($i = 0; $i < $count_values; $i++) {
 
-                //$value_statement .= PRJ_CONST_SQLVQ . $values[$i] . PRJ_CONST_SQLVQ;
-                //$value_statement .= PRJ_CONST_SQLVQ . mysqli_real_escape_string($mysqli_handle, trim($values[$i])) . PRJ_CONST_SQLVQ;
-                $value_statement .= PRJ_CONST_SQLVQ . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $values[$i]) . PRJ_CONST_SQLVQ;
+                $value_statement .= NMCC_VQ
+                . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $values[$i])
+                . NMCC_VQ;
 
-                if ($i < $count_values - 1) { $value_statement .= ", "; }
+                if ($i < $count_values - 1) { $value_statement .= NMCC_COMMA . NMCC_BLANK; }
+
             }
-            $value_statement .= PRJ_CONST_PARENTHESIS_CLOSE;
+            $value_statement .= NMCC_RIGHT_PARENTHESIS;
 
             $statement = $table_statement . $column_statement . $value_statement;
+            
+            /* debug output */
+            if (NMCC_DEBUG == TRUE) {
+                print '<pre>' . $statement . '</pre>';
+            }
 
-            print 'query_insert = ' . $statement . '<br />';
+            self::$last_query = $statement;
 
             if ($mysqli_handle) {
 
-                /* Select queries return a result set */
-                if ($result = $mysqli_handle->query($statement)) {
+                if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {
 
-                    //printf("Insert returned %d rows.<br />", $result->$affected_rows);
-                    if (\NTRNX_MYSQLI\ntrnx_mysqli::affected_rows($mysqli_handle) > 0) { $data = $result; } else { $data = FALSE; } 
+                    /* debug output */
+                    if (NMCC_DEBUG == TRUE) {
+                        print mysqli_error ($mysqli_handle) . NMCC_BR;
+                        print $statement . NMCC_BR;
+                    }
 
-                } else {
-                    
-                    print $mysqli_handle->error . '<br />';
-                    print $statement . '<br />';
-
-                    $data = FALSE;
+                    $result = FALSE;
 
                 }
 
-                return $data;
+            } else {
+
+                /* debug output */
+                if (NMCC_DEBUG == TRUE) {
+                    print ERROR_DB_HANDLE_NOT_INITIALIZED . NMCC_BR;
+                    print $statement . NMCC_BR;
+                }            
+
+                $result = FALSE;
 
             }
 
         } else {
+            
+            /* debug output */
+            if (NMCC_DEBUG == TRUE) {
+                //print 'table_target length and column_target length dont match' . NMCC_BR;
+                print ERROR_FIELD_NUMBER_AND_NUMBER_OF_VALUES_​​DO_NOT_MATCH . NMCC_BR;
+            }
 
-            print 'table_target length and column_target length dont match' . '<br />';
+            $result = FALSE;
 
         }
 
+        return $result;
+
     }
 
-//mysqli_query() 	Performs a query against the database
+    //mysqli_query() 	Performs a query against the database
     static function update(
 
         $mysqli_handle,
@@ -715,19 +1646,56 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
         $set_expression,
 
         /* [WHERE where_condition] */
-        $where_condition
+        $where_condition,
+
+        /* [ORDER BY {col_name | expr | position} [ASC | DESC], ...] */
+        $order_condition = NULL,
+
+        /* [LIMIT {[offset,] row_count | row_count OFFSET offset}] */
+        $limit = NULL,
+
+        $options = NULL
 
     ) {
 
-        if (is_array($table_reference)) { } else { }
-        if (is_array($set_expression)) { } else { }
-        if (is_array($where_condition)) { } else { }
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print '<pre>' . $statement . '</pre>';
+        }
 
-        print 'query_update = ' . '<br />';
+        self::$last_query = $statement;
+
+        if ($mysqli_handle) {
+
+            if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {    
+
+                /* debug output */
+                if (NMCC_DEBUG == TRUE) {
+                    print mysqli_error ($mysqli_handle) . NMCC_BR;
+                    print $statement . NMCC_BR;
+                }
+
+                $result = FALSE;
+
+            }
+
+        } else {
+
+            /* debug output */
+            if (NMCC_DEBUG == TRUE) {
+                print ERROR_DB_HANDLE_NOT_INITIALIZED . NMCC_BR;
+                print $statement . NMCC_BR;
+            }            
+
+            $result = FALSE;
+
+        }
+
+        return $result;
 
     }
 
-//mysqli_query() 	Performs a query against the database
+    //mysqli_query() 	Performs a query against the database
     static function delete(
 
         $mysqli_handle,
@@ -738,57 +1706,57 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
         $tbl_name,
 
         /* [WHERE where_condition] */
-        $where_condition
+        $where_condition,
+
+        /* [ORDER BY {col_name | expr | position} [ASC | DESC], ...] */
+        $order_condition = NULL,
+
+        /* [LIMIT {[offset,] row_count | row_count OFFSET offset}] */
+        $limit = NULL,
+
+        $options = NULL
 
     ) {
 
-        if (is_array($tbl_name)) { } else { }
-        if (is_array($where_condition)) { } else { }
-
-        print 'query_delete = ' . '<br />';
-
-    }
-
-//mysqli_real_connect() 	Opens a new connection to the MySQL server
-/**/static function real_connect(
-
-        $mysqli_handle,
-        $host,
-        $username,
-        $passwd,
-        $dbname,
-        $port = NULL,
-        $socket = NULL,
-        $flags = NULL
-        
-    ) {
-
-        //print $host . '<br />';
-        //print $username . '<br />';
-        //print $passwd . '<br />';
-        //print $dbname . '<br />';
-
-        /* convert input vars */
-        if (isset($host)) { $host = htmlspecialchars($host); }
-        if (isset($username)) { $username = htmlspecialchars($username); }
-        if (isset($passwd)) { $passwd = htmlspecialchars($passwd); }
-        if (isset($dbname)) { $dbname = htmlspecialchars($dbname); }
-        if (isset($port)) { $port = htmlspecialchars($port); }
-        if (isset($socket)) { $socket = htmlspecialchars($socket); }
-        if (isset($flags)) { $flags = htmlspecialchars($flags); }
-        
-        /* create connection */
-        if (!$result = @mysqli_real_connect($mysqli_handle, $host, $username, $passwd, $dbname, $port, $socket, $flags)) {
-            die('Connect Error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print '<pre>' . $statement . '</pre>';
         }
-        // print 'Success... ' . $mysqli_handle->host_info . '<br />';
+
+        self::$last_query = $statement;
+
+        if ($mysqli_handle) {
+
+            if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {
+
+                /* debug output */
+                if (NMCC_DEBUG == TRUE) {
+                    print mysqli_error ($mysqli_handle) . NMCC_BR;
+                    print $statement . NMCC_BR;
+                }
+
+                $result = FALSE;
+
+            }
+
+        } else {
+
+            /* debug output */
+            if (NMCC_DEBUG == TRUE) {
+                print ERROR_DB_HANDLE_NOT_INITIALIZED . NMCC_BR;
+                print $statement . NMCC_BR;
+            }            
+
+            $result = FALSE;
+
+        }
 
         return $result;
 
     }
 
-//mysqli_real_pconnect()   Opens a new persistent connection to the MySQL server
-/**/static function real_pconnect( 
+    //mysqli_real_connect() 	Opens a new connection to the MySQL server
+    static function real_connect(
 
         $mysqli_handle,
         $host,
@@ -801,27 +1769,85 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
         
     ) {
 
-        /* convert input vars */
-        if (isset($host)) { $host = htmlspecialchars($host); }
-        if (isset($username)) { $username = htmlspecialchars($username); }
-        if (isset($passwd)) { $passwd = htmlspecialchars($passwd); }
-        if (isset($dbname)) { $dbname = htmlspecialchars($dbname); }
-        if (isset($port)) { $port = htmlspecialchars($port); }
-        if (isset($socket)) { $socket = htmlspecialchars($socket); }
-        if (isset($flags)) { $flags = htmlspecialchars($flags); }
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print "host: " . $host . NMCC_COMMA;
+            print " username: " . $username . NMCC_COMMA;
+            print " passwd: " . $passwd . NMCC_COMMA;
+            print " dbname: " . $dbname . NMCC_COMMA;
+            print " port: " . $port . NMCC_COMMA;
+            print " socket: " . $socket . NMCC_COMMA;
+            print " flags: " . $flags . NMCC_BR;
+        }
+
+        /* check porrt value */
+        if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
+            $placeholder_array = array ("{VALUE}", "{OPTION}");
+            $string_array = array ($port, "port");
+            die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER));
+        }
 
         /* create connection */
+        if (!@mysqli_real_connect($mysqli_handle, $host, $username, $passwd, $dbname, $port, $socket, $flags)) {
+            die('Connect Error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
+        }
+
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print 'Success... ' . mysqli_get_host_info ($mysqli_handle) . NMCC_BR;
+        }
+
+        self::$persistent_connection = FALSE;
+
+    }
+
+    //mysqli_real_pconnect()   Opens a new persistent connection to the MySQL server
+    static function real_pconnect( 
+
+        $mysqli_handle,
+        $host,
+        $username,
+        $passwd,
+        $dbname,
+        $port = NULL,
+        $socket = NULL,
+        $flags = NULL
+        
+    ) {
+
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print "host: " . $host . NMCC_COMMA;
+            print " username: " . $username . NMCC_COMMA;
+            print " passwd: " . $passwd . NMCC_COMMA;
+            print " dbname: " . $dbname . NMCC_COMMA;
+            print " port: " . $port . NMCC_COMMA;
+            print " socket: " . $socket . NMCC_COMMA;
+            print " flags: " . $flags . NMCC_BR;
+        }
+
+        /* check porrt value */
+        if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
+            $placeholder_array = array ("{VALUE}", "{OPTION}");
+            $string_array = array ($port, "port");
+            die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER));
+        }
+        
         /* create connection */
         if (!@mysqli_real_connect($mysqli_handle, "p:" . $host, $username, $passwd, $dbname, $port, $socket, $flags)) {
             die('Connect Error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
         }
-        //print 'Success... ' . $mysqli_handle->host_info . '<br />';
 
-        return $mysqli_handle;
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print 'Success... ' . mysqli_get_host_info ($mysqli_handle) . NMCC_BR;
+        }
+
+        self::$persistent_connection = TRUE;
 
     }
 
-//mysqli_real_escape_string() 	Escapes special characters in a string for use in an SQL statement
+    //mysqli_real_escape_string() 	Escapes special characters in a string for use in an SQL statement
     static function real_escape_string(
 
         $mysqli_handle,
@@ -833,49 +1859,144 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
 
     }
 
-//mysqli_real_query() 	Executes an SQL query
+    //mysqli_real_query() 	Executes an SQL query
     static function real_query() {}
 
-//mysqli_reap_async_query() 	Returns the result from async query
+    //mysqli_reap_async_query() 	Returns the result from async query
     static function reap_async_query() {}
 
-//mysqli_refresh() 	Refreshes tables or caches, or resets the replication server information
+    //mysqli_refresh() 	Refreshes tables or caches, or resets the replication server information
     static function refresh() {}
 
-//mysqli_rollback() 	Rolls back the current transaction for the database
+    //mysqli_rollback() 	Rolls back the current transaction for the database
     static function rollback() {}
 
-//mysqli_select_db() 	Changes the default database for the connection
-    static function select_db() {}
+    //mysqli_select_db() 	Changes the default database for the connection
+    static function select_db(
 
-//mysqli_set_charset() 	Sets the default client character set
+        $mysqli_handle,
+        $db_name
+
+    ) {
+
+        return mysqli_select_db ($mysqli_handle , $db_name);
+
+
+    }
+
+    //mysqli_set_charset() 	Sets the default client character set
     static function set_charset(
 
+        $mysqli_handle,
         $charset
 
     ) {
-  
+
         /* change character set to $charset */
-        if (!$mysqli_handle->set_charset($charset)) {
-            printf("Error loading character set utf8: %s", $mysqli_handle->error) . '<br />';;
-            exit();
-        } else {
-            printf("Current character set: %s", $mysqli_handle->character_set_name()) . '<br />';;
-        }  
+        if (!mysqli_set_charset ($mysqli_handle, $charset)) {
+            print str_replace("%s", $charset, ERROR_ON_LOADING_CHARACTER_SET) . NMCC_BR;
+            die(\NTRNX_MYSQLI\ntrnx_mysqli::error($mysqli_handle));
+        }
+        /* debug output */
+        if (NMCC_DEBUG == TRUE) {
+            print str_replace("%s", \NTRNX_MYSQLI\ntrnx_mysqli::character_set_name($mysqli_handle), NMCC_MSG_CURRENT_CHARACTER_SET) . NMCC_BR;
+        }
     
     }
 
-//mysqli_set_local_infile_default() 	Unsets user defined handler for load local infile command
+    //mysqli_set_local_infile_default() 	Unsets user defined handler for load local infile command
     static function set_local_infile_default() {}
 
-//mysqli_set_local_infile_handler() 	Set callback function for LOAD DATA LOCAL INFILE command
+    //mysqli_set_local_infile_handler() 	Set callback function for LOAD DATA LOCAL INFILE command
     static function set_local_infile_handler() {}
 
-//mysqli_sqlstate() 	Returns the SQLSTATE error code for the last MySQL operation
+    //mysqli_sqlstate() 	Returns the SQLSTATE error code for the last MySQL operation
     static function sqlstate() {}
 
-//mysqli_ssl_set() 	Used to establish secure connections using SSL
-/**/static function ssl_set(
+    //return ssl status for given connection
+    static function ssl_get(
+
+        $mysqli_handle
+
+    ) { 
+
+        $have_openssl = FALSE;
+        $have_ssl = FALSE;
+        $have_cipher = FALSE;
+        $have_tls = FALSE;
+        $have_key = FALSE;
+        $have_cert = FALSE;
+        $have_ca = FALSE;
+
+        /* check have_openssl */
+        $result_openssl = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'have_openssl';");
+        while ( $row = mysqli_fetch_array ($result_openssl) ) {
+            if ($row['Value'] == 'YES') { $have_openssl = TRUE; }
+        }
+        mysqli_free_result($result_openssl);
+
+        /* check have_ssl */
+        $result_ssl = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'have_ssl';");
+        while ( $row = mysqli_fetch_array ($result_ssl) ) {
+            if ($row['Value'] == 'YES') { $have_ssl = TRUE; }
+        }
+        mysqli_free_result($result_ssl);
+
+        /* check Ssl_cipher */
+        $result_ssl_cipher = mysqli_query ($mysqli_handle, "SHOW SESSION STATUS LIKE 'Ssl_cipher';");
+        while ( $row = mysqli_fetch_array ($result_ssl_cipher) ) {
+            if ($row['Value'] != '') { $have_cipher = TRUE; }
+        }
+        mysqli_free_result($result_ssl_cipher);
+
+        /* check Ssl_version */
+        $result_ssl_version = mysqli_query ($mysqli_handle, "SHOW SESSION STATUS LIKE 'Ssl_version';");
+        while ( $row = mysqli_fetch_array ($result_ssl_version) ) {
+            if ($row['Value'] != '') { $have_tls = TRUE; }
+        }
+        mysqli_free_result($result_ssl_version);
+
+        /* check ssl_key */
+        $result_ssl_key = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'ssl_key';");
+        while ( $row = mysqli_fetch_array ($result_ssl_key) ) {
+            if ($row['Value'] != '') { $have_key = TRUE; }
+        }
+        mysqli_free_result($result_ssl_key);
+        
+        /* check ssl_cert */
+        $result_ssl_cert = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'ssl_cert';");
+        while ( $row = mysqli_fetch_array ($result_ssl_cert) ) {
+            if ($row['Value'] != '') { $have_cert = TRUE; }
+        }
+        mysqli_free_result($result_ssl_cert);
+        
+        /* check ssl_ca */
+        $result_ssl_ca = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'ssl_ca';");
+        while ( $row = mysqli_fetch_array ($result_ssl_ca) ) {
+            if ($row['Value'] != '') { $have_ca = TRUE; }
+        }
+        mysqli_free_result($result_ssl_ca);
+
+        if ($have_openssl == TRUE &&
+            $have_ssl == TRUE &&
+            $have_cipher == TRUE &&
+            $have_tls == TRUE &&
+            $have_key == TRUE &&
+            $have_cert == TRUE &&
+            $have_ca == TRUE) {
+
+            return TRUE;
+
+        } else {
+
+            return FALSE;
+
+        }
+
+    }
+
+    //mysqli_ssl_set() 	Used to establish secure connections using SSL
+    static function ssl_set(
 
         $mysqli_handle,
         $key,
@@ -884,28 +2005,32 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
         $capath = NULL,
         $cipher = NULL
 
-    ) {        
+    ) {
 
         /* Specifies the path name to the key file */
         $key = htmlspecialchars($key);
-        if(!filter_var( $key, FILTER_SANITIZE_STRING) ) { die('error on value for path name to the key file : ' . $key); }
+        if(!file_exists($key)) { die(str_replace("{FILE}", "key file " . $key, ERROR_ON_SETTINGS_PATH_TO_FILE)); }
 
         /* Specifies the path name to the certificate file */
         $cert = htmlspecialchars($cert);
-        if(!filter_var( $cert, FILTER_SANITIZE_STRING) ) { die('error on value for path name to the certificate file : ' . $cert); }
+        if(!file_exists($key)) { die(str_replace("{FILE}", "certificate file " . $cert, ERROR_ON_SETTINGS_PATH_TO_FILE)); }
 
-        /* Specifies the path name to the certificate authority file */
-      
-        $ca = htmlspecialchars($ca);
-        if(!filter_var( $ca, FILTER_SANITIZE_STRING) ) { die('error on value for path name to the certificate authority file : ' . $ca); }
+        /* Specifies the path name to the certificate authority file */    
+        if (isset($ca)) {        
+            $ca = htmlspecialchars($ca);
+            if(!file_exists($ca)) { die(str_replace("{FILE}", "certificate authority file " . $ca, ERROR_ON_SETTINGS_PATH_TO_FILE)); }
+        }
 
         /* Specifies the pathname to a directory that contains trusted SSL CA certificates in PEM format */
         if (isset($capath)) {
             $capath = htmlspecialchars($capath);
-            if(!filter_var( $capath, FILTER_SANITIZE_STRING) ) { die('error on value for directory that contains trusted SSL CA certificates : ' . $capathca); }
+            if (!is_dir($capath)) {                
+                $placeholder_array = array ("{DIR}", "{FILE}");
+                $string_array = array ($capath, "trusted SSL CA certificates");
+                die(str_replace($placeholder_array, $string_array, ERROR_ON_SETTINGS_PATH_TO_DIR));                
+            }
         }
 
-        /* ??? */
         /* Specifies a list of allowable ciphers to use for SSL encryption */
         /*
             ECDHE-ECDSA-AES128-GCM-SHA256
@@ -928,25 +2053,25 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
 
     }
 
-//mysqli_stat() 	Returns the current system status
+    //mysqli_stat() 	Returns the current system status
     static function stat() {}
 
-//mysqli_stmt_init() 	Initializes a statement and returns an object for use with mysqli_stmt_prepare()
+    //mysqli_stmt_init() 	Initializes a statement and returns an object for use with mysqli_stmt_prepare()
     static function stmt_init() {}
 
-//mysqli_store_result() 	Transfers a result set from the last query
+    //mysqli_store_result() 	Transfers a result set from the last query
     static function store_result() {}
 
-//mysqli_thread_id() 	Returns the thread ID for the current connection
+    //mysqli_thread_id() 	Returns the thread ID for the current connection
     static function thread_id() {}
 
-//mysqli_thread_safe() 	Returns whether the client library is compiled as thread-safe
+    //mysqli_thread_safe() 	Returns whether the client library is compiled as thread-safe
     static function thread_safe() {}
 
-//mysqli_use_result() 	Initiates the retrieval of a result set from the last query executed using the mysqli_real_query()
+    //mysqli_use_result() 	Initiates the retrieval of a result set from the last query executed using the mysqli_real_query()
     static function use_result() {}
 
-//mysqli_warning_count() 	Returns the number of warnings from the last query in the connection
+    //mysqli_warning_count() 	Returns the number of warnings from the last query in the connection
     static function warning_count() {}
 
 } /* end of class ntrnx_mysqli */

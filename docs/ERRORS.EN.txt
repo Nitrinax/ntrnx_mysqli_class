@@ -1,0 +1,3 @@
+
+static function options()
+- MYSQLI_OPT_SSL_VERIFY_SERVER_CERT does not work, mysqli_options generates an error always on setting server cert

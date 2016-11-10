@@ -10,7 +10,7 @@ namespace NTRNX_MYSQLI;
  * @author    René Zimmerling <nitrinax at googlemail dot com>
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @link      https://github.com/Nitrinax
- * @version   0.0.0.0-master
+ * @version   0.1.0.0-master
  */
 
 /* begin of class ntrnx_mysqli_core_data */
@@ -24,13 +24,13 @@ class ntrnx_mysqli_core_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	 * major.minor[.build[.revision]]
 	 */
 	const _CLASS_VERSION_MAJOR = '0';
-	const _CLASS_VERSION_MINOR = '0';
+	const _CLASS_VERSION_MINOR = '1';
 	const _CLASS_VERSION_BUILD = '0';
 	const _CLASS_VERSION_REVISION = '0';
 	/* YYYY-MM-DD */
-	const _CLASS_DATE = '2016-10-31';
+	const _CLASS_DATE = '2016-11-10';
 	/* hh:mm:ss */
-	const _CLASS_TIME = '00:00:00';
+	const _CLASS_TIME = '08:50:00';
 
 	/**
 	 * project branches
@@ -66,26 +66,29 @@ class ntrnx_mysqli_core_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	/* class description */
 	const _CLASS_DESCRIPTION = 'provide abstracted mysqli functions';
 
+	/* project main url */
+	const _CLASS_PROJECT_URL = 'https://github.com/Nitrinax/ntrnx_mysqli_class';
+	/* project version url */
+	const _CLASS_VERSION_URL = 'https://github.com/Nitrinax/ntrnx_mysqli_class/docs/VERSION.txt';
+	/* project update url */
+	const _CLASS_UPDATES_URL = 'https://github.com/Nitrinax/ntrnx_mysqli_class';
+	/* project source url */
+	const _CLASS_SOURCE_URL = 'https://github.com/Nitrinax/ntrnx_mysqli_class';
+
 	/* class dependences possible */
-	const _CLASS_DEPENDENCES = TRUE;
+	const _CLASS_DEPENDENCES = FALSE;
 
 	/* class dependences array */
 	public $_class_dependences = array('PHP' => '7.0.0');
 
-	/* class update possible */
-	const _CLASS_UPDATE = FALSE;
-
-	/* project main url */
-	const _CLASS_PROJECT_URL = '';
-	/* project version url */
-	const _CLASS_VERSION_URL = '';
-	/* project update url */
-	const _CLASS_UPDATES_URL = '';
-	/* project source url */
-	const _CLASS_SOURCE_URL = '';
+	/* class dependences possible */
+	const _CLASS_NEEDED_FUNCTIONS = FALSE;
 
 	/* project needed php functions */
 	public $_class_needed_functions = array();
+
+	/* class update possible */
+	const _CLASS_UPDATE = FALSE;
 
 	/* begin of class constructor */
 	function __construct () {
