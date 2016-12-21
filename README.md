@@ -1,2 +1,2 @@
-# ntrnx_mysqli_class
-provide abstracted and extended mysqli functions
+# ntrnx_mysqli
+provide abstracted mysqli functions

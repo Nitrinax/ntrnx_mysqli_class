@@ -1,3 +1,61 @@
+Version 0.3.0.0
+
+CHG
+- split class in subclasses for more overview and put them in groups with same background
+
+FIX
+- fix for statement debug output
+
+Version 0.2.1.3
+
+FIX
+- add code to select order_condition handling for use of multiply sort and order statements
+
+ADD
+- add code to check if connected or not
+
+Version 0.2.1.2
+
+FIX
+- undefined vars in select join_statement
+- undefined vars in select group_statement
+- undefined vars in select order_statement
+
+Version 0.2.1.1
+
+FIX
+- bug in select group condition
+- bug in select group condition sort order
+
+CHG
+- select order condition similar to group condition
+
+Version 0.2.1.0
+
+ADD
+- adding "AS" in select_expression part of function select
+
+Version 0.2.0.0
+
+REM
+- remove sysplugins/ntrnx_mysqli_core_base.php
+
+CHG
+- rename sysplugins/ntrnx_mysqli_core_data.php to sysplugins/ntrnx_mysqli_data.php
+
+Version 0.1.1.0
+
+CHG
+- rewritten some class consts to unique unified class consts
+
+ADD
+- add option "client" to get_charset
+- add return value to set_charset
+
 Version 0.1.0.0
 
 - rework of error messages
+
+Version: 0.0.0.0 - 2016-12-09
+
+- initial release
