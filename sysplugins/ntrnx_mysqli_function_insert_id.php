@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class insert_id extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_insert_id extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_insert_id() 	Returns the auto-generated id used in the last query
-    static function insert_id(
+    //(PHP 5, PHP 7)
+    //mysqli::$insert_id -- mysqli_insert_id — Returns the auto generated id used in the latest query
+    static function link(
 
         $mysqli_handle
 

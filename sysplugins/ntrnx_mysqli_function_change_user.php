@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class change_user extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_change_user extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_change_user() 	Changes the user of the specified database connection
-    static function change_user() {}
+    //(PHP 5, PHP 7)
+    //mysqli::change_user -- mysqli_change_user — Changes the user of the specified database connection
+    static function connection() {}
 
 }
 

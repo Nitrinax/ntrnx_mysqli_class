@@ -13,29 +13,26 @@
 
 namespace NTRNX_MYSQLI;
 
-/* display statement debug */
-const NMYSQCC_DEBUG = FALSE;
-
 /* define shorthand directory separator constant */
-if (!defined("NMYSQCC_DS")) {          define("NMYSQCC_DS",       DIRECTORY_SEPARATOR); }
-if (!defined("NMYSQCC_PS")) {          define("NMYSQCC_PS",       PATH_SEPARATOR); }
-if (!defined("NMYSQCC_BR")) {          define("NMYSQCC_BR",       "<br />"); }    /* HTML break row */
-if (!defined("NMYSQCC_LF")) {          define("NMYSQCC_LF",       "\n"); }        /* PHP break row */
+if (!defined("NMYSQCC_DS")) {			define("NMYSQCC_DS",       DIRECTORY_SEPARATOR); }
+if (!defined("NMYSQCC_PS")) {			define("NMYSQCC_PS",       PATH_SEPARATOR); }
+if (!defined("NMYSQCC_BR")) {			define("NMYSQCC_BR",       "<br />"); }    /* HTML break row */
+if (!defined("NMYSQCC_LF")) {			define("NMYSQCC_LF",       "\n"); }        /* PHP break row */
 
 /* NMCC = nitrinax mysqli class const */
-if (!defined("NMYSQCC_DOT")) {         define("NMYSQCC_DOT",      "."); }         /* SQL REFERENCE/CONDITION SEPARATOR */
-if (!defined("NMYSQCC_COMMA")) {       define("NMYSQCC_COMMA",    ","); }         /* SQL MULTIPLY FIELD SEPARATOR */
-if (!defined("NMYSQCC_IQ")) {          define("NMYSQCC_IQ",       "`"); }         /* SQL INSTRUCTION QUOTE */
-if (!defined("NMYSQCC_VQ")) {          define("NMYSQCC_VQ",       "'"); }         /* SQL VALUE QUOTE */
+if (!defined("NMYSQCC_DOT")) {			define("NMYSQCC_DOT",      "."); }         /* SQL REFERENCE/CONDITION SEPARATOR */
+if (!defined("NMYSQCC_COMMA")) {		define("NMYSQCC_COMMA",    ","); }         /* SQL MULTIPLY FIELD SEPARATOR */
+if (!defined("NMYSQCC_IQ")) {			define("NMYSQCC_IQ",       "`"); }         /* SQL INSTRUCTION QUOTE */
+if (!defined("NMYSQCC_VQ")) {			define("NMYSQCC_VQ",       "'"); }         /* SQL VALUE QUOTE */
 
-if (!defined("NMYSQCC_OPEN_BRACKET")) {            define("NMYSQCC_OPEN_BRACKET",             "<"); }
-if (!defined("NMYSQCC_CLOSE_BRACKET")) {           define("NMYSQCC_CLOSE_BRACKET",            ">"); }
-if (!defined("NMYSQCC_CURVED_OPEN_BRACKET")) {     define("NMYSQCC_CURVED_OPEN_BRACKET",      "{"); }
-if (!defined("NMYSQCC_CURVED_CLOSE_BRACKET")) {    define("NMYSQCC_CURVED_CLOSE_BRACKET",     "}"); }
-if (!defined("NMYSQCC_SQUARE_BRACKET_OPEN")) {     define("NMYSQCC_SQUARE_BRACKET_OPEN",      "["); }
-if (!defined("NMYSQCC_SQUARE_BRACKET_CLOSE")) {    define("NMYSQCC_SQUARE_BRACKET_CLOSE",     "]"); }
-if (!defined("NMYSQCC_LEFT_PARENTHESIS")) {        define("NMYSQCC_LEFT_PARENTHESIS",         "("); }
-if (!defined("NMYSQCC_RIGHT_PARENTHESIS")) {       define("NMYSQCC_RIGHT_PARENTHESIS",        ")"); }
+if (!defined("NMYSQCC_OPEN_BRACKET")) {			define("NMYSQCC_OPEN_BRACKET",			"<"); }
+if (!defined("NMYSQCC_CLOSE_BRACKET")) {		define("NMYSQCC_CLOSE_BRACKET",			">"); }
+if (!defined("NMYSQCC_CURVED_OPEN_BRACKET")) {	define("NMYSQCC_CURVED_OPEN_BRACKET",	"{"); }
+if (!defined("NMYSQCC_CURVED_CLOSE_BRACKET")) {	define("NMYSQCC_CURVED_CLOSE_BRACKET",	"}"); }
+if (!defined("NMYSQCC_SQUARE_BRACKET_OPEN")) {	define("NMYSQCC_SQUARE_BRACKET_OPEN",	"["); }
+if (!defined("NMYSQCC_SQUARE_BRACKET_CLOSE")) {	define("NMYSQCC_SQUARE_BRACKET_CLOSE",	"]"); }
+if (!defined("NMYSQCC_LEFT_PARENTHESIS")) {		define("NMYSQCC_LEFT_PARENTHESIS",		"("); }
+if (!defined("NMYSQCC_RIGHT_PARENTHESIS")) {	define("NMYSQCC_RIGHT_PARENTHESIS",		")"); }
 
 if (!defined("NMYSQCC_PERCENT")) {     define("NMYSQCC_PERCENT",  "%"); }
 if (!defined("NMYSQCC_BLANK")) {       define("NMYSQCC_BLANK",    " "); }
@@ -101,12 +98,12 @@ if (!defined("NMYSQCC_ERROR_FIELD_NUMBER_AND_NUMBER_OF_VALUES_​​DO_NOT_MATCH
 if (!defined("NMYSQCC_ERROR_ON_LOADING_CHARACTER_SET")) { define("NMYSQCC_ERROR_ON_LOADING_CHARACTER_SET", "Error loading character set : \"%s\"."); }
 
 if (!defined("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION")) { define("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION", "Error on setting value \"{VALUE}\" for option \"{OPTION}\"."); }
-if (!defined("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER")) { define("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER", "Error on setting value \"{VALUE}\" for option \"{OPTION}\". Value must be integer."); }
-if (!defined("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_BOOLEAN")) { define("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_BOOLEAN", "Error on setting value \"{VALUE}\" for option \"{OPTION}\". Value must be boolean."); }
-if (!defined("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_STRING")) { define("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_STRING", "Error on setting value \"{VALUE}\" for option \"{OPTION}\". Value must be string."); }
+if (!defined("NMYSQCC_ERROR_VALUE_MUST_BE_INTEGER")) { define("NMYSQCC_ERROR_VALUE_MUST_BE_INTEGER", "Value must be integer."); }
+if (!defined("NMYSQCC_ERROR_VALUE_MUST_BE_BOOLEAN")) { define("NMYSQCC_ERROR_VALUE_MUST_BE_BOOLEAN", "Value must be boolean."); }
+if (!defined("NMYSQCC_ERROR_VALUE_MUST_BE_STRING")) { define("NMYSQCC_ERROR_VALUE_MUST_BE_STRING", "Value must be string."); }
 
-if (!defined("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_FILE")) { define("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_FILE", "Error on setting path to {FILE}."); }
-if (!defined("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_DIR")) { define("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_DIR", "Error on setting path to dir {DIR} that contain {FILE}."); }
+if (!defined("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_FILE")) { define("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_FILE", "Error on setting path to \"{FILE}\"."); }
+if (!defined("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_DIR")) { define("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_DIR", "Error on setting path to dir \"{DIR}\" that contain \"{FILE}\"."); }
 
 /* mysqli class messages */
 if (!defined("NMYSQCC_MSG_CURRENT_CHARACTER_SET")) { define("NMYSQCC_MSG_CURRENT_CHARACTER_SET", "Client character set is changed to : \"%s\"."); }
@@ -126,7 +123,7 @@ if (!defined("NMYSQCC_DB_CONFIG_FILE")) { define("NMYSQCC_DB_CONFIG_FILE", NMYSQ
 if (!defined("NMYSQCC_DATA")) { define("NMYSQCC_DATA", NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_data.php"); }
 if (!defined("NMYSQCC_CORE")) { define("NMYSQCC_CORE", NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_core.php"); }
 
-/* put needed consts for directories in array */
+/* put needed directories in array */
 $ntrnx_mysqli_array_dir = array(
 	NMYSQCC_SYSPLUGINS_DIR,
 	NMYSQCC_CONFIG_DIR
@@ -152,6 +149,11 @@ foreach ($ntrnx_mysqli_array_files as &$ntrnx_mysqli_var_file) {
 	if (!file_exists($ntrnx_mysqli_var_file)) { die(str_replace("%s", $ntrnx_mysqli_var_file, NMYSQCC_ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once( $ntrnx_mysqli_var_file ); }
 }
 
+/* setup config const from config vars */
+if ($ntrnx_mysqli_update_check == FALSE) { define("NMYSQCC_UPDATE_CHECK", FALSE); } else { define("NMYSQCC_UPDATE_CHECK", TRUE); }
+if ($ntrnx_mysqli_debug == FALSE) { define("NMYSQCC_DEBUG", FALSE); } else { define("NMYSQCC_DEBUG", TRUE); }
+if ($ntrnx_quote_as_string == FALSE) { define("NMYSQCC_QUOTE_AS_STRING", FALSE); } else { define("NMYSQCC_QUOTE_AS_STRING", TRUE); }
+
 /* begin of class ntrnx_mysqli */
 class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
 
@@ -172,92 +174,118 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
 	function __destruct() {
 	} /* end of class destructor */
 
-    //mysqli_errno() 	Returns the last error code for the most recent function call
-    static function errno(
-
-        $mysqli_handle
-
-    ) {
-
-        return mysqli_errno ($mysqli_handle);
-
-    }
-
-    //mysqli_error() 	Returns the last error description for the most recent function call
-    static function error(
-
-        $mysqli_handle
-
-    ) {
-
-        return mysqli_error ($mysqli_handle);
-
-    }
-
-    //mysqli_error_list() 	Returns a list of errors for the most recent function call
-    static function error_list(
-
-        $mysqli_handle
-
-    ) {
-
-        return mysqli_error_list ($mysqli_handle);
-
-    }
-
 } /* end of class ntrnx_mysqli */
 
 /* #### sub libs #### */
 
 /* put needed files in array */
 $ntrnx_mysqli_sublib_array_files = array(
-    NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_affected.php",	
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_change_user.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_charset.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_client.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_close.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_connect.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_connect_errno.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_connect_error.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_connection_stats.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_data_seek.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_debug.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_delete.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_dump_debug_info.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_fetch.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_field.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_fields.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_info.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_init.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_insert.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_insert_id.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_kill.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_num_fields.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_num_rows.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_options.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_ping.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_query.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_refresh.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_result.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_select.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_select_db.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_server.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_set_local_infile_default.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_set_local_infile_handler.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_sqlstate.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_ssl.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_statement.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_tables.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_thread.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_transaction.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_update.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_version.php",
-	NMYSQCC_SYSPLUGINS_DIR . "ntrnx_mysqli_function_warning_count.php"
+
+    // mysqli functions
+    "ntrnx_mysqli_function_affected_fields",
+    "ntrnx_mysqli_function_affected_rows",
+    "ntrnx_mysqli_function_autocommit",
+    "ntrnx_mysqli_function_begin_transaction",
+    "ntrnx_mysqli_function_change_user",
+    "ntrnx_mysqli_function_character_set_name",
+    "ntrnx_mysqli_function_close",
+    "ntrnx_mysqli_function_commit",
+    "ntrnx_mysqli_function_connect",
+    "ntrnx_mysqli_function_connect_errno",
+    "ntrnx_mysqli_function_connect_error",
+    "ntrnx_mysqli_function_data_seek",
+    "ntrnx_mysqli_function_debug",
+    "ntrnx_mysqli_function_delete",
+    "ntrnx_mysqli_function_dump_debug_info",
+    "ntrnx_mysqli_function_errno",
+    "ntrnx_mysqli_function_error",
+    "ntrnx_mysqli_function_error_list",
+    "ntrnx_mysqli_function_fetch_all",
+    "ntrnx_mysqli_function_fetch_array",
+    "ntrnx_mysqli_function_fetch_assoc",
+    "ntrnx_mysqli_function_fetch_field",
+    "ntrnx_mysqli_function_fetch_fields",
+    "ntrnx_mysqli_function_fetch_field_direct",
+    "ntrnx_mysqli_function_fetch_lengths",
+    "ntrnx_mysqli_function_fetch_object",
+    "ntrnx_mysqli_function_fetch_row",
+    "ntrnx_mysqli_function_fields",
+    "ntrnx_mysqli_function_field_count",
+    "ntrnx_mysqli_function_field_seek",
+    "ntrnx_mysqli_function_field_tell",
+    "ntrnx_mysqli_function_free_result",
+    "ntrnx_mysqli_function_get_charset",
+    "ntrnx_mysqli_function_get_client_info",
+    "ntrnx_mysqli_function_get_client_stats",
+    "ntrnx_mysqli_function_get_client_version",
+    "ntrnx_mysqli_function_get_connection_stats",
+    "ntrnx_mysqli_function_get_host_info",
+    "ntrnx_mysqli_function_get_proto_info",
+    "ntrnx_mysqli_function_get_server_info",
+    "ntrnx_mysqli_function_get_server_version",
+    "ntrnx_mysqli_function_get_warnings",
+    "ntrnx_mysqli_function_info",
+    "ntrnx_mysqli_function_init",
+    "ntrnx_mysqli_function_insert",
+    "ntrnx_mysqli_function_insert_id",
+    "ntrnx_mysqli_function_kill",
+    "ntrnx_mysqli_function_last_query",
+    "ntrnx_mysqli_function_more_results",
+    "ntrnx_mysqli_function_multi_query",
+    "ntrnx_mysqli_function_next_result",
+    "ntrnx_mysqli_function_num_fields",
+    "ntrnx_mysqli_function_num_rows",
+    "ntrnx_mysqli_function_options",
+    "ntrnx_mysqli_function_pconnect",
+    "ntrnx_mysqli_function_ping",
+    "ntrnx_mysqli_function_poll",
+    "ntrnx_mysqli_function_prepare",
+    "ntrnx_mysqli_function_query",
+    "ntrnx_mysqli_function_real_connect",
+    "ntrnx_mysqli_function_real_escape_string",
+    "ntrnx_mysqli_function_real_pconnect",
+    "ntrnx_mysqli_function_real_query",
+    "ntrnx_mysqli_function_reap_async_query",
+    "ntrnx_mysqli_function_refresh",
+    "ntrnx_mysqli_function_release_savepoint",
+    "ntrnx_mysqli_function_rollback",
+    "ntrnx_mysqli_function_savepoint",
+    "ntrnx_mysqli_function_select",
+    "ntrnx_mysqli_function_select_db",
+    "ntrnx_mysqli_function_set_charset",
+    "ntrnx_mysqli_function_set_local_infile_default",
+    "ntrnx_mysqli_function_set_local_infile_handler",
+    "ntrnx_mysqli_function_sqlstate",
+    "ntrnx_mysqli_function_ssl_get",
+    "ntrnx_mysqli_function_ssl_set",
+    "ntrnx_mysqli_function_stat",
+    "ntrnx_mysqli_function_store_result",
+    "ntrnx_mysqli_function_tables",
+    "ntrnx_mysqli_function_thread_id",
+    "ntrnx_mysqli_function_thread_safe",
+    "ntrnx_mysqli_function_update",
+    "ntrnx_mysqli_function_use_result",
+    "ntrnx_mysqli_function_warning_count",
+
+    // internal functions
+    "ntrnx_mysqli_internal_api",
+    "ntrnx_mysqli_internal_author",
+    "ntrnx_mysqli_internal_build",
+    "ntrnx_mysqli_internal_dependences",
+    "ntrnx_mysqli_internal_function_exists",
+    "ntrnx_mysqli_internal_update",
+    "ntrnx_mysqli_internal_url",
+    "ntrnx_mysqli_internal_version"
+
 );
 
 /* check if files exist and load them */
 foreach ($ntrnx_mysqli_sublib_array_files as &$ntrnx_mysqli_sublib_var_file) {
-	if (!file_exists($ntrnx_mysqli_sublib_var_file)) { die(str_replace("%s", $ntrnx_mysqli_sublib_var_file, NMYSQCC_ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once( $ntrnx_mysqli_sublib_var_file ); }
+
+    $sublib = NMYSQCC_SYSPLUGINS_DIR .  $ntrnx_mysqli_sublib_var_file . ".php";
+
+    if (!file_exists($sublib)) { die(str_replace("%s", $sublib, NMYSQCC_ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once( $sublib ); }
+
 }
 
 

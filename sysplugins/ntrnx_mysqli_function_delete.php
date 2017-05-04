@@ -1,12 +1,12 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class delete extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //mysqli_query() 	Performs a query against the database
-    static function delete(
+    static function query(
 
         $mysqli_handle,
 

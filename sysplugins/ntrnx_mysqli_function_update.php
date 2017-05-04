@@ -1,12 +1,12 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class update extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_update extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //mysqli_query() 	Performs a query against the database
-    static function update(
+    static function query(
 
         $mysqli_handle,
 

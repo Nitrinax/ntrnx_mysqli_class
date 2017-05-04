@@ -1,19 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class query extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_query extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    /* return last query */
-    static function last_query() {
-
-        return self::$last_query;
-
-    }
-
-    /* execute raw query */
-    static function raw(
+    //(PHP 5, PHP 7)
+    //mysqli::query -- mysqli_query — Performs a query on the database
+    static function link(
 
         $mysqli_handle,
         $statement,
@@ -57,15 +51,6 @@ class query extends \NTRNX_MYSQLI\ntrnx_mysqli{
         return $result;        
 
     }
-
-    //mysqli_multi_query — Performs a query on the database
-    static function multi_query() {}
-
-    //mysqli_real_query() 	Executes an SQL query
-    static function real_query() {}
-
-    //mysqli_reap_async_query() 	Returns the result from async query
-    static function reap_async_query() {}
 
 }
 

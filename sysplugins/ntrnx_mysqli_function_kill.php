@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class kill extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_kill extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_kill() 	Asks the server to kill a MySQL thread
-    static function kill() {}
+    //(PHP 5, PHP 7)
+    //mysqli::kill -- mysqli_kill — Asks the server to kill a MySQL thread
+    static function link() {}
 
 }
 

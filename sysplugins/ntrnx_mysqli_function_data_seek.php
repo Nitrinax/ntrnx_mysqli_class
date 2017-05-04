@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class data_seek extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_data_seek extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_data_seek() 	Adjusts the result pointer to an arbitrary row in the result-set
-    static function data_seek(
+    //(PHP 5, PHP 7)
+    //mysqli_result::data_seek -- mysqli_data_seek — Adjusts the result pointer to an arbitrary row in the result
+    static function result(
 
         $mysqli_result,
         $offset

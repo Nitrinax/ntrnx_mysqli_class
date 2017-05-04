@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class sqlstate extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_sqlstate extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_sqlstate() 	Returns the SQLSTATE error code for the last MySQL operation
-    static function sqlstate() {}
+    //(PHP 5, PHP 7)
+    //mysqli::$sqlstate -- mysqli_sqlstate — Returns the SQLSTATE error from previous MySQL operation
+    static function link() {}
 
 }
 

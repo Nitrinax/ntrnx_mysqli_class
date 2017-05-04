@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class connect extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_connect extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_connect() 	Opens a new connection to the MySQL server
-    static function connect(
+    //(PHP 5, PHP 7)
+    //mysqli::__construct -- mysqli_connect — Open a new connection to the MySQL server
+    static function db(
 
         $host, 
         $username,
@@ -48,160 +49,6 @@ class connect extends \NTRNX_MYSQLI\ntrnx_mysqli{
         self::$connected = TRUE;
 
         return $mysqli_handle;
-
-    }
-
-    //mysqli_pconnect()   Opens a new persistent connection to the MySQL server
-    static function pconnect(
-
-        $host, 
-        $username,
-        $passwd,
-        $dbname,
-        $port = NULL,
-        $socket = NULL
-
-    ) {
-
-        /* debug output */
-        if (NMYSQCC_DEBUG == TRUE) {
-            //print "host: " . $host . NMYSQCC_COMMA;
-            //print " username: " . $username . NMYSQCC_COMMA;
-            //print " passwd: ********" . NMYSQCC_COMMA;
-            //print " dbname: " . $dbname . NMYSQCC_COMMA;
-            //print " port: " . $port . NMYSQCC_COMMA;
-            //print " socket: " . $socket . NMYSQCC_BR;
-        }
-
-        /* check porrt value */
-        if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
-            $placeholder_array = array ("{VALUE}", "{OPTION}");
-            $string_array = array ($port, "port");
-            die(str_replace($placeholder_array, $string_array, NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER));
-        }
-
-        /* create connection */
-        $mysqli_handle = mysqli_connect ("p:" . $host, $username, $passwd, $dbname, $port, $socket);
-        if (!$mysqli_handle) { die("Connect Error (" . mysqli_connect_errno() . ") " . mysqli_connect_error()); }
-
-        /* debug output */
-        if (NMYSQCC_DEBUG == TRUE) {
-            //print "Success... " . mysqli_get_host_info ($mysqli_handle) . NMYSQCC_BR;
-        }
-
-        self::$persistent_connection = TRUE;
-
-        self::$connected = TRUE;
-
-        return $mysqli_handle;
-
-    }
-
-    //mysqli_real_connect() 	Opens a new connection to the MySQL server
-    static function real_connect(
-
-        $mysqli_handle,
-        $host,
-        $username,
-        $passwd,
-        $dbname,
-        $port = NULL,
-        $socket = NULL,
-        $flags = NULL
-        
-    ) {
-
-        /* debug output */
-        if (NMYSQCC_DEBUG == TRUE) {
-            //print "host: " . $host . NMYSQCC_COMMA;
-            //print " username: " . $username . NMYSQCC_COMMA;
-            //print " passwd: ********" . NMYSQCC_COMMA;
-            //print " dbname: " . $dbname . NMYSQCC_COMMA;
-            //print " port: " . $port . NMYSQCC_COMMA;
-            //print " socket: " . $socket . NMYSQCC_COMMA;
-            //print " flags: " . $flags . NMYSQCC_BR;
-        }
-
-        /* check porrt value */
-        if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
-            $placeholder_array = array ("{VALUE}", "{OPTION}");
-            $string_array = array ($port, "port");
-            die(str_replace($placeholder_array, $string_array, NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER));
-        }
-
-        /* create connection */
-        if (!@mysqli_real_connect($mysqli_handle, $host, $username, $passwd, $dbname, $port, $socket, $flags)) {
-            die("Connect Error (" . mysqli_connect_errno() . ") " . mysqli_connect_error());
-        }
-
-        /* debug output */
-        if (NMYSQCC_DEBUG == TRUE) {
-            //print "Success... " . mysqli_get_host_info ($mysqli_handle) . NMYSQCC_BR;
-        }
-
-        self::$persistent_connection = FALSE;
-
-        self::$connected = TRUE;
-
-    }
-
-   //mysqli_real_pconnect()   Opens a new persistent connection to the MySQL server
-    static function real_pconnect( 
-
-        $mysqli_handle,
-        $host,
-        $username,
-        $passwd,
-        $dbname,
-        $port = NULL,
-        $socket = NULL,
-        $flags = NULL
-        
-    ) {
-
-        /* debug output */
-        if (NMYSQCC_DEBUG == TRUE) {
-            //print "host: " . $host . NMYSQCC_COMMA;
-            //print " username: " . $username . NMYSQCC_COMMA;
-            //print " passwd: ********" . NMYSQCC_COMMA;
-            //print " dbname: " . $dbname . NMYSQCC_COMMA;
-            //print " port: " . $port . NMYSQCC_COMMA;
-            //print " socket: " . $socket . NMYSQCC_COMMA;
-            //print " flags: " . $flags . NMYSQCC_BR;
-        }
-
-        /* check porrt value */
-        if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
-            $placeholder_array = array ("{VALUE}", "{OPTION}");
-            $string_array = array ($port, "port");
-            die(str_replace($placeholder_array, $string_array, NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER));
-        }
-        
-        /* create connection */
-        if (!@mysqli_real_connect($mysqli_handle, "p:" . $host, $username, $passwd, $dbname, $port, $socket, $flags)) {
-            die("Connect Error (" . mysqli_connect_errno() . ") " . mysqli_connect_error());
-        }
-
-        /* debug output */
-        if (NMYSQCC_DEBUG == TRUE) {
-            //print "Success... " . mysqli_get_host_info ($mysqli_handle) . NMYSQCC_BR;
-        }
-
-        self::$persistent_connection = TRUE;
-
-        self::$connected = TRUE;
-
-    }
-
-    //mysqli_real_escape_string() 	Escapes special characters in a string for use in an SQL statement
-    static function real_escape_string(
-
-        $mysqli_handle,
-        $string
-
-    ) {
-
-        return mysqli_real_escape_string($mysqli_handle, trim($string));
 
     }
 

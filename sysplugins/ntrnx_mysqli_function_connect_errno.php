@@ -1,11 +1,12 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class connect_errno extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_connect_errno extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_connect_errno() 	Returns the error code from the last connection error
+    //(PHP 5, PHP 7)
+    //mysqli::$connect_errno -- mysqli_connect_errno — Returns the error code from last connect call
     static function get(
 
     ) {

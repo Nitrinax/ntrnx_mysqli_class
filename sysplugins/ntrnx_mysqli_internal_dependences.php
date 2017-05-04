@@ -1,7 +1,9 @@
 <?php
 
-/* begin of class ntrnx_mysqli_internal_dependences */
-class ntrnx_mysqli_internal_dependences {
+namespace NTRNX_MYSQLI;
+
+/* begin of class */
+class ntrnx_mysqli_internal_dependences extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
 	/* begin of class constructor */
 	function __construct (){	
@@ -12,7 +14,7 @@ class ntrnx_mysqli_internal_dependences {
 	} /* end of class destructor */
 
 	/* begin of function check_dependences */
-	public function check_dependences ($class_base, $dependences_array=NULL) {	
+	static function check ($class_base, $dependences_array=NULL) {	
 
 		foreach ($dependences_array as $key => $value) {
 			
@@ -36,6 +38,6 @@ class ntrnx_mysqli_internal_dependences {
 
 	} /* end of function check_dependences */
 
-} /* end of class ntrnx_mysqli_internal_dependences */
+} /* end of class */
 
 ?>

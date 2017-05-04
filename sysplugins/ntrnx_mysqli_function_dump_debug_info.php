@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class dump_debug_info extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_dump_debug_info extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_error_list() 	Returns a list of errors for the most recent function call
-    static function dump_debug_info(
+    //(PHP 5, PHP 7)
+    //mysqli::dump_debug_info -- mysqli_dump_debug_info — Dump debugging information into the log
+    static function link(
 
         $mysqli_handle
 

@@ -1,3 +1,48 @@
+Version 0.4.0.0
+
+ADD
+
+- file
+    - sysplugins/ntrnx_mysqli_internal_api.php
+    - sysplugins/ntrnx_mysqli_internal_author.php
+    - sysplugins/ntrnx_mysqli_internal_build.php
+    - sysplugins/ntrnx_mysqli_internal_url.php
+    - sysplugins/ntrnx_mysqli_internal_version.php
+
+- in file configs/ntrnx_mysqli_config.php:
+    - const _CLASS_MANUAL_URL
+    - var $ntrnx_mysqli_update_check, $ntrnx_mysqli_debug, $ntrnx_quote_as_string
+
+- in file ntrnx_mysqli_class.php
+    - const _CLASS_API
+    - check for $ntrnx_mysqli_update_check, $ntrnx_mysqli_debug, $ntrnx_quote_as_string
+
+CHG
+
+in file sysplugins/ntrnx_mysqli_data.php
+    - rename _CLASS_BRANCHES to _CLASS_BRANCH
+    - rename _CLASS_UPDATES_URL to _CLASS_UPDATE_URL
+
+- in file ntrnx_mysqli_class.php
+    - rename NMYSQCC_AS_QUOTE to NMYSQCC_QUOTE_AS_STRING similar to the config var
+
+- in file ntrnx_mysqli_function_insert.php
+    - rename $tbl_name to $table_reference
+
+REM
+
+- in file sysplugins/ntrnx_mysqli_data.php
+    - const _CLASS_UPDATE
+
+Version 0.3.1.0
+
+CHG
+- split more subclasses in separate files
+- rename all subclasses to ntrnx_mysqli_<name>
+- rename file ntrnx_mysqli_internal_functions to ntrnx_mysqli_internal_function_exists
+- change names of all subclasses from \NTRNX_MYSQLI\ntrnx_mysqli to \NTRNX_MYSQLI
+- remove autoloader
+
 Version 0.3.0.0
 
 CHG

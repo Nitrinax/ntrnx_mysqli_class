@@ -1,12 +1,12 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class fields extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_fields extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     // get all fields in a given database table
-    static function get(
+    static function show(
 
         $mysqli_handle,
         $database,

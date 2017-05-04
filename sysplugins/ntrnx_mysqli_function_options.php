@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class options extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_options extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_options() 	Sets extra connect options and affect behavior for a connection
-    static function set(
+    //(PHP 5, PHP 7)
+    //mysqli::options -- mysqli_options — Set options
+    static function link(
 
         $mysqli_handle,
         $option,

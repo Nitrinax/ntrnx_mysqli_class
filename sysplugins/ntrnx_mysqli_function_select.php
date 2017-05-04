@@ -1,12 +1,12 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class select extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //mysqli_query() 	Performs a query against the database
-    static function select(
+    static function query(
 
         $mysqli_handle,
 
@@ -86,8 +86,17 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli{
 
             if (($i < $count_select - 3) AND ($select_expression[$i+2] === "AS")) {
 
-                $select_statement .= NMYSQCC_BLANK . $select_expression[$i+2]
-                . NMYSQCC_BLANK . $select_expression[$i+3];
+                if (NMYSQCC_QUOTE_AS_STRING === TRUE) {
+
+                    $select_statement .= NMYSQCC_BLANK . $select_expression[$i+2]
+                    . NMYSQCC_BLANK . NMYSQCC_VQ . $select_expression[$i+3] . NMYSQCC_VQ;
+
+                } else {
+
+                    $select_statement .= NMYSQCC_BLANK . $select_expression[$i+2]
+                    . NMYSQCC_BLANK . $select_expression[$i+3];
+
+                }
 
                 $i=$i+3;
 

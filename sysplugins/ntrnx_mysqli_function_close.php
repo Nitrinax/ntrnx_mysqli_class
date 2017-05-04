@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class close extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_close extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_close() 	Closes a previously opened database connection
-    static function close(
+    //(PHP 5, PHP 7)
+    //mysqli::close -- mysqli_close — Closes a previously opened database connection
+    static function link(
 
         $mysqli_handle
 

@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class warning_count extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_warning_count extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_warning_count() 	Returns the number of warnings from the last query in the connection
-    static function warning_count() {}
+    //(PHP 5, PHP 7)
+    //mysqli::$warning_count -- mysqli_warning_count — Returns the number of warnings from the last query for the given link
+    static function link() {}
 
 }
 

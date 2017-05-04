@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class select_db extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_select_db extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_select_db() 	Changes the default database for the connection
-    static function select_db(
+    //(PHP 5, PHP 7)
+    //mysqli::select_db -- mysqli_select_db — Selects the default database for database queries
+    static function link(
 
         $mysqli_handle,
         $db_name

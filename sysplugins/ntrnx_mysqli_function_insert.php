@@ -1,19 +1,19 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class insert extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //mysqli_query() 	Performs a query against the database
-    static function insert(
+    static function query(
 
         $mysqli_handle,
 
         /* http://dev.mysql.com/doc/refman/5.7/en/insert.html */
 
         /* [INTO] db_name, tbl_name */
-        $tbl_name,
+        $table_reference,
 
         /* [(col_name,...)] */
         $col_name,
@@ -31,8 +31,8 @@ class insert extends \NTRNX_MYSQLI\ntrnx_mysqli{
         if ($count_columns == $count_values) {
 
             /* set db and table name */
-            $db_name = $tbl_name[0];
-            $table_name = $tbl_name[1];
+            $db_name = $table_reference[0];
+            $table_name = $table_reference[1];
 
             $table_statement = NMYSQCC_INSERT
             . NMYSQCC_IQ

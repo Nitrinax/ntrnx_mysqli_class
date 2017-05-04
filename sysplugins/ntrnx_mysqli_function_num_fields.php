@@ -1,12 +1,13 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class num_fields extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_num_fields extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_num_fields() 	Returns the number of fields in a result set
-    static function get(
+    //(PHP 5, PHP 7)
+    //mysqli_result::$field_count -- mysqli_num_fields — Get the number of fields in a result
+    static function result(
 
         $mysqli_result
 

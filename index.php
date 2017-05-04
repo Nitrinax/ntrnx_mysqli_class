@@ -6,6 +6,8 @@ ini_set ("display_errors", 1);
 
 require "ntrnx_mysqli.class.php";
 
-print \NTRNX_MYSQLI\ntrnx_mysqli\version::get();
+print \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get() . " loaded<br />";
+
+print \NTRNX_MYSQLI\ntrnx_mysqli_core::check_update();
 
 ?>

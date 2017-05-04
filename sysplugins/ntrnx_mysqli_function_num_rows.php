@@ -1,18 +1,19 @@
 <?php
 
-namespace NTRNX_MYSQLI\ntrnx_mysqli;
+namespace NTRNX_MYSQLI;
 
-/* begin of class version */
-class num_rows extends \NTRNX_MYSQLI\ntrnx_mysqli{
+/* begin of class */
+class ntrnx_mysqli_num_rows extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //mysqli_num_rows() 	Returns the number of rows in a result set
-    static function get(
+    //(PHP 5, PHP 7)
+    //mysqli_result::$num_rows -- mysqli_num_rows — Gets the number of rows in a result
+    static function result(
         
-        $mysqli_result
+        $result
         
     ) {
 
-        return mysqli_num_rows ($mysqli_result);
+        return mysqli_num_rows ($result);
 
     }
 
