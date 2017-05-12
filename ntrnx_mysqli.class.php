@@ -174,6 +174,38 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
 	function __destruct() {
 	} /* end of class destructor */
 
+    public static function get_name() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_name::get(); }
+
+    public static function get_api() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_api::get(); }
+    public static function get_author_name() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_name(); }
+    public static function get_author_nick() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_nick(); }
+    public static function get_author_email() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_email(); }
+    public static function get_author_url() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_url(); }
+    public static function get_branch() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_build::get_branch(); }
+    public static function get_buildchannel() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_build::get_build_channel(); }
+
+    public static function get_dependences_state() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::state(); }
+    public static function get_dependences() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::get(); }
+    public static function check_dependences() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::check(); }
+
+    public static function get_needed_functions_state() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::state(); }
+    public static function get_needed_functions() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::get(); }
+    public static function check_needed_functions() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::check(); }
+
+    public static function get_project_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_project_url(); }
+    public static function get_source_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_source_url(); }
+    public static function get_version_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_version_url(); }
+    public static function get_update_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_update_url(); }
+    public static function get_manual_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_manual_url(); }
+
+    public static function get_version() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get(); }
+    public static function get_version_major() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_major(); }
+    public static function get_version_minor() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_minor(); }
+    public static function get_version_build() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_build(); }
+    public static function get_version_revision() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_revision(); }
+    public static function get_version_date() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_date(); }
+    public static function get_version_time() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_time(); }
+
 } /* end of class ntrnx_mysqli */
 
 /* #### sub libs #### */
@@ -272,7 +304,8 @@ $ntrnx_mysqli_sublib_array_files = array(
     "ntrnx_mysqli_internal_author",
     "ntrnx_mysqli_internal_build",
     "ntrnx_mysqli_internal_dependences",
-    "ntrnx_mysqli_internal_function_exists",
+    "ntrnx_mysqli_internal_name",
+    "ntrnx_mysqli_internal_needed_functions",
     "ntrnx_mysqli_internal_update",
     "ntrnx_mysqli_internal_url",
     "ntrnx_mysqli_internal_version"

@@ -1,3 +1,46 @@
+Version 0.4.1.0
+
+ADD
+
+- file
+	- sysplugins/ntrnx_mysqli_internal_branch.php
+    - sysplugins/ntrnx_mysqli_internal_name.php
+
+- class ntrnx_mysqli
+
+    - functions
+
+        - get_name
+        - get_api
+        - get_author_name
+        - get_author_nick
+        - get_author_email
+        - get_author_url
+        - get_branch
+        - get_buildchannel
+        - get_dependences_state
+        - get_dependences
+        - check_dependences
+        - get_needed_functions_state
+        - get_needed_functions
+        - check_needed_functions
+        - get_project_url
+        - get_source_url
+        - get_version_url
+        - get_update_url
+        - get_manual_url
+        - get_version_major
+        - get_version_minor
+        - get_version_build
+        - get_version_revision
+        - get_version_date
+        - get_version_time
+
+CHG
+
+    - sysplugins/ntrnx_mysqli_internal_dependences.php
+    - sysplugins/ntrnx_mysqli_internal_needed_functions.php
+
 Version 0.4.0.0
 
 ADD

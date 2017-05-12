@@ -5,27 +5,41 @@ namespace NTRNX_MYSQLI;
 /* begin of class */
 class ntrnx_mysqli_internal_version extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    static function get(){
+	static function get_major(){
 
-		return self::_CLASS_NAME
-			. NMYSQCC_BLANK
-    		. self::_CLASS_VERSION_MAJOR
-			. NMYSQCC_DOT
-			. self::_CLASS_VERSION_MINOR
-			. NMYSQCC_DOT
-			. self::_CLASS_VERSION_BUILD
-			. NMYSQCC_DOT
-			. self::_CLASS_VERSION_REVISION
-			. NMYSQCC_BLANK
-			. NMYSQCC_LEFT_PARENTHESIS
-			. self::_CLASS_DATE
-			. NMYSQCC_RIGHT_PARENTHESIS
-			. NMYSQCC_BLANK
-			. NMYSQCC_SQUARE_BRACKET_OPEN
-			. self::_CLASS_TIME
-			. NMYSQCC_SQUARE_BRACKET_CLOSE;
+		return self::_CLASS_VERSION_MAJOR;
 
-    }
+	}
+
+	static function get_minor(){
+
+		return self::_CLASS_VERSION_MINOR;
+
+	}
+
+	static function get_build(){
+
+		return self::_CLASS_VERSION_BUILD;
+
+	}
+
+	static function get_revision(){
+
+		return self::_CLASS_VERSION_REVISION;
+
+	}
+
+	static function get_date(){
+
+		return self::_CLASS_DATE;
+
+	}
+
+	static function get_time(){
+
+		return self::_CLASS_TIME;
+
+	}
 
 }
 

@@ -24,12 +24,12 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	*/
     const _CLASS_VERSION_MAJOR = "0";
 	const _CLASS_VERSION_MINOR = "4";
-	const _CLASS_VERSION_BUILD = "0";
+	const _CLASS_VERSION_BUILD = "1";
 	const _CLASS_VERSION_REVISION = "0";
 	/* YYYY-MM-DD */
-	const _CLASS_DATE = "2017-04-16";
+	const _CLASS_DATE = "2017-05-12";
 	/* hh:mm:ss */
-	const _CLASS_TIME = "12:56:00";
+	const _CLASS_TIME = "10:00:00";
 
 	/*
 	* project branches
@@ -37,7 +37,7 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	*		branch			suffix		desc
 	*
 	*		morning star	ms			new ideas
-	*		dbg				dbg			with error output informations	 
+	*		dbg				dbg			with error output informations
 	* 		master						master branch
 	*/
 	const _CLASS_BRANCH = "master";
@@ -57,7 +57,7 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	const _CLASS_BUILD_CHANNEL = "nightly";
 
 	/* class api version */
-	const _CLASS_API = "1.0";
+	const _CLASS_API = "1.5";
 
 	/* author data */
 	const _CLASS_AUTHOR_NAME = "René Zimmerling";
@@ -86,7 +86,7 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	static $_class_dependences = array(
 
 		/* name => version */
-		"PHP" => "7.0.0"	
+		"PHP" => "7.0.0"
 
 	);
 
@@ -97,8 +97,9 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	static $_class_needed_functions = array(
 
 		/* php function name */
-		//"",
-		//"",
+		"function_exists",
+		"phpversion",
+		"version_compare"
 
 	);
 

@@ -10,8 +10,7 @@ class ntrnx_mysqli_internal_build extends \NTRNX_MYSQLI\ntrnx_mysqli {
         return self::_CLASS_BRANCH;
 
     }
-
-    static function get_channel(){
+    static function get_build_channel(){
 
         return self::_CLASS_BUILD_CHANNEL;
 

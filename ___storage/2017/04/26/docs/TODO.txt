@@ -1,0 +1,56 @@
+class version 0.5
+- more comments
+- finish separate functions files
+- insert version number in each function file
+- automatic check and create if not exist docs/VERSION.txt for update check
+- update check durch ntrnx_update_class
+- eventuell extends vom class/core/data/config auflösen und alles als extends von class
+
+complete functions
+
+- autocommit
+- begin_transaction
+- change_user
+- commit
+- debug
+- errno
+- error_list
+- error
+- get_client_info
+- get_client_stats
+- get_client_version
+- get_connection_stats
+- get_proto_info
+- get_server_info
+- get_server_version
+- get_warnings
+- info
+- kill
+- more_results extends
+- multi_query
+- next_result
+- poll
+- prepare
+- real_query
+- reap_async_query
+- refresh
+- release_savepoint
+- rollback
+- savepoint
+- set_local_infile_default
+- set_local_infile_handler
+- sqlstate
+- stat
+- store_result
+- thread_id
+- thread_safe
+- use_result
+- warning_count
+
+class api 1.5
+- remove dbname from $table_reference in queries, dbname is defined in connection settings and link
+    - ntrnx_mysqli_select
+    - ntrnx_mysqli_insert
+    - ntrnx_mysqli_update
+    - ntrnx_mysqli_delete
+- remove $database from ntrnx_mysqli_tables.php

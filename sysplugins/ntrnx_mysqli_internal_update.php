@@ -19,15 +19,7 @@ class ntrnx_mysqli_internal_update extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
 	static function get_plugin_version() {}
 
-	static function get_sysplugin_version() {
-
-		print "class ntrnx_mysqli_" . "affected_fields" . " - " . \NTRNX_MYSQLI\affected_fields_get_version();
-
-	}
-
-	/* begin of function check */
-	static function check () {	
-	} /* end of function check */
+	static function get_sysplugin_version() {}
 
 } /* end of class */
 
