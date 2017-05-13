@@ -1,8 +1,0 @@
-class version 0.4
-- more comments
-- finish separate functions files
-- insert version number in each function file
-- update check
-
-class api 1.5
-- remove dbname from queries, dbname is defined in connection settings and link

@@ -185,12 +185,12 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
     public static function get_buildchannel() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_build::get_build_channel(); }
 
     public static function get_dependences_state() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::state(); }
-    public static function get_dependences() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::get(); }
-    public static function check_dependences() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::check(); }
+    //public static function get_dependences() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::get(); }
+    //public static function check_dependences() { return \NTRNX_MYSQLI\ntrnx_mysqli::check_dependences(); }
 
     public static function get_needed_functions_state() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::state(); }
     public static function get_needed_functions() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::get(); }
-    public static function check_needed_functions() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::check(); }
+    //public static function check_needed_functions() { return \NTRNX_MYSQLI\ntrnx_mysqli::check_needed_functions(); }
 
     public static function get_project_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_project_url(); }
     public static function get_source_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_source_url(); }

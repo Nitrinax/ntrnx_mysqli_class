@@ -25,23 +25,6 @@ class ntrnx_mysqli_internal_needed_functions extends \NTRNX_MYSQLI\ntrnx_mysqli 
 
 	}
 
-	static function check() {
-
-		$function_array = self::$_class_needed_functions;
-
-		$passed = "passed";
-		$result = "";
-
-		foreach ($function_array as $key => $value) {
-
-			if (!function_exists($function_array [$key])) { $result .= "<br/> - function \"" . $function_array [$key] . "\" not found"; }
-
-		}
-
-		if ($result) { return $result; } else { return $passed; }
-
-	}
-
 } /* end of class */
 
 ?>

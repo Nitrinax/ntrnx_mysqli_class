@@ -1,10 +1,26 @@
+Version 0.4.2.0
+
+This is the last Version with API 1.0
+
+CHG
+
+    - set _CLASS_API to 1.0
+    - rewrote check_dependences. check_needed_functions
+
+ADD
+
+    - all needed php functions to array $_class_needed_functions
+
+REM
+
+    - remove ___storage folder from package
+
 Version 0.4.1.0
 
 ADD
 
 - file
-	- sysplugins/ntrnx_mysqli_internal_branch.php
-    - sysplugins/ntrnx_mysqli_internal_name.php
+	- sysplugins/ntrnx_mysqli_internal_name.php
 
 - class ntrnx_mysqli
 
