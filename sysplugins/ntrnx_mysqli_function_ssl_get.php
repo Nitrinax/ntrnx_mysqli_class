@@ -87,67 +87,6 @@ class ntrnx_mysqli_ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     }
 
-    static function getA(
-
-        $mysqli_handle
-
-    ) { 
-
-        $have_openssl = FALSE;
-        $have_ssl = FALSE;
-        $have_cipher = FALSE;
-        $have_tls = FALSE;
-        $have_key = FALSE;
-        $have_cert = FALSE;
-        $have_ca = FALSE;
-
-        $ssl_status = FALSE;
-
-        $ssl_array = array (    array("VARIABLES", "have_openssl", "==", "YES"),
-                                array("VARIABLES", "have_ssl", "==", "YES"),
-                                array("VARIABLES", "ssl_key", "!=", ""),
-                                array("VARIABLES", "ssl_cert", "!=", ""),
-                                array("VARIABLES", "ssl_ca", "!=", ""),
-                                array("STATUS", "Ssl_cipher", "!=", ""),
-                                array("STATUS", "Ssl_version", "!=", "")
-			                );
-
-        if ($mysqli_handle) {
-
-            for ($i = 0; $i < count($ssl_array); $i++) {
-
-                print "SHOW SESSION " . $ssl_array[$i][0] . " LIKE '" . $ssl_array[$i][1] . "'; <br />";
-                
-                $result = mysqli_query ($mysqli_handle, "SHOW SESSION " . $ssl_array[$i][0] . " LIKE '" . $ssl_array[$i][1] . "';");
-                
-                //for ($row = 0; $row < count($result); $row++) {
-
-                while ( $row = mysqli_fetch_array ($result) ) {
-
-                    if ( ($row["Variable_name"] === $ssl_array[$i][1]) AND ($row["Value"] . $ssl_array[$i][2] . $ssl_array[$i][3]) ) {
-
-                        $ssl_status = TRUE;
-                        
-                    } else {
-
-                        $ssl_status = FALSE;
-
-                    }
-
-                }
-
-                mysqli_free_result($result);
-
-            }
-
-        } else {
-
-        }
-
-        return $ssl_status;
-
-    }
-
 }
 
 ?>

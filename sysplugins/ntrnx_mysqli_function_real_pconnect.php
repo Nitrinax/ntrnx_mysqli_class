@@ -6,18 +6,20 @@ namespace NTRNX_MYSQLI;
 class ntrnx_mysqli_real_pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
    //mysqli_real_pconnect()   Opens a new persistent connection to the MySQL server
-    static function db( 
 
-        $mysqli_handle,
-        $host,
-        $username,
-        $passwd,
-        $dbname,
-        $port = NULL,
-        $socket = NULL,
-        $flags = NULL
+    static function db(
+
+        $mysqli_handle
         
     ) {
+
+        $host = \NTRNX_MYSQLI\ntrnx_mysqli::$host;
+        $username = \NTRNX_MYSQLI\ntrnx_mysqli::$username;
+        $passwd = \NTRNX_MYSQLI\ntrnx_mysqli::$passwd;
+		$dbname = \NTRNX_MYSQLI\ntrnx_mysqli::$dbname;
+        $port = \NTRNX_MYSQLI\ntrnx_mysqli::$port;
+        $socket = \NTRNX_MYSQLI\ntrnx_mysqli::$socket;
+        $flags = \NTRNX_MYSQLI\ntrnx_mysqli::$flags;
 
         /* debug output */
         if (NMYSQCC_DEBUG == TRUE) {
@@ -36,7 +38,7 @@ class ntrnx_mysqli_real_pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
             $string_array = array ($port, "port");
             die(str_replace($placeholder_array, $string_array, NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER));
         }
-        
+
         /* create connection */
         if (!@mysqli_real_connect($mysqli_handle, "p:" . $host, $username, $passwd, $dbname, $port, $socket, $flags)) {
             die("Connect Error (" . mysqli_connect_errno() . ") " . mysqli_connect_error());

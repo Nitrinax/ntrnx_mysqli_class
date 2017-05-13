@@ -5,20 +5,21 @@ namespace NTRNX_MYSQLI;
 /* begin of class */
 class ntrnx_mysqli_real_connect extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    //(PHP 5, PHP 7)
     //mysqli::real_connect -- mysqli_real_connect — Opens a connection to a mysql server
-    static function link(
+    
+    static function db(
 
-        $mysqli_handle,
-        $host,
-        $username,
-        $passwd,
-        $dbname,
-        $port = NULL,
-        $socket = NULL,
-        $flags = NULL
+        $mysqli_handle
         
     ) {
+
+        $host = \NTRNX_MYSQLI\ntrnx_mysqli::$host;
+        $username = \NTRNX_MYSQLI\ntrnx_mysqli::$username;
+        $passwd = \NTRNX_MYSQLI\ntrnx_mysqli::$passwd;
+		$dbname = \NTRNX_MYSQLI\ntrnx_mysqli::$dbname;
+        $port = \NTRNX_MYSQLI\ntrnx_mysqli::$port;
+        $socket = \NTRNX_MYSQLI\ntrnx_mysqli::$socket;
+        $flags = \NTRNX_MYSQLI\ntrnx_mysqli::$flags;
 
         /* debug output */
         if (NMYSQCC_DEBUG == TRUE) {
@@ -48,7 +49,7 @@ class ntrnx_mysqli_real_connect extends \NTRNX_MYSQLI\ntrnx_mysqli {
             //print "Success... " . mysqli_get_host_info ($mysqli_handle) . NMYSQCC_BR;
         }
 
-        self::$persistent_connection = FALSE;
+        self::$persistent_connection = TRUE;
 
         self::$connected = TRUE;
 

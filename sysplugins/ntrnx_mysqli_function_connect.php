@@ -7,16 +7,15 @@ class ntrnx_mysqli_connect extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5, PHP 7)
     //mysqli::__construct -- mysqli_connect — Open a new connection to the MySQL server
-    static function db(
+    
+    static function db() {
 
-        $host, 
-        $username,
-        $passwd,
-        $dbname,
-        $port = NULL,
-        $socket = NULL
-
-    ) {
+        $host = \NTRNX_MYSQLI\ntrnx_mysqli::$host;
+        $username = \NTRNX_MYSQLI\ntrnx_mysqli::$username;
+        $passwd = \NTRNX_MYSQLI\ntrnx_mysqli::$passwd;
+		$dbname = \NTRNX_MYSQLI\ntrnx_mysqli::$dbname;
+        $port = \NTRNX_MYSQLI\ntrnx_mysqli::$port;
+        $socket = \NTRNX_MYSQLI\ntrnx_mysqli::$socket;
 
         /* debug output */
         if (NMYSQCC_DEBUG == TRUE) {
@@ -25,7 +24,7 @@ class ntrnx_mysqli_connect extends \NTRNX_MYSQLI\ntrnx_mysqli {
             //print " passwd: ********" . NMYSQCC_COMMA;
             //print " dbname: " . $dbname . NMYSQCC_COMMA;
             //print " port: " . $port . NMYSQCC_COMMA;
-            //print " socket: " . $socket . NMYSQCC_BR;
+            //print " socket: " . $socket . NMYSQCC_COMMA;
         }
 
         /* check porrt value */

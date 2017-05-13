@@ -9,14 +9,15 @@ class ntrnx_mysqli_ssl_set extends \NTRNX_MYSQLI\ntrnx_mysqli {
     //mysqli::ssl_set -- mysqli_ssl_set — Used for establishing secure connections using SSL
     static function link(
 
-        $mysqli_handle,
-        $key,
-        $cert,
-        $ca,
-        $capath = NULL,
-        $cipher = NULL
+        $mysqli_handle
 
     ) {
+
+        $key = \NTRNX_MYSQLI\ntrnx_mysqli::$key;
+        $cert = \NTRNX_MYSQLI\ntrnx_mysqli::$cert;
+        $ca = \NTRNX_MYSQLI\ntrnx_mysqli::$ca;
+        $capath = \NTRNX_MYSQLI\ntrnx_mysqli::$capath;
+        $cipher = \NTRNX_MYSQLI\ntrnx_mysqli::$cipher;
 
         /* Specifies the path name to the key file */
         $key = htmlspecialchars($key);
@@ -42,22 +43,6 @@ class ntrnx_mysqli_ssl_set extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
         }
 
-        /* Specifies a list of allowable ciphers to use for SSL encryption */
-        /*
-            ECDHE-ECDSA-AES128-GCM-SHA256
-            ECDHE-RSA-AES128-GCM-SHA256
-            ECDHE-ECDSA-AES128-SHA
-            ECDHE-RSA-AES128-SHA
-            ECDHE-ECDSA-AES256-SHA
-            ECDHE-RSA-AES256-SHA
-            AES128-GCM-SHA256
-            AES128-SHA
-            DES-CBC3-SHA
-            AES256-SHA
-            DHE-RSA-AES128-SHA
-            EDH-RSA-DES-CBC3-SHA
-            DHE-RSA-AES256-SHA
-        */
         if (isset($cipher)) { $cipher = htmlspecialchars($cipher); }
 
         mysqli_ssl_set($mysqli_handle, $key, $cert, $ca, $capath, $cipher);

@@ -6,16 +6,15 @@ namespace NTRNX_MYSQLI;
 class ntrnx_mysqli_pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //mysqli_pconnect()   Opens a new persistent connection to the MySQL server
-    static function db(
 
-        $host, 
-        $username,
-        $passwd,
-        $dbname,
-        $port = NULL,
-        $socket = NULL
+     static function db() {
 
-    ) {
+        $host = \NTRNX_MYSQLI\ntrnx_mysqli::$host;
+        $username = \NTRNX_MYSQLI\ntrnx_mysqli::$username;
+        $passwd = \NTRNX_MYSQLI\ntrnx_mysqli::$passwd;
+		$dbname = \NTRNX_MYSQLI\ntrnx_mysqli::$dbname;
+        $port = \NTRNX_MYSQLI\ntrnx_mysqli::$port;
+        $socket = \NTRNX_MYSQLI\ntrnx_mysqli::$socket;
 
         /* debug output */
         if (NMYSQCC_DEBUG == TRUE) {
@@ -24,7 +23,7 @@ class ntrnx_mysqli_pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
             //print " passwd: ********" . NMYSQCC_COMMA;
             //print " dbname: " . $dbname . NMYSQCC_COMMA;
             //print " port: " . $port . NMYSQCC_COMMA;
-            //print " socket: " . $socket . NMYSQCC_BR;
+            //print " socket: " . $socket . NMYSQCC_COMMA;
         }
 
         /* check porrt value */
@@ -43,7 +42,7 @@ class ntrnx_mysqli_pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
             //print "Success... " . mysqli_get_host_info ($mysqli_handle) . NMYSQCC_BR;
         }
 
-        self::$persistent_connection = TRUE;
+        self::$persistent_connection = FALSE;
 
         self::$connected = TRUE;
 

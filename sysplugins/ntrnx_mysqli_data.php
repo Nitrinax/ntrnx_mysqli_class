@@ -8,7 +8,7 @@
  * @author    René Zimmerling <nitrinax at googlemail dot com>
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @link      https://github.com/Nitrinax
- * @version   0.4.2.0-master
+ * @version   0.5.0.0-master
  */
 
 namespace NTRNX_MYSQLI;
@@ -23,13 +23,13 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	* major.minor[.build[.revision]]
 	*/
     const _CLASS_VERSION_MAJOR = "0";
-	const _CLASS_VERSION_MINOR = "4";
-	const _CLASS_VERSION_BUILD = "2";
+	const _CLASS_VERSION_MINOR = "5";
+	const _CLASS_VERSION_BUILD = "0";
 	const _CLASS_VERSION_REVISION = "0";
 	/* YYYY-MM-DD */
 	const _CLASS_DATE = "2017-05-13";
 	/* hh:mm:ss */
-	const _CLASS_TIME = "10:00:00";
+	const _CLASS_TIME = "18:45:00";
 
 	/*
 	* project branches
@@ -57,7 +57,7 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	const _CLASS_BUILD_CHANNEL = "nightly";
 
 	/* class api version */
-	const _CLASS_API = "1.0";
+	const _CLASS_API = "1.5";
 
 	/* author data */
 	const _CLASS_AUTHOR_NAME = "René Zimmerling";
@@ -80,7 +80,7 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	const _CLASS_MANUAL_URL = "https://github.com/Nitrinax/ntrnx_mysqli_class/master/docs/";
 
 	/* class dependences possible */
-	const _CLASS_DEPENDENCES = TRUE;
+	const _CLASS_DEPENDENCES = FALSE;
 
 	/* class dependences array */
 	static $_class_dependences = array(
@@ -91,31 +91,20 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	);
 
 	/* class dependences possible */
-	const _CLASS_NEEDED_FUNCTIONS = TRUE;
+	const _CLASS_NEEDED_FUNCTIONS = FALSE;
 
 	/* needed php functions as array */
 	static $_class_needed_functions = array(
 
 		/* php function name */
-		//"array",
-		//"class",
-		//"const",
 		"count",
 		"define",
 		"defined",
-		//"die",
 		"dirname",
-		//"else",
-		//"extends",
 		"file_exists",
 		"filter_var",
-		//"foreach",
-		//"function",
-		"function_exists",
 		"htmlspecialchars",
-		//"if",
 		"is_dir",
-		//"isset",
 		"mysqli_affected_rows",
 		"mysqli_autocommit",
 		"mysqli_begin_transaction",
@@ -191,11 +180,7 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 		"mysqli_thread_safe",
 		"mysqli_use_result",
 		"mysqli_warning_count",
-		//"namespace",
 		"phpversion",
-		//"print",
-		//"require_once",
-		//"return",
 		"str_replace",
 		"version_compare"
 

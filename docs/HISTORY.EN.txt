@@ -1,3 +1,125 @@
+Version 0.5.0.0
+
+FIX
+
+    - switch %d to %s in error string for directory names
+
+CHG
+
+    - rewrote    
+        - ntrnx_mysqli_ssl_set
+	- ntrnx_mysqli_ssl_get
+        - ntrnx_mysqli_connect
+        - ntrnx_mysqli_real_connect
+        - ntrnx_mysqli_real_pconnect
+        - ntrnx_mysqli_pconnect
+        - ntrnx_mysqli_select for API 1.5
+
+ADD
+
+    - WHERE operator
+        - LIKE, NOT LIKE, SOUNDS LIKE
+
+    - SELECT
+        - FROM tbl_name AS alias_name
+
+    - const NMYSQCC_LOG_DIR for logdir handling
+
+    - config var
+        - $logfile_format
+        - $log_errors
+        - $log_warnings
+
+    - file
+        - ntrnx_mysqli_internal_log.php
+
+    - functions
+        - affected_fields
+        - affected_rows
+        - autocommit
+        - begin_transaction
+        - change_user
+        - character_set_name
+        - close
+        - commit
+        - connect
+        - connect_errno
+        - connect_error
+        - data_seek
+        - debug
+        - delete
+        - dump_debug_info
+        - errno
+        - error
+        - error_list
+        - fetch_all
+        - fetch_array
+        - fetch_assoc
+        - fetch_field
+        - fetch_fields
+        - fetch_field_direct
+        - fetch_lengths
+        - fetch_object
+        - fetch_row
+        - fields
+        - field_count
+        - field_seek
+        - field_tell
+        - free_result
+        - get_charset
+        - get_client_info
+        - get_client_stats
+        - get_client_version
+        - get_connection_stats
+        - get_host_info
+        - get_proto_info
+        - get_server_info
+        - get_server_version
+        - get_warnings
+        - info
+        - init
+        - insert
+        - real_pconnect
+        - insert_id
+        - kill
+        - last_query
+        - more_results
+        - multi_query
+        - next_result
+        - num_fields
+        - num_rows
+        - options
+        - pconnect
+        - ping
+        - poll
+        - prepare
+        - query
+        - real_connect
+        - real_escape_string
+        - real_pconnect
+        - real_query
+        - reap_async_query
+        - refresh
+        - release_savepoint
+        - rollback
+        - savepoint
+        - select
+        - select_db
+        - set_charset
+        - set_local_infile_default
+        - set_local_infile_handler
+        - sqlstate
+        - ssl_get
+        - ssl_set
+        - stat
+        - store_result
+        - tables
+        - thread_id
+        - thread_safe
+        - update
+        - use_result
+        - warning_count
+
 Version 0.4.2.0
 
 This is the last Version with API 1.0

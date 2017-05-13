@@ -6,13 +6,28 @@ namespace NTRNX_MYSQLI;
 class ntrnx_mysqli_config {
 
 	/* allow class update check */
-	static $ntrnx_mysqli_update_check = FALSE;
+	static $allow_update_check = FALSE;
+
+	/* allow class dependences check */
+	static $allow_dependences_check = FALSE;
+
+	/* allow class needef functions check */
+	static $allow_functions_check = FALSE;
 
 	/* display debug statements */
-    static $ntrnx_mysqli_debug = FALSE;
+    static $debug = TRUE;
 
-	/* quote AS 'string' */
-	static $ntrnx_quote_as_string = TRUE;
+	/* quote SELECT expression AS 'string' */
+	static $quote_as_string = TRUE;
+
+	/* */
+	static $datetime_format = "m/d/Y:H:m:s T P";
+
+	/* */
+	static $log_errors = TRUE;
+
+	/* */
+	static $log_warnings = TRUE;
 
 } /* end of class ntrnx_mysqli_config */
 

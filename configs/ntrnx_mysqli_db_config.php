@@ -17,6 +17,8 @@ class ntrnx_mysqli_db_config {
     const DB_KEY = "";
     const DB_CERT = "";
     const DB_CA = "";
+    const DB_CAPATH = NULL;
+    const DB_CIPHER = NULL;    
 
 } /* end of class ntrnx_mysqli_db_config */
 
