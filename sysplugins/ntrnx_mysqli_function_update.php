@@ -12,7 +12,7 @@ class ntrnx_mysqli_update extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         /* http://dev.mysql.com/doc/refman/5.7/en/update.html */
 
-        /* UPDATE [LOW_PRIORITY] [IGNORE] table_reference */
+        /* table_reference */
         $table_reference,
 
         /* SET col_name1={expr1|DEFAULT} [, col_name2={expr2|DEFAULT}] ... */
@@ -27,38 +27,232 @@ class ntrnx_mysqli_update extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* [LIMIT {[offset,] row_count | row_count OFFSET offset}] */
         $limit = NULL,
 
-        $options = NULL
+        $resultmode = NULL
 
     ) {
 
+        // UPDATE `ntrnx_mysqli_class_test`.`test` SET `name`='aaa', `salary`='bbb', `test`='ccc', `example`='ddd' WHERE  `name`='a' AND `salary`='yyy' AND `test`='zzz' AND `example` IS NULL LIMIT 1;
+
+        /* created table part */
+        $update_statement = NMYSQCC_UPDATE
+            . NMYSQCC_IQ
+            . self::$dbname
+            . NMYSQCC_IQ
+            . NMYSQCC_DOT
+            . NMYSQCC_IQ
+            . $table_reference
+            . NMYSQCC_IQ;
+
+        /* create set expression */
+        $count_set = count($set_expression);
+
+        $set_statement = NMYSQCC_SET;
+
+        for ($i = 0; $i < $count_set; $i++) {
+
+            if (NMYSQCC_QUOTE_AS_STRING === TRUE) {
+
+                 $set_statement .= NMYSQCC_IQ
+                . $set_expression[$i]
+                . NMYSQCC_IQ
+                //. NMYSQCC_BLANK
+                . NMYSQCC_EQUAL
+                //. NMYSQCC_BLANK
+                . NMYSQCC_VQ
+                . $set_expression[$i+1]
+                . NMYSQCC_VQ;
+
+            } else {
+
+                 $set_statement .= NMYSQCC_BLANK
+                . NMYSQCC_IQ
+                . $set_expression[$i]
+                . NMYSQCC_IQ
+                //. NMYSQCC_BLANK
+                . NMYSQCC_EQUAL
+                //. NMYSQCC_BLANK
+                . $set_expression[$i+1];
+
+            }
+
+            $i++;
+
+            if ($i < $count_set - 1) {
+
+                $set_statement .= NMYSQCC_COMMA
+                . NMYSQCC_BLANK;
+
+            }
+
+        }
+        //print "<pre>" . $set_statement . "</pre>";
+
+        /* create where_condition */
+        $count_where = count($where_condition);
+
+        $where_statement = NMYSQCC_WHERE;
+
+        for ($i = 0; $i < $count_where; $i++) {
+
+            if (NMYSQCC_QUOTE_AS_STRING === TRUE) {
+
+                $where_statement .= NMYSQCC_IQ
+                . $where_condition[$i]
+                . NMYSQCC_IQ;
+
+                if ($where_condition[$i+1] === NULL) {
+
+                    $where_statement .= " IS NULL";
+
+                } else {
+
+                    $where_statement .= NMYSQCC_EQUAL
+                    . NMYSQCC_VQ
+                    . $where_condition[$i+1]
+                    . NMYSQCC_VQ;
+
+                }
+
+            } else {
+
+                if ($where_condition[$i+1] === NULL) {
+
+                    $where_statement .= "IS NULL";
+
+                } else {
+
+                    $where_statement .= NMYSQCC_EQUAL
+                    . $where_condition[$i+1];
+
+                }
+
+            }
+
+            $i++;
+
+            if ($i < $count_where - 1) {
+
+                $where_statement .= NMYSQCC_BLANK
+                . NMYSQCC_AND
+                . NMYSQCC_BLANK;
+
+            }
+
+        }
+        //print "<pre>" . $where_statement . "</pre>";
+
+        /* prepare order_statement */
+        if ($order_condition) {
+
+            $order_statement = NMYSQCC_ORDER;
+
+            $standard_sort_order = TRUE;
+
+            $count = count($order_condition);
+
+            for ($i = 0; $i < $count; $i++) {
+
+                if ($order_condition[$i] != "ASC" AND $order_condition[$i] != "DESC") {
+
+                    $order_statement .= NMYSQCC_IQ
+                        . $order_condition[$i]
+                        . NMYSQCC_IQ;
+
+                    if ($i < $count - 1 AND $order_condition[$i+1] != "ASC" AND $order_condition[$i+1] != "DESC") {
+
+                        $order_statement .= NMYSQCC_COMMA . NMYSQCC_BLANK;
+
+                    }
+
+
+                } else {
+
+                    $order_statement .= NMYSQCC_BLANK . $order_condition[$i];
+
+                    $standard_sort_order = FALSE;
+ 
+                    if ($i < $count - 1) {
+
+                        $order_statement .= NMYSQCC_COMMA . NMYSQCC_BLANK;
+
+                    }
+
+                }
+
+            }
+
+            if ($standard_sort_order === TRUE) {
+
+                $order_statement .= NMYSQCC_BLANK . "ASC";
+
+            }
+
+        }
+        //print "<pre>" . $order_statement . "</pre>";
+
+        /* prepare limit_statement */
+        if ($limit) {
+
+            $limit_statement .= NMYSQCC_BLANK
+            . NMYSQCC_LIMIT
+            . NMYSQCC_BLANK
+            . $limit;
+
+        }
+        //print "<pre>" . $limit_statement . "</pre>";
+
+        /* prepare complete statement */
+        $statement = $update_statement
+        . $set_statement
+        . $where_statement;
+
+        if ($order_condition) { $statement .= $order_statement; }
+
+        if ($limit) { $statement .= $limit_statement; }
+
         /* debug output */
-        if (\NTRNX_MYSQLI\NMYSQCC_DEBUG == TRUE) {
+        if (NMYSQCC_DEBUG === TRUE) {
             print "<pre>" . $statement . "</pre>";
         }
 
         self::$last_query = $statement;
 
-        if ($mysqli_handle && self::$connected === TRUE) {
+        /* check for mysqli handle */
+        if ($mysqli_handle) {
 
-            if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {    
+            /* check for connected state */
+            if (self::$connected === TRUE) {
 
-                /* debug output */
-                if (\NTRNX_MYSQLI\NMYSQCC_DEBUG == TRUE) {
-                    print mysqli_error ($mysqli_handle) . NMYSQCC_BR;
-                    print $statement . NMYSQCC_BR;
+                if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
+
+                    $error = TRUE;
+                    $error_msg = mysqli_error ($mysqli_handle) . " (" . mysqli_errno($mysqli_handle) . ")";
+
                 }
 
-                $result = FALSE;
+            } else {
+
+                $error = TRUE;
+                $error_msg = NMYSQCC_ERROR_NOT_CONNECTED . " (" . mysqli_connect_errno() . ")";
 
             }
 
         } else {
 
-            /* debug output */
-            if (\NTRNX_MYSQLI\NMYSQCC_DEBUG == TRUE) {
-                print NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED . NMYSQCC_BR;
-                print $statement . NMYSQCC_BR;
-            }            
+            $error = TRUE;
+            $error_msg = NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED;
+
+        }
+
+        /* check for error */
+        if ($error === TRUE) {
+
+                /* debug output */
+                if (NMYSQCC_LOG_ERRORS === TRUE) {
+                    \NTRNX_MYSQLI\ntrnx_mysqli::log_error($error_msg . " | " . get_called_class() . " | " . __LINE__ );
+                } else if (NMYSQCC_DEBUG === TRUE) {
+                    print $error_msg . NMYSQCC_BR;
+                }
 
             $result = FALSE;
 

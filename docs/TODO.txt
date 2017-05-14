@@ -1,10 +1,13 @@
-class version 0.5
+class version 0.6
 - more comments
-- finish separate functions files
-- insert version number in each function file
 - automatic check and create if not exist docs/VERSION.txt for update check
 - update check durch ntrnx_update_class
-- eventuell extends vom class/core/data/config auflösen und alles als extends von class
+- ntrnx_mysqli.class.php - mix von "%s und {FILE} auflÃ¶sen
+- change == to ===
+- ntrnx_mysqli_update
+- rework ntrnx_mysqli_insert, ntrnx_mysqli_update, ntrnx_mysqli_delete to new mode based on ntrnx_mysqli_select
+- ntrnx_mysqli_function_cross_select (search a string in all columns)
+- ntrnx_mysqli_function_replace
 
 complete functions
 

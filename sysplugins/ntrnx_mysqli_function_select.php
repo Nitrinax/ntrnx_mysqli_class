@@ -5,6 +5,9 @@ namespace NTRNX_MYSQLI;
 /* begin of class */
 class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
+    private static $error = FALSE;
+    private static $error_msg = NULL;
+
     //mysqli_query() 	Performs a query against the database
     static function query(
 
@@ -166,6 +169,8 @@ class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                     }
 
+                    $i++;
+
                     if ($i < $count_from - 1) {
 
                         $from_statement .= NMYSQCC_COMMA
@@ -173,7 +178,7 @@ class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                     }
 
-                    $i++;
+                    //$i++;
 
                 break;
 
@@ -249,7 +254,8 @@ class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
                             default:
 
                                 /* temporary message */
-                                die ("operator " . $join_expression[$i+6] . " for join_expression not supported");
+                                $error = TRUE;
+                                $error_msg = "operator " . $join_expression[$i+6] . " for join_expression not supported";
 
                             break;
 
@@ -642,7 +648,8 @@ class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
             if ($having_condition) {
 
                 /* temporary message */
-                print $having_statement . "having_condition not supported" . NMYSQCC_BR;
+                $error = TRUE;
+                $error_msg = $having_condition . "having_condition not supported";
 
             }
 
@@ -714,7 +721,8 @@ class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
         if ($procedure) {
 
             /* temporary message */
-            print $procedure . "procedure not supported" . NMYSQCC_BR;
+            $error = TRUE;
+            $error_msg = $procedure . "procedure not supported";
 
         }
 
@@ -723,7 +731,8 @@ class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
         if ($into_target) {
 
             /* temporary message */
-            print $into_target . "into_target not supported". NMYSQCC_BR;
+            $error = TRUE;
+            $error_msg = $into_target . "into_target not supported";
 
         }
 
@@ -732,7 +741,8 @@ class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
         if ($for_options) {
 
             /* temporary message */
-            print $for_options . "for_options not supported". NMYSQCC_BR;
+            $error = TRUE;
+            $error_msg = $for_options . "for_options not supported";
     
         }
 
@@ -761,33 +771,47 @@ class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
         //if ($for_options) { $statement .= $for_options; }
 
         /* debug output */
-        if (NMYSQCC_DEBUG === TRUE) {
-            print "<pre>" . $statement . "</pre>";
-        }
+        print "<pre>" . $statement . "</pre>";
 
         self::$last_query = $statement;
 
-        if ($mysqli_handle && self::$connected === TRUE) {
+        /* check for mysqli handle */
+        if ($mysqli_handle) {
 
-            if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
+            /* check for connected state */
+            if (self::$connected === TRUE) {
 
-                /* debug output */
-                if (NMYSQCC_DEBUG === TRUE) {
-                    print mysqli_error ($mysqli_handle) . NMYSQCC_BR;
-                    print $statement . NMYSQCC_BR;
+                if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
+
+                    $error = TRUE;
+                    $error_msg = mysqli_error ($mysqli_handle) . " (" . mysqli_errno($mysqli_handle) . ")";
+
                 }
 
-                $result = FALSE;
+            } else {
+
+                $error = TRUE;
+                $error_msg = NMYSQCC_ERROR_NOT_CONNECTED . " (" . mysqli_connect_errno() . ")";
 
             }
 
         } else {
 
-            /* debug output */
-            if (NMYSQCC_DEBUG === TRUE) {
-                print NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED . NMYSQCC_BR;
-                print $statement . NMYSQCC_BR;
-            }
+            $error = TRUE;
+            $error_msg = NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED;
+
+        }
+
+        /* check for error */
+        if ($error === TRUE) {
+
+                /* error output */
+                if (NMYSQCC_LOG_ERRORS === TRUE) {
+                    \NTRNX_MYSQLI\ntrnx_mysqli::log_error($error_msg . " | " . get_called_class() . " | " . __LINE__ );
+                }
+                if (NMYSQCC_DISPLAY_ERRORS === TRUE) {
+                    print $error_msg . NMYSQCC_BR;
+                }
 
             $result = FALSE;
 

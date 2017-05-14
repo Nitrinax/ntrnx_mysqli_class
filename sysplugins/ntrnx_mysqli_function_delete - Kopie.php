@@ -28,14 +28,17 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     ) {
 
-        /* created table part */
+        /* set db and table name */
+        $db_name = $table_reference[0];
+        $table_name = $table_reference[1];
+
         $delete_statement = NMYSQCC_DELETE
             . NMYSQCC_IQ
-            . self::$dbname
+            . $db_name
             . NMYSQCC_IQ
             . NMYSQCC_DOT
             . NMYSQCC_IQ
-            . $table_reference
+            . $table_name
             . NMYSQCC_IQ;
 
         /* prepare where_statement */
@@ -43,9 +46,8 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
             $where_statement = NMYSQCC_WHERE;
 
-            $operator_mode = TRUE;
-
-            $operator_like = FALSE;
+            $dot_mode = TRUE;
+            $value_mode = FALSE;
 
             $count_where = count($where_condition);
 
@@ -54,99 +56,56 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 switch ($where_condition[$i]) {
 
                     case "OR":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_OR
                         . NMYSQCC_BLANK;
-
-                    break;
-
+                    break;                    
                     case "AND":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_AND
                         . NMYSQCC_BLANK;
-
                     break;
-
                     case "EQUAL":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_EQUAL
                         . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-
                     break;
-
                     case "UNEQUAL":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_UNEQUAL
                         . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-
                     break;
 
                     case "NOTEQUAL":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_NOTEQUAL
                         . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-
                     break;
 
                     case "NSEQUAL":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_NSEQUAL
                         . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-
                     break;
-
                     case "GT":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_GT
                         . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-
                     break;
-
                     case "GTOE":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_GTOE
                         . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-
                     break;
-
                     case "LT":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_LT
                         . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-
                     break;
-
                     case "LTOE":
-
                         $where_statement .= NMYSQCC_BLANK
                         . NMYSQCC_LTOE
                         . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-
                     break;
 
                     //case "XOR": break;
@@ -157,77 +116,44 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
                     //case "NOTIN": break;
                     //case "BETWEEN": break;
                     //case "NOTBETWEEN": break;
-
-                    case "SLIKE":
-
-                        $where_statement .= NMYSQCC_BLANK
-                        . NMYSQCC_SLIKE
-                        . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-
-                    break;
-
-                    case "LIKE":
-
-                        $where_statement .= NMYSQCC_BLANK
-                        . NMYSQCC_LIKE
-                        . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-                        $operator_like = TRUE;
-
-                    break;
-
-                    case "NLIKE":
-
-                        $where_statement .= NMYSQCC_BLANK
-                        . NMYSQCC_NLIKE
-                        . NMYSQCC_BLANK;
-
-                        $operator_mode = FALSE;
-                        $operator_like = TRUE;
-
-                    break;
-
+                    //case "SOUNDSLIKE": break;
+                    //case "LIKE": break;
+                    //case "NOTLIKE": break;
                     //case "REGEXP": break;
                     //case "NOTREGEXP": break;
 
+                    case "STRING":
+                        $value_mode = TRUE;
+                    break;
+
                     default:
 
-                        if ($operator_mode === TRUE) {
+                        if ($value_mode === TRUE) {
 
-                            $where_statement .= NMYSQCC_IQ
-                            . $where_condition[$i]
-                            . NMYSQCC_IQ
-                            . NMYSQCC_DOT
-                            . NMYSQCC_IQ
-                            . $where_condition[$i+1]
-                            . NMYSQCC_IQ;
+                            $where_statement .= NMYSQCC_VQ . $where_condition[$i] . NMYSQCC_VQ;
 
-                            $i++;
+                            $value_mode = FALSE;
+                            $dot_mode = FALSE;
 
                         } else {
 
-                            if ($operator_like === TRUE) {
+                            $where_statement .= NMYSQCC_IQ . $where_condition[$i] . NMYSQCC_IQ;
 
-                                $where_statement .= NMYSQCC_VQ
-                                . NMYSQCC_PERCENT
-                                . $where_condition[$i]
-                                . NMYSQCC_PERCENT
-                                . NMYSQCC_VQ;
+                        }
 
-                                $operator_like = FALSE;
+                        if ($i < $count_where - 1) {
+
+                            if ($dot_mode === TRUE) {
+
+                                $where_statement .= NMYSQCC_DOT;
+
+                                $dot_mode = FALSE;
 
                             } else {
 
-                                $where_statement .= NMYSQCC_VQ
-                                . $where_condition[$i]
-                                . NMYSQCC_VQ;
+                                $dot_mode = TRUE;
 
                             }
-
-                            $operator_mode = TRUE;
 
                         }
 
@@ -236,58 +162,31 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 }
 
             }
+            //print $where_statement . NMYSQCC_BR;
 
         }
-        //print "<pre>" . $where_statement . "</pre>";
-        
+
         /* prepare order_statement */
         if ($order_condition) {
 
-            $order_statement = NMYSQCC_ORDER;
-
-            $standard_sort_order = TRUE;
+            $order_statement .= NMYSQCC_ORDER;
 
             $count = count($order_condition);
 
             for ($i = 0; $i < $count; $i++) {
 
-                if ($order_condition[$i] != "ASC" AND $order_condition[$i] != "DESC") {
+                $order_statement .= NMYSQCC_IQ . $order_condition[$i] . NMYSQCC_IQ;
 
-                    $order_statement .= NMYSQCC_IQ
-                        . $order_condition[$i]
-                        . NMYSQCC_IQ;
+                if ($order_condition[$i+1] != NULL) { $order_statement .= NMYSQCC_BLANK . $order_condition[$i]; } else { $order_statement .= " ASC"; }
 
-                    if ($i < $count - 1 AND $order_condition[$i+1] != "ASC" AND $order_condition[$i+1] != "DESC") {
+                $i=$i+1;
 
-                        $order_statement .= NMYSQCC_COMMA . NMYSQCC_BLANK;
-
-                    }
-
-
-                } else {
-
-                    $order_statement .= NMYSQCC_BLANK . $order_condition[$i];
-
-                    $standard_sort_order = FALSE;
- 
-                    if ($i < $count - 1) {
-
-                        $order_statement .= NMYSQCC_COMMA . NMYSQCC_BLANK;
-
-                    }
-
-                }
+                if ($i < $count - 1) { $order_statement .= NMYSQCC_COMMA . NMYSQCC_BLANK; }
 
             }
-
-            if ($standard_sort_order === TRUE) {
-
-                $order_statement .= NMYSQCC_BLANK . "ASC";
-
-            }
+            //print $order_statement . NMYSQCC_BR;
 
         }
-        //print "<pre>" . $order_statement . "</pre>";
 
         /* prepare limit_statement */
         if ($limit) {
@@ -297,8 +196,9 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
             . NMYSQCC_BLANK
             . $limit;
 
+            //print $limit_statement . NMYSQCC_BR;
+
         }
-        //print "<pre>" . $limit_statement . "</pre>";
 
         /* prepare complete statement */
         $statement = $delete_statement
@@ -312,6 +212,20 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         if ($where_condition) { $statement .= $where_statement; }
 
+        if ($group_condition) { 
+
+            $statement .= $group_statement;
+
+            /*
+            if ($having_condition) { 
+
+                $statement .= $having_statement;
+
+            }
+            */
+
+        }
+
         if ($order_condition) { $statement .= $order_statement; }
 
         if ($limit) { $statement .= $limit_statement; }
@@ -322,6 +236,32 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
         }
 
         self::$last_query = $statement;
+
+/*
+        if ($mysqli_handle && self::$connected === TRUE) {
+
+            if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {
+
+                if (\NTRNX_MYSQLI\NMYSQCC_DEBUG == TRUE) {
+                    print mysqli_error ($mysqli_handle) . NMYSQCC_BR;
+                    print $statement . NMYSQCC_BR;
+                }
+
+                $result = FALSE;
+
+            }
+
+        } else {
+
+            if (\NTRNX_MYSQLI\NMYSQCC_DEBUG == TRUE) {
+                print NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED . NMYSQCC_BR;
+                print $statement . NMYSQCC_BR;
+            }            
+
+            $result = FALSE;
+
+        }
+*/
 
         /* check for mysqli handle */
         if ($mysqli_handle) {
@@ -353,13 +293,12 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* check for error */
         if ($error === TRUE) {
 
-            /* error output */
-            if (NMYSQCC_LOG_ERRORS === TRUE) {
-                \NTRNX_MYSQLI\ntrnx_mysqli::log_error($error_msg . " | " . get_called_class() . " | " . __LINE__ );
-            }
-            if (NMYSQCC_DISPLAY_ERRORS === TRUE) {
-                print $error_msg . NMYSQCC_BR;
-            }
+                /* debug output */
+                if (NMYSQCC_LOG_ERRORS === TRUE) {
+                    \NTRNX_MYSQLI\ntrnx_mysqli::log_error($error_msg . " | " . get_called_class() . " | " . __LINE__ );
+                } else if (NMYSQCC_DEBUG === TRUE) {
+                    print $error_msg . NMYSQCC_BR;
+                }
 
             $result = FALSE;
 

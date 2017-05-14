@@ -1,3 +1,22 @@
+Version 0.5.0.1
+
+ADD
+
+    - error const for "not connected" state
+    - WHERE LIKE, NOT LIKE, SOUNDS LIKE operator to DELETE
+
+CHG
+
+    - rework error check in
+        - ntrnx_mysqli_select
+        - ntrnx_mysqli_insert
+        - ntrnx_mysqli_update
+        - ntrnx_mysqli_delete
+
+REM
+
+    - replace some print calls with default error handling
+
 Version 0.5.0.0
 
 FIX
@@ -17,8 +36,7 @@ CHG
 
 ADD
 
-    - WHERE operator
-        - LIKE, NOT LIKE, SOUNDS LIKE
+    - WHERE LIKE, NOT LIKE, SOUNDS LIKE operator to SELECT
 
     - SELECT
         - FROM tbl_name AS alias_name
