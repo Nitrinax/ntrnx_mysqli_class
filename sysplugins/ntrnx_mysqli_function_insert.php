@@ -5,8 +5,7 @@ namespace NTRNX_MYSQLI;
 /* begin of class */
 class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    private static $error = FALSE;
-    private static $error_msg = NULL;
+    static $result = NULL;
 
     //mysqli_query() 	Performs a query against the database
     static function query(
@@ -48,10 +47,10 @@ class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
             . NMYSQCC_IQ
             . $table_reference
             . NMYSQCC_IQ;
+            //print "<pre>" . $table_statement . "</pre>";
 
             /* created column part */
             $column_statement = NMYSQCC_BLANK . NMYSQCC_LEFT_PARENTHESIS;
-
             for ($i = 0; $i < $count_columns; $i++) {
 
                 $column_statement .= NMYSQCC_IQ . $col_name[$i] . NMYSQCC_IQ;
@@ -59,12 +58,11 @@ class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 if ($i < $count_columns - 1) { $column_statement .= NMYSQCC_COMMA . NMYSQCC_BLANK; }
 
             }
-
             $column_statement .= NMYSQCC_RIGHT_PARENTHESIS;
+            //print "<pre>" . $column_statement . "</pre>";
 
             /* created value part */
             $value_statement = NMYSQCC_BLANK . NMYSQCC_VALUES . NMYSQCC_BLANK . NMYSQCC_LEFT_PARENTHESIS;
-
             for ($i = 0; $i < $count_values; $i++) {
 
                 $value_statement .= NMYSQCC_VQ
@@ -74,8 +72,8 @@ class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 if ($i < $count_values - 1) { $value_statement .= NMYSQCC_COMMA . NMYSQCC_BLANK; }
 
             }
-
             $value_statement .= NMYSQCC_RIGHT_PARENTHESIS;
+            //print "<pre>" . $value_statement . "</pre>";
 
             if ($flags) {
 
@@ -85,11 +83,16 @@ class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
             }
 
+            if ($resultmode) {
+
+                /* temporary message */
+                $error = TRUE;
+                $error_msg = $resultmode . "resultmode not supported";
+
+            }
+
             /* combine parts */
             $statement = $table_statement . $column_statement . $value_statement;
-            
-            /* debug output */
-            print "<pre>" . $statement . "</pre>";
 
             self::$last_query = $statement;
 
@@ -101,45 +104,26 @@ class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                     if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
 
-                        $error = TRUE;
-                        $error_msg = mysqli_error ($mysqli_handle) . " (" . mysqli_errno($mysqli_handle) . ")";
-
+                        \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+ 
                     }
 
                 } else {
 
-                    $error = TRUE;
-                    $error_msg = NMYSQCC_ERROR_NOT_CONNECTED . " (" . mysqli_connect_errno() . ")";
+                    \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(3, get_called_class(), __LINE__);
 
                 }
 
             } else {
 
-                $error = TRUE;
-                $error_msg = NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED;
+                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(2, get_called_class(), __LINE__);
 
             }
 
         /* if amount of columns and values do not match */
         } else {
 
-            $error = TRUE;
-            $error_msg = NMYSQCC_ERROR_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH;
-
-        }
-
-        /* check for error */
-        if ($error === TRUE) {
-
-            /* error output */
-            if (NMYSQCC_LOG_ERRORS === TRUE) {
-                \NTRNX_MYSQLI\ntrnx_mysqli::log_error($error_msg . " | " . get_called_class() . " | " . __LINE__ );
-            }
-            if (NMYSQCC_DISPLAY_ERRORS === TRUE) {
-                print $error_msg . NMYSQCC_BR;
-            }
-            
-            $result = FALSE;
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(70, get_called_class(), __LINE__);
 
         }
 

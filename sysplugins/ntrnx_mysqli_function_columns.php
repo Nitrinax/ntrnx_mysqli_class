@@ -3,16 +3,17 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_tables extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class ntrnx_mysqli_columns extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    // get all tables in a database
+    // get all columns in a database table
     static function show(
 
-        $mysqli_handle
+        $mysqli_handle,
+        $table
 
     ) {
 
-        $statement = NMYSQCC_TABLES . NMYSQCC_IQ . self::$dbname . NMYSQCC_IQ . ";";
+        $statement = NMYSQCC_COLUMNS . NMYSQCC_IQ . self::$dbname . NMYSQCC_IQ . NMYSQCC_DOT . NMYSQCC_IQ . $table . NMYSQCC_IQ . ";";
 
         self::$last_query = $statement;
 

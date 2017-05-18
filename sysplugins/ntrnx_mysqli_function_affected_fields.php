@@ -5,16 +5,9 @@ namespace NTRNX_MYSQLI;
 /* begin of class */
 class ntrnx_mysqli_affected_fields extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-	/* class name */
-	const _CLASS_NAME = "ntrnx_mysqli_affected_fields.php";
-	/* class version */
-	const _CLASS_VERSION = "0.4.0.0";
-	/* YYYY-MM-DD */
-	const _CLASS_DATE = "2017-04-16";
-	/* hh:mm:ss */
-	const _CLASS_TIME = "12:56:00";
-
+    //(PHP 5, PHP 7)
     //mysqli_affected_fields() {}
+    //http://php.net/manual/de/mysqli.field-count.php
     static function link(
 
         $mysqli_handle

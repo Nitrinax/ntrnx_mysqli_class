@@ -37,6 +37,7 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
             . NMYSQCC_IQ
             . $table_reference
             . NMYSQCC_IQ;
+        //print "<pre>" . $delete_statement . "</pre>";
 
         /* prepare where_statement */
         if ($where_condition) {
@@ -165,6 +166,7 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
                         . NMYSQCC_BLANK;
 
                         $operator_mode = FALSE;
+                        $operator_like = TRUE;
 
                     break;
 
@@ -199,13 +201,7 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                             $where_statement .= NMYSQCC_IQ
                             . $where_condition[$i]
-                            . NMYSQCC_IQ
-                            . NMYSQCC_DOT
-                            . NMYSQCC_IQ
-                            . $where_condition[$i+1]
                             . NMYSQCC_IQ;
-
-                            $i++;
 
                         } else {
 
@@ -316,11 +312,6 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         if ($limit) { $statement .= $limit_statement; }
 
-        /* debug output */
-        if (NMYSQCC_DEBUG === TRUE) {
-            print "<pre>" . $statement . "</pre>";
-        }
-
         self::$last_query = $statement;
 
         /* check for mysqli handle */
@@ -331,36 +322,21 @@ class ntrnx_mysqli_delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                 if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
 
-                    $error = TRUE;
-                    $error_msg = mysqli_error ($mysqli_handle) . " (" . mysqli_errno($mysqli_handle) . ")";
+                    \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    $result = FALSE;
 
                 }
 
             } else {
 
-                $error = TRUE;
-                $error_msg = NMYSQCC_ERROR_NOT_CONNECTED . " (" . mysqli_connect_errno() . ")";
+                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(3, get_called_class(), __LINE__);
+                $result = FALSE;
 
             }
 
         } else {
 
-            $error = TRUE;
-            $error_msg = NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED;
-
-        }
-
-        /* check for error */
-        if ($error === TRUE) {
-
-            /* error output */
-            if (NMYSQCC_LOG_ERRORS === TRUE) {
-                \NTRNX_MYSQLI\ntrnx_mysqli::log_error($error_msg . " | " . get_called_class() . " | " . __LINE__ );
-            }
-            if (NMYSQCC_DISPLAY_ERRORS === TRUE) {
-                print $error_msg . NMYSQCC_BR;
-            }
-
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(2, get_called_class(), __LINE__);
             $result = FALSE;
 
         }

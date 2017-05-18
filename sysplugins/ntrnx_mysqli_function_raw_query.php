@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_query extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class ntrnx_mysqli_raw_query extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     private static $error = FALSE;
     private static $error_msg = NULL;
@@ -27,10 +27,20 @@ class ntrnx_mysqli_query extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         if ($mysqli_handle) {
 
-            if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {
+            /* check for connected state */
+            if (self::$connected === TRUE) {
+
+                if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {
+
+                    $error = TRUE;
+                    $error_msg = mysqli_error ($mysqli_handle);
+
+                }
+
+            } else {
 
                 $error = TRUE;
-                $error_msg = mysqli_error ($mysqli_handle);
+                $error_msg = NMYSQCC_ERROR_NOT_CONNECTED . " (" . mysqli_connect_errno() . ")";
 
             }
 

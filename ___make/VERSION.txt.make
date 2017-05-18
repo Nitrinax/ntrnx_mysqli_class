@@ -1,0 +1,3 @@
+_VERSION = ${VERSION}
+_DATE = ${DATE}
+_TIME = ${TIME}

@@ -1,9 +1,96 @@
+Version 0.5.0.2
+
+ADD
+
+    - simple make script for bumping build or revision
+    - parameters $class and $line to log_error and log_warning
+    - config vars
+        - $datetime_suffix
+        - $datetime_preafix
+        - $log_separator
+        - $log_level
+        - $display_level
+    - file
+        - example_db.sql to create example database
+        - ntrnx_mysqli_function_columns.php
+        - ntrnx_mysqli_internal_error.php
+    - consts for
+        - NMYSQCC_TABLES
+        - NMYSQCC_COLUMNS
+        - NMYSQCC_ERROR_SSL_IS_ENABLED
+        - NMYSQCC_ERROR_SSL_IS_DISABLED
+        - NMYSQCC_ERROR_JOIN_SYNTAX
+        - NMYSQCC_ERROR_JOIN_EXPRESSION
+        - NMYSQCC_ERROR_OPERATOR_NOT_SUPPORTED
+        - NMYSQCC_ERROR_HAVING_CONDITION_NOT_SUPPORTED
+        - NMYSQCC_ERROR_PROCEDURE_NOT_SUPPORTED
+        - NMYSQCC_ERROR_INTO_TARGET_NOT_SUPPORTED
+        - NMYSQCC_ERROR_FOR_OPTIONS_NOT_SUPPORTED
+        - NMYSQCC_DATETIME_SUFFIX
+        - NMYSQCC_DATETIME_PRAEFIX
+        - NMYSQCC_LOG_SEPARATOR
+        - NMYSQCC_LOG_LEVEL
+        - NMYSQCC_DISPLAY_LEVEL
+    - function
+        - raise_error
+        - log_error
+        - log_warning
+        - log_info
+
+CHG
+
+    - rename
+        - ntrnx_mysqli_function_fields to ntrnx_mysqli_function_columns to better represent the function
+        - ntrnx_mysqli::query to ntrnx_mysqli::raw_query because of a conflict with mysqli::query
+        - const
+            - NMYSQCC_MSG_CURRENT_CHARACTER_SET to NMYSQCC_MSG_CLIENT_CHARACTER_SET_WAS_CHANGED
+            - NMYSQCC_UPDATE_CHECK to NMYSQCC_ALLOW_UPDATE_CHECK
+            - NMYSQCC_DEPENDENCES_CHECK to NMYSQCC_ALLOW_DEPENDENCES_CHECK
+            - NMYSQCC_FUNCTIONS_CHECK to NMYSQCC_ALLOW_FUNCTIONS_CHECK
+        - rework
+            - ntrnx_mysqli_function_connect.php
+            - ntrnx_mysqli_function_delete.php
+            - ntrnx_mysqli_function_init.php
+            - ntrnx_mysqli_function_insert.php
+            - ntrnx_mysqli_function_pconnect.php
+            - ntrnx_mysqli_function_query.php
+            - ntrnx_mysqli_function_real_connect.php
+            - ntrnx_mysqli_function_real_pconnect.php
+            - ntrnx_mysqli_function_select.php
+            - ntrnx_mysqli_function_set_charset.php
+            - ntrnx_mysqli_function_ssl_get.php
+            - ntrnx_mysqli_function_ssl_set.php
+            - ntrnx_mysqli_function_tables.php
+            - ntrnx_mysqli_function_update.php
+            - ntrnx_mysqli_function_log.php
+            
+        - and many more little changes, see source code
+
+REM
+
+    - config vars
+        - $quote_as_string
+        - $debug
+        - $log_errors
+        - $log_warnings
+    - dbname from
+        - join expression in ntrnx_mysqli_select
+        - ntrnx_mysqli_columns
+        - ntrnx_mysqli_tables
+    - const
+        - NMYSQCC_QUOTE_AS_STRING
+        - NMYSQCC_DEBUG
+    - ntrnx_mysqli_function_fields.php
+
 Version 0.5.0.1
 
 ADD
 
     - error const for "not connected" state
     - WHERE LIKE, NOT LIKE, SOUNDS LIKE operator to DELETE
+    - config vars
+        - display_errors
+        - display_warnings
 
 CHG
 
@@ -12,6 +99,7 @@ CHG
         - ntrnx_mysqli_insert
         - ntrnx_mysqli_update
         - ntrnx_mysqli_delete
+    - rename config var logfile_format to datetime_format
 
 REM
 

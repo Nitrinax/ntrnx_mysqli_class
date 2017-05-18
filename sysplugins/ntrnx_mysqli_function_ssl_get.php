@@ -77,9 +77,13 @@ class ntrnx_mysqli_ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
             $have_cert == TRUE &&
             $have_ca == TRUE) {
 
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(60, get_called_class(), __LINE__);
+            
             return TRUE;
 
         } else {
+
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(61, get_called_class(), __LINE__);
 
             return FALSE;
 

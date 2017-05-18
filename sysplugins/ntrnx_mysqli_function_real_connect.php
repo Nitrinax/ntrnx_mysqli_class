@@ -6,7 +6,7 @@ namespace NTRNX_MYSQLI;
 class ntrnx_mysqli_real_connect extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //mysqli::real_connect -- mysqli_real_connect — Opens a connection to a mysql server
-    
+    //http://php.net/manual/de/mysqli.real-connect.php
     static function db(
 
         $mysqli_handle
@@ -21,37 +21,32 @@ class ntrnx_mysqli_real_connect extends \NTRNX_MYSQLI\ntrnx_mysqli {
         $socket = \NTRNX_MYSQLI\ntrnx_mysqli::$socket;
         $flags = \NTRNX_MYSQLI\ntrnx_mysqli::$flags;
 
-        /* debug output */
-        if (NMYSQCC_DEBUG == TRUE) {
-            //print "host: " . $host . NMYSQCC_COMMA;
-            //print " username: " . $username . NMYSQCC_COMMA;
-            //print " passwd: ********" . NMYSQCC_COMMA;
-            //print " dbname: " . $dbname . NMYSQCC_COMMA;
-            //print " port: " . $port . NMYSQCC_COMMA;
-            //print " socket: " . $socket . NMYSQCC_COMMA;
-            //print " flags: " . $flags . NMYSQCC_BR;
-        }
-
         /* check porrt value */
         if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
-            $placeholder_array = array ("{VALUE}", "{OPTION}");
-            $string_array = array ($port, "port");
-            die(str_replace($placeholder_array, $string_array, NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION_MUST_BE_INTEGER));
+            //$placeholder_array = array ("{VALUE}", "{OPTION}");
+            //$string_array = array ($port, "port");
+
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(30, get_called_class(), __LINE__ , $port, "port");
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(31, get_called_class(), __LINE__);
+            return FALSE;
+
         }
 
         /* create connection */
         if (!@mysqli_real_connect($mysqli_handle, $host, $username, $passwd, $dbname, $port, $socket, $flags)) {
-            die("Connect Error (" . mysqli_connect_errno() . ") " . mysqli_connect_error());
+
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(mysqli_connect_errno(), get_called_class(), __LINE__, mysqli_connect_error());
+            return FALSE;
+
+        } else {
+
+            self::$persistent_connection = FALSE;
+
+            self::$connected = TRUE;
+
         }
 
-        /* debug output */
-        if (NMYSQCC_DEBUG == TRUE) {
-            //print "Success... " . mysqli_get_host_info ($mysqli_handle) . NMYSQCC_BR;
-        }
-
-        self::$persistent_connection = TRUE;
-
-        self::$connected = TRUE;
+        return TRUE;
 
     }
 

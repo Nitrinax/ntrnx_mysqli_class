@@ -1,0 +1,80 @@
+currently implented functions
+
+class functions:
+
+    - get_name()
+    - get_api()
+    - get_author_name()
+    - get_author_nick()
+    - get_author_email()
+    - get_author_url()
+    - get_branch()
+    - get_buildchannel()
+    - get_dependences_state()
+    - get_dependences()
+    - check_dependences()
+    - get_needed_functions_state()
+    - get_needed_functions()
+    - check_needed_functions()
+    - get_project_url()
+    - get_source_url()
+    - get_version_url()
+    - get_update_url()
+    - get_manual_url()
+    - get_version()
+    - get_version_major()
+    - get_version_minor()
+    - get_version_build()
+    - get_version_revision()
+    - get_version_date()
+    - get_version_time()
+    - log_error($error)
+    - log_warning($warning)
+
+included supported mysqli functions:
+
+    - affected_fields
+    - affected_rows
+    - close
+    - connect
+    - connect_errno
+    - connect_error
+    - data_seek
+    - errno
+    - error
+    - fetch_all
+    - fetch_array
+    - fetch_assoc
+    - fetch_field_direct
+    - fetch_field
+    - fetch_fields
+    - fetch_lengths
+    - fetch_object
+    - fetch_row
+    - field_count
+    - field_seek
+    - field_tell
+    - free_result
+    - init
+    - num_fields
+    - num_rows
+    - real_connect
+    - real_escape_string
+    - set_charset
+    - sqlstate
+    - ssl_set
+
+included constructed functions
+
+    - columns
+    - delete
+    - get_charset
+    - insert
+    - last_query
+    - pconnect
+    - raw_query
+    - real_pconnect
+    - select
+    - ssl_get
+    - tables
+    - update

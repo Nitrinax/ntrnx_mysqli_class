@@ -1,0 +1,5 @@
+[05/18/2017:19:05:34 CEST +02:00] | Fehler in der SQL-Syntax. Bitte die korrekte Syntax im Handbuch nachschlagen bei 'NMYSQCC_TABLES`ntrnx_mysqli_class_test`' in Zeile 1 | NTRNX_MYSQLI\ntrnx_mysqli_tables | 27
+[05/18/2017:19:05:59 CEST +02:00] | Fehler in der SQL-Syntax. Bitte die korrekte Syntax im Handbuch nachschlagen bei 'NMYSQCC_TABLES `ntrnx_mysqli_class_test`' in Zeile 1 | NTRNX_MYSQLI\ntrnx_mysqli_tables | 27
+[05/18/2017:19:05:21 CEST +02:00] | Fehler in der SQL-Syntax. Bitte die korrekte Syntax im Handbuch nachschlagen bei 'NMYSQCC_TABLES `ntrnx_mysqli_class_test`' in Zeile 1 | NTRNX_MYSQLI\ntrnx_mysqli_tables | 27
+[05/18/2017:19:05:25 CEST +02:00] | Fehler in der SQL-Syntax. Bitte die korrekte Syntax im Handbuch nachschlagen bei 'NMYSQCC_TABLES `ntrnx_mysqli_class_test`' in Zeile 1 | NTRNX_MYSQLI\ntrnx_mysqli_tables | 27
+[05/18/2017:19:05:46 CEST +02:00] | Tabelle 'ntrnx_mysqli_class_test.xxxx' existiert nicht | NTRNX_MYSQLI\ntrnx_mysqli_columns | 28

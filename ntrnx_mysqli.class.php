@@ -19,12 +19,11 @@ if (!defined("NMYSQCC_PS")) {			define("NMYSQCC_PS",       PATH_SEPARATOR); }
 if (!defined("NMYSQCC_BR")) {			define("NMYSQCC_BR",       "<br />"); }    /* HTML break row */
 if (!defined("NMYSQCC_LF")) {			define("NMYSQCC_LF",       "\n"); }        /* PHP break row */
 
-/* NMCC = nitrinax mysqli class const */
+/* NMYSQCC = nitrinax mysqli class const */
 if (!defined("NMYSQCC_DOT")) {			define("NMYSQCC_DOT",      "."); }         /* SQL REFERENCE/CONDITION SEPARATOR */
 if (!defined("NMYSQCC_COMMA")) {		define("NMYSQCC_COMMA",    ","); }         /* SQL MULTIPLY FIELD SEPARATOR */
 if (!defined("NMYSQCC_IQ")) {			define("NMYSQCC_IQ",       "`"); }         /* SQL INSTRUCTION QUOTE */
 if (!defined("NMYSQCC_VQ")) {			define("NMYSQCC_VQ",       "'"); }         /* SQL VALUE QUOTE */
-
 if (!defined("NMYSQCC_OPEN_BRACKET")) {			define("NMYSQCC_OPEN_BRACKET",			"<"); }
 if (!defined("NMYSQCC_CLOSE_BRACKET")) {		define("NMYSQCC_CLOSE_BRACKET",			">"); }
 if (!defined("NMYSQCC_CURVED_OPEN_BRACKET")) {	define("NMYSQCC_CURVED_OPEN_BRACKET",	"{"); }
@@ -33,7 +32,6 @@ if (!defined("NMYSQCC_SQUARE_BRACKET_OPEN")) {	define("NMYSQCC_SQUARE_BRACKET_OP
 if (!defined("NMYSQCC_SQUARE_BRACKET_CLOSE")) {	define("NMYSQCC_SQUARE_BRACKET_CLOSE",	"]"); }
 if (!defined("NMYSQCC_LEFT_PARENTHESIS")) {		define("NMYSQCC_LEFT_PARENTHESIS",		"("); }
 if (!defined("NMYSQCC_RIGHT_PARENTHESIS")) {	define("NMYSQCC_RIGHT_PARENTHESIS",		")"); }
-
 if (!defined("NMYSQCC_PERCENT")) {     define("NMYSQCC_PERCENT",  "%"); }
 if (!defined("NMYSQCC_BLANK")) {       define("NMYSQCC_BLANK",    " "); }
 
@@ -42,7 +40,8 @@ if (!defined("NMYSQCC_SELECT")) {      define("NMYSQCC_SELECT",   "SELECT "); }
 if (!defined("NMYSQCC_INSERT")) {      define("NMYSQCC_INSERT",   "INSERT INTO "); }
 if (!defined("NMYSQCC_UPDATE")) {      define("NMYSQCC_UPDATE",   "UPDATE "); }
 if (!defined("NMYSQCC_DELETE")) {      define("NMYSQCC_DELETE",   "DELETE FROM "); }
-
+if (!defined("NMYSQCC_TABLES")) {      define("NMYSQCC_TABLES",   "SHOW TABLES FROM "); }
+if (!defined("NMYSQCC_COLUMNS")) {     define("NMYSQCC_COLUMNS",   "SHOW COLUMNS FROM "); }
 /* conditions */
 if (!defined("NMYSQCC_FROM")) {        define("NMYSQCC_FROM",     " FROM "); }
 if (!defined("NMYSQCC_SET")) {         define("NMYSQCC_SET",      " SET "); }
@@ -89,26 +88,90 @@ if (!defined("NMYSQCC_NLO_JOIN")) {    define("NMYSQCC_NLO_JOIN", " NATURAL LEFT
 if (!defined("NMYSQCC_NRO_JOIN")) {    define("NMYSQCC_NRO_JOIN", " NATURAL RIGHT OUTER JOIN "); }
 
 /* set error messages */
+
+/* mysqli class errors */
 if (!defined("NMYSQCC_ERROR_DIRECTORY_DOES_NOT_EXISTS")) { define("NMYSQCC_ERROR_DIRECTORY_DOES_NOT_EXISTS", "Directory \"%s\" does not exist."); }
 if (!defined("NMYSQCC_ERROR_FILE_DOES_NOT_EXISTS")) { define("NMYSQCC_ERROR_FILE_DOES_NOT_EXISTS", "File \"%s\" does not exist."); }
 
-/* mysqli class errors */
+/* ntrnx_mysqli_init */
 if (!defined("NMYSQCC_ERROR_MYSQLI_INIT_FAILED")) { define("NMYSQCC_ERROR_MYSQLI_INIT_FAILED", "Mysqli_init failed."); }
+
+/* 
+* - ntrnx_mysqli_columns
+* - ntrnx_mysqli_delete
+* - ntrnx_mysqli_insert
+* - ntrnx_mysqli_raw_query
+* - ntrnx_mysqli_tables
+* - ntrnx_mysqli_update
+*/
 if (!defined("NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED")) { define("NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED", "DB handle not initialized."); }
+
+/* 
+* - ntrnx_mysqli_columns
+* - ntrnx_mysqli_delete
+* - ntrnx_mysqli_insert
+* - ntrnx_mysqli_raw_query
+* - ntrnx_mysqli_tables
+* - ntrnx_mysqli_update
+*/
 if (!defined("NMYSQCC_ERROR_NOT_CONNECTED")) { define("NMYSQCC_ERROR_NOT_CONNECTED", "Connection Error: Not connected."); }
+
+/* ntrnx_mysqli_insert */
 if (!defined("NMYSQCC_ERROR_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH")) { define("NMYSQCC_ERROR_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH", "Number of columns and number of values ​​do not match."); }
+
+/* ntrnx_mysqli_set_charset */
 if (!defined("NMYSQCC_ERROR_ON_LOADING_CHARACTER_SET")) { define("NMYSQCC_ERROR_ON_LOADING_CHARACTER_SET", "Error loading character set : \"%s\"."); }
 
+/*
+* - ntrnx_mysqli_connect
+* - ntrnx_mysqli_options
+* - ntrnx_mysqli_pconnect
+* - ntrnx_mysqli_real_connect
+*/
 if (!defined("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION")) { define("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION", "Error on setting value \"{VALUE}\" for option \"{OPTION}\"."); }
+
+/*
+* - ntrnx_mysqli_connect
+* - ntrnx_mysqli_options
+* - ntrnx_mysqli_pconnect
+* - ntrnx_mysqli_real_connect
+*/
 if (!defined("NMYSQCC_ERROR_VALUE_MUST_BE_INTEGER")) { define("NMYSQCC_ERROR_VALUE_MUST_BE_INTEGER", "Value must be integer."); }
+
+/* ntrnx_mysqli_options */
 if (!defined("NMYSQCC_ERROR_VALUE_MUST_BE_BOOLEAN")) { define("NMYSQCC_ERROR_VALUE_MUST_BE_BOOLEAN", "Value must be boolean."); }
+
+/* ntrnx_mysqli_options */
 if (!defined("NMYSQCC_ERROR_VALUE_MUST_BE_STRING")) { define("NMYSQCC_ERROR_VALUE_MUST_BE_STRING", "Value must be string."); }
 
+/* ntrnx_mysqli_ssl_get */
+if (!defined("NMYSQCC_ERROR_SSL_IS_ENABLED")) { define("NMYSQCC_ERROR_SSL_IS_ENABLED", "SSL to database is enabled."); }
+if (!defined("NMYSQCC_ERROR_SSL_IS_DISABLED")) { define("NMYSQCC_ERROR_SSL_IS_DISABLED", "SSL to database is disabled."); }
+
+/* ntrnx_mysqli_ssl_set */
 if (!defined("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_FILE")) { define("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_FILE", "Error on setting path to file \"{FILE}\"."); }
+
+/* ntrnx_mysqli_ssl_set */
 if (!defined("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_DIR")) { define("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_DIR", "Error on setting path to dir \"{DIR}\" that contains \"{FILE}\"."); }
 
-/* mysqli class messages */
-if (!defined("NMYSQCC_MSG_CURRENT_CHARACTER_SET")) { define("NMYSQCC_MSG_CURRENT_CHARACTER_SET", "Client character set was changed to : \"%s\"."); }
+/* ntrnx_mysqli_select */
+if (!defined("NMYSQCC_ERROR_JOIN_SYNTAX")) { define("NMYSQCC_ERROR_JOIN_SYNTAX", "Error on JOIN syntax."); }
+
+/* ntrnx_mysqli_select */
+if (!defined("NMYSQCC_ERROR_JOIN_EXPRESSION")) { define("NMYSQCC_ERROR_JOIN_EXPRESSION", "Error on JOIN expression."); }
+
+/* ntrnx_mysqli_select */
+if (!defined("NMYSQCC_ERROR_OPERATOR_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_OPERATOR_NOT_SUPPORTED", "Operator \"%s\" not supported."); }
+
+/* ntrnx_mysqli_select */
+if (!defined("NMYSQCC_ERROR_HAVING_CONDITION_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_HAVING_CONDITION_NOT_SUPPORTED", "having_condition not supported."); }
+
+if (!defined("NMYSQCC_ERROR_PROCEDURE_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_PROCEDURE_NOT_SUPPORTED", "procedure not supported."); }
+if (!defined("NMYSQCC_ERROR_INTO_TARGET_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_INTO_TARGET_NOT_SUPPORTED", "into_target not supported."); }
+if (!defined("NMYSQCC_ERROR_FOR_OPTIONS_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_FOR_OPTIONS_NOT_SUPPORTED", "for_options not supported."); }
+
+/* ntrnx_mysqli_set_charset */
+if (!defined("NMYSQCC_MSG_CLIENT_CHARACTER_SET_WAS_CHANGED")) { define("NMYSQCC_MSG_CLIENT_CHARACTER_SET_WAS_CHANGED", "Client character set was changed to : \"%s\"."); }
 
 /* set DIR to absolute path to library files */
 if (!defined("NMYSQCC_DIR")) { define("NMYSQCC_DIR", dirname(__FILE__) . NMYSQCC_DS); }
@@ -156,16 +219,17 @@ foreach ($ntrnx_mysqli_array_files as &$ntrnx_mysqli_var_file) {
 }
 
 /* setup config const from config vars */
-if (!defined("NMYSQCC_UPDATE_CHECK")) { define("NMYSQCC_UPDATE_CHECK", \NTRNX_MYSQLI\ntrnx_mysqli_config::$allow_update_check); }
-if (!defined("NMYSQCC_DEPENDENCES_CHECK")) { define("NMYSQCC_DEPENDENCES_CHECK", \NTRNX_MYSQLI\ntrnx_mysqli_config::$allow_dependences_check); }
-if (!defined("NMYSQCC_FUNCTIONS_CHECK")) { define("NMYSQCC_FUNCTIONS_CHECK", \NTRNX_MYSQLI\ntrnx_mysqli_config::$allow_functions_check); }
-if (!defined("NMYSQCC_QUOTE_AS_STRING")) { define("NMYSQCC_QUOTE_AS_STRING", \NTRNX_MYSQLI\ntrnx_mysqli_config::$quote_as_string); }
-if (!defined("NMYSQCC_DEBUG")) { define("NMYSQCC_DEBUG", \NTRNX_MYSQLI\ntrnx_mysqli_config::$debug); }
+if (!defined("NMYSQCC_ALLOW_UPDATE_CHECK")) { define("NMYSQCC_ALLOW_UPDATE_CHECK", \NTRNX_MYSQLI\ntrnx_mysqli_config::$allow_update_check); }
+if (!defined("NMYSQCC_ALLOW_DEPENDENCES_CHECK")) { define("NMYSQCC_ALLOW_DEPENDENCES_CHECK", \NTRNX_MYSQLI\ntrnx_mysqli_config::$allow_dependences_check); }
+if (!defined("NMYSQCC_ALLOW_FUNCTIONS_CHECK")) { define("NMYSQCC_ALLOW_FUNCTIONS_CHECK", \NTRNX_MYSQLI\ntrnx_mysqli_config::$allow_functions_check); }
+
 if (!defined("NMYSQCC_DATETIME_FORMAT")) { define("NMYSQCC_DATETIME_FORMAT", \NTRNX_MYSQLI\ntrnx_mysqli_config::$datetime_format); }
-if (!defined("NMYSQCC_LOG_ERRORS")) { define("NMYSQCC_LOG_ERRORS", \NTRNX_MYSQLI\ntrnx_mysqli_config::$log_errors); }
-if (!defined("NMYSQCC_LOG_WARNINGS")) { define("NMYSQCC_LOG_WARNINGS", \NTRNX_MYSQLI\ntrnx_mysqli_config::$log_warnings); }
-if (!defined("NMYSQCC_DISPLAY_ERRORS")) { define("NMYSQCC_DISPLAY_ERRORS", \NTRNX_MYSQLI\ntrnx_mysqli_config::$display_errors); }
-if (!defined("NMYSQCC_DISPLAY_WARNINGS")) { define("NMYSQCC_DISPLAY_WARNINGS", \NTRNX_MYSQLI\ntrnx_mysqli_config::$display_warnings); }
+if (!defined("NMYSQCC_DATETIME_SUFFIX")) { define("NMYSQCC_DATETIME_SUFFIX", \NTRNX_MYSQLI\ntrnx_mysqli_config::$datetime_suffix); }
+if (!defined("NMYSQCC_DATETIME_PRAEFIX")) { define("NMYSQCC_DATETIME_PRAEFIX", \NTRNX_MYSQLI\ntrnx_mysqli_config::$datetime_praefix); }
+if (!defined("NMYSQCC_LOG_SEPARATOR")) { define("NMYSQCC_LOG_SEPARATOR", \NTRNX_MYSQLI\ntrnx_mysqli_config::$log_separator); }
+
+if (!defined("NMYSQCC_LOG_LEVEL")) { define("NMYSQCC_LOG_LEVEL", \NTRNX_MYSQLI\ntrnx_mysqli_config::$log_level); }
+if (!defined("NMYSQCC_DISPLAY_LEVEL")) { define("NMYSQCC_DISPLAY_LEVEL", \NTRNX_MYSQLI\ntrnx_mysqli_config::$display_level); }
 
 /* begin of class ntrnx_mysqli */
 class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
@@ -179,6 +243,7 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
     /* var for state of connection */
     static $connected = FALSE;
 
+    /* setup connection vars */
     static $host = \NTRNX_MYSQLI\ntrnx_mysqli_db_config::DB_HOST;
     static $username = \NTRNX_MYSQLI\ntrnx_mysqli_db_config::DB_USER;
     static $passwd = \NTRNX_MYSQLI\ntrnx_mysqli_db_config::DB_PASS;
@@ -187,6 +252,7 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
     static $socket = \NTRNX_MYSQLI\ntrnx_mysqli_db_config::DB_SOCKET;
     static $flags = \NTRNX_MYSQLI\ntrnx_mysqli_db_config::DB_FLAGS;
 
+    /* setup security vars */
     static $key = \NTRNX_MYSQLI\ntrnx_mysqli_db_config::DB_KEY;
     static $cert = \NTRNX_MYSQLI\ntrnx_mysqli_db_config::DB_CERT;
     static $ca = \NTRNX_MYSQLI\ntrnx_mysqli_db_config::DB_CA;
@@ -203,7 +269,6 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
 
     /* class functions */
     public static function get_name() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_name::get(); }
-
     public static function get_api() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_api::get(); }
     public static function get_author_name() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_name(); }
     public static function get_author_nick() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_nick(); }
@@ -211,21 +276,17 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
     public static function get_author_url() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_url(); }
     public static function get_branch() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_build::get_branch(); }
     public static function get_buildchannel() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_build::get_build_channel(); }
-
     public static function get_dependences_state() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::state(); }
     public static function get_dependences() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::get(); }
     public static function check_dependences() { return \NTRNX_MYSQLI\ntrnx_mysqli::check_dependences(); }
-
     public static function get_needed_functions_state() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::state(); }
     public static function get_needed_functions() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::get(); }
     public static function check_needed_functions() { return \NTRNX_MYSQLI\ntrnx_mysqli::check_needed_functions(); }
-
-    public static function get_project_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_project_url(); }
-    public static function get_source_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_source_url(); }
-    public static function get_version_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_version_url(); }
-    public static function get_update_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_update_url(); }
-    public static function get_manual_url(){ return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_manual_url(); }
-
+    public static function get_project_url() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_project_url(); }
+    public static function get_source_url() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_source_url(); }
+    public static function get_version_url() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_version_url(); }
+    public static function get_update_url() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_update_url(); }
+    public static function get_manual_url() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_manual_url(); }
     public static function get_version() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get(); }
     public static function get_version_major() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_major(); }
     public static function get_version_minor() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_minor(); }
@@ -233,23 +294,25 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
     public static function get_version_revision() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_revision(); }
     public static function get_version_date() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_date(); }
     public static function get_version_time() { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_time(); }
-
-    public static function log_error($error) { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_log::error($error); }
-    public static function log_warning($warning) { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_log::warning($warning); }
+    public static function raise_error($error_id, $error_class, $error_line, $stringA = NULL, $stringB = NULL, $stringC = NULL) { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise($error_id, $error_class, $error_line, $stringA, $stringB, $stringC); }
+    public static function log_error($error, $class, $line) { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_log::log_error($error, $class, $line); }
+    public static function log_warning($warning, $class, $line) { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_log::log_warning($warning, $class, $line); }
+    public static function log_info($info, $class, $line) { return \NTRNX_MYSQLI\ntrnx_mysqli_internal_log::log_info($info, $class, $line); }
 
     /* mysqli functions */
-    //public static function affected_fields() {}
-    //public static function affected_rows() {}
+    public static function affected_fields($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_affected_fields::link($mysqli_result); }
+    public static function affected_rows($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_affected_rows::link($mysqli_handle); }
     //public static function autocommit() {}
     //public static function begin_transaction() {}
     //public static function change_user() {}
     //public static function character_set_name() {}
     public static function close($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_close::link($mysqli_handle); }
+    public static function columns($mysqli_handle, $table) { return \NTRNX_MYSQLI\ntrnx_mysqli_columns::show($mysqli_handle, $table); }
     //public static function commit() {}
     public static function connect() { return \NTRNX_MYSQLI\ntrnx_mysqli_connect::db(); }
-    //public static function connect_errno() {}
-    //public static function connect_error() {}
-    //public static function data_seek() {}
+    public static function connect_errno() { return \NTRNX_MYSQLI\ntrnx_mysqli_connect_errno::get(); }
+    public static function connect_error() { return \NTRNX_MYSQLI\ntrnx_mysqli_connect_error::get(); }
+    public static function data_seek($mysqli_result, $offset) { return \NTRNX_MYSQLI\ntrnx_mysqli_data_seek::result($mysqli_result, $offset); }
     //public static function debug() {}
     public static function delete(
         
@@ -273,24 +336,26 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
     }
 
     //public static function dump_debug_info() {}
-    //public static function errno() {}
-    //public static function error() {}
+    public static function errno($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_errno::link($mysqli_handle); }
+    public static function error($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_error::link($mysqli_handle); }
     //public static function error_list() {}
-    //public static function fetch_all() {}
-    //public static function fetch_array() {}
-    //public static function fetch_assoc() {}
-    //public static function fetch_field() {}
-    //public static function fetch_fields() {}
-    //public static function fetch_field_direct() {}
-    //public static function fetch_lengths() {}
-    //public static function fetch_object() {}
-    //public static function fetch_row() {}
+    public static function fetch_all($mysqli_result, $result_type = NULL) { return \NTRNX_MYSQLI\ntrnx_mysqli_fetch_all::result($mysqli_result, $result_type); }
+    public static function fetch_array($mysqli_result, $result_type = NULL) { return \NTRNX_MYSQLI\ntrnx_mysqli_fetch_array::result($mysqli_result, $result_type); }
+    public static function fetch_assoc($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_fetch_assoc::result($mysqli_result); }
+    public static function fetch_field_direct($mysqli_result, $fieldnr) { return \NTRNX_MYSQLI\ntrnx_mysqli_fetch_field_direct::result($mysqli_result, $fieldnr); }
+    public static function fetch_field($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_fetch_field::result($mysqli_result); }
+    public static function fetch_fields($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_fetch_fields::result($mysqli_result); }
+    public static function fetch_lengths($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_fetch_lengths::result($mysqli_result); }
+    public static function fetch_object($mysqli_result, $class_name = NULL, $params = NULL) { return \NTRNX_MYSQLI\ntrnx_mysqli_fetch_object::result($mysqli_result, $class_name, $params); }
+    public static function fetch_row($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_fetch_row::result($mysqli_result); }
     //public static function fields() {}
-    //public static function field_count() {}
-    //public static function field_seek() {}
-    //public static function field_tell() {}
-    public static function free_result() {}
-    //public static function get_charset() {}
+    public static function field_count($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_field_count::link($mysqli_result); }
+    public static function field_seek($mysqli_result, $fieldnr) { return \NTRNX_MYSQLI\ntrnx_mysqli_field_seek::result($mysqli_result, $fieldnr); }
+    public static function field_tell($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_field_tell::result($mysqli_result); }
+    public static function free_result($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_free_result::result($mysqli_result); }
+    
+    public static function get_charset($mysqli_handle, $options = NULL) { return \NTRNX_MYSQLI\ntrnx_mysqli_get_charset::result($mysqli_handle, $options); }
+    
     //public static function get_client_info() {}
     //public static function get_client_stats() {}
     //public static function get_client_version() {}
@@ -301,7 +366,7 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
     //public static function get_server_version() {}
     //public static function get_warnings() {}
     //public static function info() {}
-    public static function init($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_init::resource($mysqli_handle); }
+    public static function init() { return \NTRNX_MYSQLI\ntrnx_mysqli_init::resource(); }
     public static function insert(
 
         $mysqli_handle,
@@ -327,22 +392,20 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
     }
     //public static function insert_id() {}
     //public static function kill() {}
-    //public static function last_query() {}
+    public static function last_query() { return \NTRNX_MYSQLI\ntrnx_mysqli_last_query::get(); }
     //public static function more_results() {}
     //public static function multi_query() {}
     //public static function next_result() {}
-    //public static function num_fields() {}
-    //public static function num_rows() {}
+    public static function num_fields($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_num_fields::result($mysqli_result); }
+    public static function num_rows($mysqli_result) { return \NTRNX_MYSQLI\ntrnx_mysqli_num_rows::result($mysqli_result); }
     //public static function options() {}
     public static function pconnect() { return \NTRNX_MYSQLI\ntrnx_mysqli_pconnect::db(); }
     //public static function ping() {}
     //public static function poll() {}
     //public static function prepare() {}
-    //public static function query() {}
+    public static function raw_query($mysqli_handle, $statement, $options = NULL) { return \NTRNX_MYSQLI\ntrnx_mysqli_raw_query::link($mysqli_handle, $statement, $options); }
     public static function real_connect($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_real_connect::db($mysqli_handle); }
-    
-    public static function real_escape_string($mysqli_handle, $string) { return \NTRNX_MYSQLI\ntrnx_mysqli_real_escape_string::link($mysqli_handle, $string); }
-
+    public static function real_escape_string($mysqli_handle, $escapestr) { return \NTRNX_MYSQLI\ntrnx_mysqli_real_escape_string::link($mysqli_handle, $escapestr); }
     public static function real_pconnect($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_real_pconnect::db($mysqli_handle); }
     //public static function real_query() {}
     //public static function reap_async_query() {}
@@ -387,15 +450,17 @@ class ntrnx_mysqli extends \NTRNX_MYSQLI\ntrnx_mysqli_core {
     }
 
     //public static function select_db() {}
-    //public static function set_charset() {}
+    
+    public static function set_charset($mysqli_handle, $charset) { return \NTRNX_MYSQLI\ntrnx_mysqli_set_charset::result($mysqli_handle, $charset); }
+    
     //public static function set_local_infile_default() {}
     //public static function set_local_infile_handler() {}
-    //public static function sqlstate() {}
+    public static function sqlstate($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_sqlstate::get($mysqli_handle); }
     public static function ssl_get($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_ssl_get::link($mysqli_handle); }
     public static function ssl_set($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_ssl_set::link($mysqli_handle); }
     //public static function stat() {}
     //public static function store_result() {}
-    //public static function tables() {}
+    public static function tables($mysqli_handle) { return \NTRNX_MYSQLI\ntrnx_mysqli_tables::show($mysqli_handle); }
     //public static function thread_id() {}
     //public static function thread_safe() {}
     public static function update(
@@ -439,6 +504,7 @@ $ntrnx_mysqli_sublib_array_files = array(
     "ntrnx_mysqli_function_change_user",
     "ntrnx_mysqli_function_character_set_name",
     "ntrnx_mysqli_function_close",
+    "ntrnx_mysqli_function_columns",
     "ntrnx_mysqli_function_commit",
     "ntrnx_mysqli_function_connect",
     "ntrnx_mysqli_function_connect_errno",
@@ -459,7 +525,6 @@ $ntrnx_mysqli_sublib_array_files = array(
     "ntrnx_mysqli_function_fetch_lengths",
     "ntrnx_mysqli_function_fetch_object",
     "ntrnx_mysqli_function_fetch_row",
-    "ntrnx_mysqli_function_fields",
     "ntrnx_mysqli_function_field_count",
     "ntrnx_mysqli_function_field_seek",
     "ntrnx_mysqli_function_field_tell",
@@ -490,7 +555,7 @@ $ntrnx_mysqli_sublib_array_files = array(
     "ntrnx_mysqli_function_ping",
     "ntrnx_mysqli_function_poll",
     "ntrnx_mysqli_function_prepare",
-    "ntrnx_mysqli_function_query",
+    "ntrnx_mysqli_function_raw_query",
     "ntrnx_mysqli_function_real_connect",
     "ntrnx_mysqli_function_real_escape_string",
     "ntrnx_mysqli_function_real_pconnect",
@@ -522,6 +587,7 @@ $ntrnx_mysqli_sublib_array_files = array(
     "ntrnx_mysqli_internal_author",
     "ntrnx_mysqli_internal_build",
     "ntrnx_mysqli_internal_dependences",
+    "ntrnx_mysqli_internal_error",
     "ntrnx_mysqli_internal_log",
     "ntrnx_mysqli_internal_name",
     "ntrnx_mysqli_internal_needed_functions",
@@ -535,7 +601,7 @@ $ntrnx_mysqli_sublib_array_files = array(
 foreach ($ntrnx_mysqli_sublib_array_files as &$ntrnx_mysqli_sublib_var_file) {
 
     $sublib = NMYSQCC_SYSPLUGINS_DIR .  $ntrnx_mysqli_sublib_var_file . ".php";
-
+    //print "filename : " . $sublib . "<br />";
     if (!file_exists($sublib)) { die(str_replace("%s", $sublib, NMYSQCC_ERROR_FILE_DOES_NOT_EXISTS)); } else { require_once( $sublib ); }
 
 }

@@ -7,7 +7,16 @@ class ntrnx_mysqli_error extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5, PHP 7)
     //mysqli::$error -- mysqli_error — Returns a string description of the last error
-    static function link() {}
+    //http://php.net/manual/de/mysqli.error.php
+    static function link(
+
+        $mysqli_handle
+
+    ) {
+
+        return mysqli_errno ($mysqli_handle);
+
+    }
 
 }
 

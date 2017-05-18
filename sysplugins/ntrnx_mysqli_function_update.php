@@ -42,6 +42,7 @@ class ntrnx_mysqli_update extends \NTRNX_MYSQLI\ntrnx_mysqli {
             . NMYSQCC_IQ
             . $table_reference
             . NMYSQCC_IQ;
+        //print "<pre>" . $update_statement . "</pre>";
 
         /* create set expression */
         $count_set = count($set_expression);
@@ -50,30 +51,13 @@ class ntrnx_mysqli_update extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         for ($i = 0; $i < $count_set; $i++) {
 
-            if (NMYSQCC_QUOTE_AS_STRING === TRUE) {
-
-                 $set_statement .= NMYSQCC_IQ
-                . $set_expression[$i]
-                . NMYSQCC_IQ
-                //. NMYSQCC_BLANK
-                . NMYSQCC_EQUAL
-                //. NMYSQCC_BLANK
-                . NMYSQCC_VQ
-                . $set_expression[$i+1]
-                . NMYSQCC_VQ;
-
-            } else {
-
-                 $set_statement .= NMYSQCC_BLANK
-                . NMYSQCC_IQ
-                . $set_expression[$i]
-                . NMYSQCC_IQ
-                //. NMYSQCC_BLANK
-                . NMYSQCC_EQUAL
-                //. NMYSQCC_BLANK
-                . $set_expression[$i+1];
-
-            }
+            $set_statement .= NMYSQCC_IQ
+            . $set_expression[$i]
+            . NMYSQCC_IQ
+            . NMYSQCC_EQUAL
+            . NMYSQCC_VQ
+            . $set_expression[$i+1]
+            . NMYSQCC_VQ;
 
             $i++;
 
@@ -94,37 +78,20 @@ class ntrnx_mysqli_update extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         for ($i = 0; $i < $count_where; $i++) {
 
-            if (NMYSQCC_QUOTE_AS_STRING === TRUE) {
+            $where_statement .= NMYSQCC_IQ
+            . $where_condition[$i]
+            . NMYSQCC_IQ;
 
-                $where_statement .= NMYSQCC_IQ
-                . $where_condition[$i]
-                . NMYSQCC_IQ;
+            if ($where_condition[$i+1] === NULL) {
 
-                if ($where_condition[$i+1] === NULL) {
-
-                    $where_statement .= " IS NULL";
-
-                } else {
-
-                    $where_statement .= NMYSQCC_EQUAL
-                    . NMYSQCC_VQ
-                    . $where_condition[$i+1]
-                    . NMYSQCC_VQ;
-
-                }
+                $where_statement .= " IS NULL";
 
             } else {
 
-                if ($where_condition[$i+1] === NULL) {
-
-                    $where_statement .= "IS NULL";
-
-                } else {
-
-                    $where_statement .= NMYSQCC_EQUAL
-                    . $where_condition[$i+1];
-
-                }
+                $where_statement .= NMYSQCC_EQUAL
+                . NMYSQCC_VQ
+                . $where_condition[$i+1]
+                . NMYSQCC_VQ;
 
             }
 
@@ -210,11 +177,6 @@ class ntrnx_mysqli_update extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         if ($limit) { $statement .= $limit_statement; }
 
-        /* debug output */
-        if (NMYSQCC_DEBUG === TRUE) {
-            print "<pre>" . $statement . "</pre>";
-        }
-
         self::$last_query = $statement;
 
         /* check for mysqli handle */
@@ -225,35 +187,21 @@ class ntrnx_mysqli_update extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                 if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
 
-                    $error = TRUE;
-                    $error_msg = mysqli_error ($mysqli_handle) . " (" . mysqli_errno($mysqli_handle) . ")";
+                    \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    $result = FALSE;
 
                 }
 
             } else {
 
-                $error = TRUE;
-                $error_msg = NMYSQCC_ERROR_NOT_CONNECTED . " (" . mysqli_connect_errno() . ")";
+                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(3, get_called_class(), __LINE__);
+                $result = FALSE;
 
             }
 
         } else {
 
-            $error = TRUE;
-            $error_msg = NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED;
-
-        }
-
-        /* check for error */
-        if ($error === TRUE) {
-
-                /* debug output */
-                if (NMYSQCC_LOG_ERRORS === TRUE) {
-                    \NTRNX_MYSQLI\ntrnx_mysqli::log_error($error_msg . " | " . get_called_class() . " | " . __LINE__ );
-                } else if (NMYSQCC_DEBUG === TRUE) {
-                    print $error_msg . NMYSQCC_BR;
-                }
-
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(2, get_called_class(), __LINE__);
             $result = FALSE;
 
         }
