@@ -5,9 +5,6 @@ namespace NTRNX_MYSQLI;
 /* begin of class */
 class ntrnx_mysqli_raw_query extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    private static $error = FALSE;
-    private static $error_msg = NULL;
-
     //(PHP 5, PHP 7)
     //mysqli::query -- mysqli_query — Performs a query on the database
     static function link(
@@ -18,55 +15,33 @@ class ntrnx_mysqli_raw_query extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     ) {
 
-        /* debug output */
-        if (NMYSQCC_DEBUG === TRUE) {
-            print "<pre>" . $statement . "</pre>";
-        }
-
         self::$last_query = $statement;
 
+        /* check for mysqli handle */
         if ($mysqli_handle) {
 
             /* check for connected state */
             if (self::$connected === TRUE) {
 
-                if (!$result = mysqli_query ($mysqli_handle, $statement, $options)) {
+                if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
 
-                    $error = TRUE;
-                    $error_msg = mysqli_error ($mysqli_handle);
+                    \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 }
 
             } else {
 
-                $error = TRUE;
-                $error_msg = NMYSQCC_ERROR_NOT_CONNECTED . " (" . mysqli_connect_errno() . ")";
+                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(3, get_called_class(), __LINE__);
 
             }
 
         } else {
 
-            $error = TRUE;
-            $error_msg = NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED;
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(2, get_called_class(), __LINE__);
 
         }
 
-        /* check for error */
-        if ($error === TRUE) {
-
-            /* error output */
-            if (NMYSQCC_LOG_ERRORS === TRUE) {
-                \NTRNX_MYSQLI\ntrnx_mysqli::log_error($error_msg, get_called_class(), __LINE__ );
-            }
-            if (NMYSQCC_DISPLAY_ERRORS === TRUE) {
-                print $error_msg . NMYSQCC_BR;
-            }
-
-            $result = FALSE;
-
-        }
-
-        return $result;     
+        return $result;
 
     }
 

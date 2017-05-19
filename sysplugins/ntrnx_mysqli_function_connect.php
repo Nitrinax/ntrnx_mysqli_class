@@ -5,9 +5,6 @@ namespace NTRNX_MYSQLI;
 /* begin of class */
 class ntrnx_mysqli_connect extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
-    private static $error = FALSE;
-    private static $error_msg = NULL;
-
     //(PHP 5, PHP 7)
     //mysqli::__construct -- mysqli_connect — Open a new connection to the MySQL server
     
@@ -22,43 +19,27 @@ class ntrnx_mysqli_connect extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         /* check porrt value */
         if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
-            $placeholder_array = array ("{VALUE}", "{OPTION}");
-            $string_array = array ($port, "port");
 
-            $error = TRUE;
-            $error_msg = str_replace($placeholder_array, $string_array, NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION) . NMYSQCC_ERROR_VALUE_MUST_BE_INTEGER;
-
-        }
-
-        /* create connection */
-        $mysqli_handle = mysqli_connect ($host, $username, $passwd, $dbname, $port, $socket);
-        if (!$mysqli_handle) {
-            
-            $error = TRUE;
-            $error_msg = "Connect Error (" . mysqli_connect_errno() . ") " . mysqli_connect_error() . " " . "{" . $host . ", " . $username . ", " . "********, " . $dbname . ", " . $port . ", " . $socket . ", " . $flags . "}";
-            
-        }
-
-        /* check for error */
-        if ($error === TRUE) {
-
-            /* error output */
-            if (NMYSQCC_LOG_LEVEL >= 4) {
-                \NTRNX_MYSQLI\ntrnx_mysqli::log_error($error_msg, get_called_class(), __LINE__ );
-            }
-            if (NMYSQCC_DISPLAY_LEVEL >= 4) {
-                print $error_msg . NMYSQCC_BR;
-            }
-
-            return FALSE;
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(30, get_called_class(), __LINE__ , $port, "DB_PORT");
+            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(31, get_called_class(), __LINE__);
 
         } else {
 
-            self::$persistent_connection = FALSE;
+            /* create connection */
+            $mysqli_handle = @mysqli_connect ($host, $username, $passwd, $dbname, $port, $socket);
+            if (!$mysqli_handle) {
+                
+                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(mysqli_connect_errno(), get_called_class(), __LINE__, mysqli_connect_error());
+                
+            } else {
 
-            self::$connected = TRUE;
+                self::$persistent_connection = FALSE;
 
-            return $mysqli_handle;
+                self::$connected = TRUE;
+
+                return $mysqli_handle;
+
+            }
 
         }
 

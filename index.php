@@ -51,144 +51,151 @@ if (\NTRNX_MYSQLI\ntrnx_mysqli::get_needed_functions_state()===TRUE) {
     print "OFF<br/>";
 }
 
-//\NTRNX_MYSQLI\ntrnx_mysqli::log_error("test", "index.php", __LINE__ );
-//\NTRNX_MYSQLI\ntrnx_mysqli::log_warning("test", "index.php", __LINE__ );
-
 print "<br/>";
-print "now demonstrate functions<br/>";
+print "now check  functions<br/>";
 print "<br/>";
 
 $db_handle = NULL;
 
-//\NTRNX_MYSQLI\ntrnx_mysqli::raise_error(20, "test", __LINE__, "aaa", "bbb");
-//\NTRNX_MYSQLI\ntrnx_mysqli::raise_error(21, "test", __LINE__);
-
-print " - init connection : ";
-if ($db_handle = \NTRNX_MYSQLI\ntrnx_mysqli::init($db_handle)) { print "TRUE<br/>"; }
-
-print " - set ssl encryption : ";
-if (\NTRNX_MYSQLI\ntrnx_mysqli::ssl_set($db_handle) === TRUE) { print "TRUE<br/>"; }
-
-print " - using real connect to db : ";
-$result = \NTRNX_MYSQLI\ntrnx_mysqli::real_connect($db_handle);
-if ($result == TRUE) { print "TRUE<br/>"; }
-
-print " - check ssl encryption : ";
-if (\NTRNX_MYSQLI\ntrnx_mysqli::ssl_get($db_handle) === TRUE) { print "ON"; } else { print "OFF"; }
-print "<br/>";
-
-print " - perform a select query : ";
-$query_result = \NTRNX_MYSQLI\ntrnx_mysqli::select($db_handle,
+print " - connect : "; if ($db_handle = \NTRNX_MYSQLI\ntrnx_mysqli::connect()) { print "PASSED<br/>"; }
+print " - close : "; if ($db_handle) { \NTRNX_MYSQLI\ntrnx_mysqli::close($db_handle); print "PASSED<br/><br/>"; }
+print " - pconnect : "; if ($db_handle = \NTRNX_MYSQLI\ntrnx_mysqli::pconnect()) { print "PASSED<br/>"; }
+print " - close : "; if ($db_handle) { \NTRNX_MYSQLI\ntrnx_mysqli::close($db_handle); print "PASSED<br/><br/>"; }
+print " - init : "; if ($db_handle = \NTRNX_MYSQLI\ntrnx_mysqli::init($db_handle)) { print "PASSED<br/>"; }
+print " - ssl_set : "; if (\NTRNX_MYSQLI\ntrnx_mysqli::ssl_set($db_handle) === TRUE) { print "PASSED<br/>"; }
+print " - real_connect : ";
+if (\NTRNX_MYSQLI\ntrnx_mysqli::real_connect($db_handle) === TRUE) {
 	
-		// SELECT
-		array(
-			'test','name','AS','name',
-			'test','salary','AS','salary'
-		),
-		// FROM
-		array(
-			'test'
-		),
-		// JOIN
-		NULL,
-		// WHERE
-		array(
-			'test', 'name',
-			//'EQUAL', 'STRING', 'test'
-			//'GT', '0',
-			//'OR',
-			//'test', 'name',
-			//'EQUAL', 'kenobi',
-			'LIKE', 'kenobi'
-		)
+	print "PASSED<br/>";
 
-);
-if ($query_result) {
-	\NTRNX_MYSQLI\ntrnx_mysqli::free_result($query_result);
-	print "TRUE<br/>";
-}
-print "<pre>" . \NTRNX_MYSQLI\ntrnx_mysqli::$last_query . "</pre>";
+	print " - ssl_get : ";
+	if (\NTRNX_MYSQLI\ntrnx_mysqli::ssl_get($db_handle) === TRUE) { print NMYSQCC_ERROR_SSL_IS_ENABLED; } else { print NMYSQCC_ERROR_SSL_IS_DISABLED; }
+	print "<br/>";
 
-print " - perform a insert query : ";
-$query_result = \NTRNX_MYSQLI\ntrnx_mysqli::insert($db_handle,
-		'test',
-		array(
-			'name',
-			'salary'
-		),
-		array(
-			'abc',
-			'def'
-		)
-);
-if ($query_result) { print "TRUE<br/>"; }
-print "<pre>" . \NTRNX_MYSQLI\ntrnx_mysqli::$last_query . "</pre>";
+	print " - select : ";
+	$query_result = \NTRNX_MYSQLI\ntrnx_mysqli::select($db_handle,
+		
+			// SELECT
+			array(
+				'test','name','AS','name',
+				'test','salary','AS','salary'
+			),
+			// FROM
+			array(
+				'test'
+			),
+			// JOIN
+			NULL,
+			// WHERE
+			array(
+				'test', 'name',
+				//'EQUAL', 'STRING', 'test'
+				//'GT', '0',
+				//'OR',
+				//'test', 'name',
+				//'EQUAL', 'kenobi',
+				'LIKE', 'kenobi'
+			)
 
-print " - perform a update query : ";
-$query_result = \NTRNX_MYSQLI\ntrnx_mysqli::update($db_handle,
-		'test',
-		array(
-			'name',
-			'xyz',
-			'salary',
-			'xyz'
-		),
-		array(
-			'name',
-			'abc',
-			'salary',
-			'def'
-		)
-);
-if ($query_result) { print "TRUE<br/>"; }
-print "<pre>" . \NTRNX_MYSQLI\ntrnx_mysqli::$last_query . "</pre>";
-
-print " - perform a delete query : ";
-$query_result = \NTRNX_MYSQLI\ntrnx_mysqli::delete($db_handle,
-		'test',
-		array(
-			'name',
-			'EQUAL',
-			'xyz',
-			'AND',
-			'salary',
-			'EQUAL',
-			'xyz'
-		)
-);
-if ($query_result) { print "TRUE<br/>"; }
-print "<pre>" . \NTRNX_MYSQLI\ntrnx_mysqli::$last_query . "</pre>";
-
-print "- show table list of " . \NTRNX_MYSQLI\ntrnx_mysqli::$dbname . " :<br/>";
-$tables_result = \NTRNX_MYSQLI\ntrnx_mysqli::tables($db_handle);
-$tables_assoc = \NTRNX_MYSQLI\ntrnx_mysqli::fetch_all($tables_result, MYSQLI_ASSOC);
-if (\NTRNX_MYSQLI\ntrnx_mysqli::num_rows($tables_result) > 0) {
-	$tables_count = count($tables_assoc);
-	print "<pre>";
-	for ($i=0; $i < $tables_count; $i++) {
-		print " - " . $tables_assoc[$i]["Tables_in_". \NTRNX_MYSQLI\ntrnx_mysqli::$dbname] . "<br/>";
+	);
+	if ($query_result) {
+		print "PASSED<br/>";
+		print " - free_result : ";
+		\NTRNX_MYSQLI\ntrnx_mysqli::free_result($query_result);
+		print "PASSED<br/>";
 	}
-	print "</pre>";
-}
-if ($tables_result) { \NTRNX_MYSQLI\ntrnx_mysqli::free_result($tables_result); }
-print "<pre>" . \NTRNX_MYSQLI\ntrnx_mysqli::$last_query . "</pre>";
 
-print "- show column list from table `test` of " . \NTRNX_MYSQLI\ntrnx_mysqli::$dbname . " :<br/>";
-$columns_result = \NTRNX_MYSQLI\ntrnx_mysqli::columns($db_handle, "test");
-$columns_assoc = \NTRNX_MYSQLI\ntrnx_mysqli::fetch_all($columns_result, MYSQLI_ASSOC);
-if (\NTRNX_MYSQLI\ntrnx_mysqli::num_rows($columns_result) > 0) {
-	$columns_count = count($columns_assoc);
-	print "<pre>";
-	for ($i=0; $i < $columns_count; $i++) {
-		print " - " . $columns_assoc[$i]["Field"] . "<br/>";
+	print " - insert : ";
+	$query_result = \NTRNX_MYSQLI\ntrnx_mysqli::insert($db_handle,
+			'test',
+			array(
+				'name',
+				'salary'
+			),
+			array(
+				'abc',
+				'def'
+			)
+	);
+	if ($query_result) { print "PASSED<br/>"; }
+
+	print " - update : ";
+	$query_result = \NTRNX_MYSQLI\ntrnx_mysqli::update($db_handle,
+			'test',
+			array(
+				'name',
+				'xyz',
+				'salary',
+				'xyz'
+			),
+			array(
+				'name',
+				'abc',
+				'salary',
+				'def'
+			)
+	);
+	if ($query_result) { print "PASSED<br/>"; }
+
+	print " - delete : ";
+	$query_result = \NTRNX_MYSQLI\ntrnx_mysqli::delete($db_handle,
+			'test',
+			array(
+				'name',
+				'EQUAL',
+				'xyz',
+				'AND',
+				'salary',
+				'EQUAL',
+				'xyz'
+			)
+	);
+	if ($query_result) { print "PASSED<br/><br/>"; }
+
+	print "- tables :<br/>";
+	$tables_result = \NTRNX_MYSQLI\ntrnx_mysqli::tables($db_handle);
+	$tables_assoc = \NTRNX_MYSQLI\ntrnx_mysqli::fetch_all($tables_result, MYSQLI_ASSOC);
+	if (\NTRNX_MYSQLI\ntrnx_mysqli::num_rows($tables_result) > 0) {
+		$tables_count = count($tables_assoc);
+		print "<pre>";
+		for ($i=0; $i < $tables_count; $i++) {
+			print " - " . $tables_assoc[$i]["Tables_in_". \NTRNX_MYSQLI\ntrnx_mysqli::$dbname] . "<br/>";
+		}
+		print "</pre>";
 	}
-	print "</pre>";
-}
-if ($columns_result) { \NTRNX_MYSQLI\ntrnx_mysqli::free_result($columns_result); }
-print "<pre>" . \NTRNX_MYSQLI\ntrnx_mysqli::$last_query . "</pre>";
+	if ($tables_result) { \NTRNX_MYSQLI\ntrnx_mysqli::free_result($tables_result); }
 
-print " - close the connection : ";
-\NTRNX_MYSQLI\ntrnx_mysqli::close($db_handle);
-print "TRUE<br/>";
+	print "- columns  :<br/>";
+	$columns_result = \NTRNX_MYSQLI\ntrnx_mysqli::columns($db_handle, "test");
+	$columns_assoc = \NTRNX_MYSQLI\ntrnx_mysqli::fetch_all($columns_result, MYSQLI_ASSOC);
+	if (\NTRNX_MYSQLI\ntrnx_mysqli::num_rows($columns_result) > 0) {
+		$columns_count = count($columns_assoc);
+		print "<pre>";
+		for ($i=0; $i < $columns_count; $i++) {
+			print " - " . $columns_assoc[$i]["Field"] . "<br/>";
+		}
+		print "</pre>";
+	}
+	if ($columns_result) { \NTRNX_MYSQLI\ntrnx_mysqli::free_result($columns_result); }
+
+	print " - close : ";
+	\NTRNX_MYSQLI\ntrnx_mysqli::close($db_handle);
+	print "PASSED<br/><br/>";
+
+ }
+
+print " - init : ";
+if ($db_handle = \NTRNX_MYSQLI\ntrnx_mysqli::init($db_handle)) { print "PASSED<br/>"; }
+
+print " - real_pconnect : ";
+if (\NTRNX_MYSQLI\ntrnx_mysqli::real_pconnect($db_handle) === TRUE) {
+
+	print "PASSED<br/>";
+
+	print " - close : ";
+	\NTRNX_MYSQLI\ntrnx_mysqli::close($db_handle);
+	print "PASSED<br/>";
+
+ }
 
 ?>

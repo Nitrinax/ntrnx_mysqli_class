@@ -37,7 +37,10 @@ class ntrnx_mysqli_internal_error extends \NTRNX_MYSQLI\ntrnx_mysqli {
             case "60": $error_type = "4"; $error_message = NMYSQCC_ERROR_SSL_IS_ENABLED; break;
             case "61": $error_type = "2"; $error_message = NMYSQCC_ERROR_SSL_IS_DISABLED; break;
 
-            case "70": $error_type = "2"; $error_message = NMYSQCC_ERROR_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH; break;
+            /* ntrnx_mysqli_insert */
+            case "70": $error_type = "2"; $error_message = NMYSQCC_ERROR_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH; break;            
+            case "71": $error_type = "2"; $error_message = NMYSQCC_ERROR_FLAGS_NOT_SUPPORTED; break;
+            case "72": $error_type = "2"; $error_message = NMYSQCC_ERROR_RESULTMODE_NOT_SUPPORTED; break;
 
             case "80": $error_type = "2"; $error_message = NMYSQCC_ERROR_JOIN_SYNTAX; break;          
             case "81": $error_type = "2"; $error_message = NMYSQCC_ERROR_JOIN_EXPRESSION; break;
@@ -73,46 +76,45 @@ class ntrnx_mysqli_internal_error extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         }
 
-        self::handle($error_type, $error_message, $error_class, $error_line);
+        self::handle($error_type, $error_message, $error_class, $error_line, $error_id);
 
     }
 
-    private static function handle($error_type, $error_message, $error_class, $error_line) {
+    private static function handle($error_type, $error_message, $error_class, $error_line, $error_id) {
 
         switch ($error_type) {
 
             case "1":
                 
                 if (NMYSQCC_LOG_LEVEL >= 1) {
-                    self::write_error($error_message, $error_class, $error_line);
+                    self::write_error($error_message, $error_class, $error_line, $error_id);
                 }
                 if (NMYSQCC_DISPLAY_LEVEL >= 1) {
-                    self::display_output($error_message,  $error_class, $error_line);
+                    self::display_output($error_message,  $error_class, $error_line, $error_id);
                 }
-
-                /* end of execution on critical errors */
-                die();
 
             break;
 
             case "2":
 
                 if (NMYSQCC_LOG_LEVEL >= 2) {
-                    self::write_warning($error_message, $error_class, $error_line);
+                    self::write_warning($error_message, $error_class, $error_line, $error_id);
                 }
                 if (NMYSQCC_DISPLAY_LEVEL >= 2) {
-                    self::display_output($error_message,  $error_class, $error_line);
+                    self::display_output($error_message,  $error_class, $error_line, $error_id);
                 }
+
+                $result = FALSE;                
 
             break;
 
             case "4":
 
                 if (NMYSQCC_LOG_LEVEL === 4) {
-                    self::write_info($error_message, $error_class, $error_line);
+                    self::write_info($error_message, $error_class, $error_line, $error_id);
                 }
                 if (NMYSQCC_DISPLAY_LEVEL === 4) {
-                    self::display_output($error_message,  $error_class, $error_line);
+                    self::display_output($error_message,  $error_class, $error_line, $error_id);
                 }
 
             break;
@@ -122,33 +124,39 @@ class ntrnx_mysqli_internal_error extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         }
 
-    }
-
-    private static function write_error($msg,  $class, $line) {
-
-        \NTRNX_MYSQLI\ntrnx_mysqli::log_error($msg,  $class, $line);
+        return $error_id;
 
     }
 
-    private static function write_warning($msg,  $class, $line) {
+    private static function write_error($msg,  $class, $line, $error_id = NULL) {
 
-        \NTRNX_MYSQLI\ntrnx_mysqli::log_warning($msg,  $class, $line);
-
-    }
-
-    private static function write_info($msg,  $class, $line) {
-
-        \NTRNX_MYSQLI\ntrnx_mysqli::log_info($msg,  $class, $line);
+        \NTRNX_MYSQLI\ntrnx_mysqli::log_error($msg,  $class, $line, $error_id);
 
     }
 
-    private static function display_output($msg,  $class, $line) {
+    private static function write_warning($msg,  $class, $line, $error_id = NULL) {
+
+        \NTRNX_MYSQLI\ntrnx_mysqli::log_warning($msg,  $class, $line, $error_id);
+
+    }
+
+    private static function write_info($msg,  $class, $line, $error_id = NULL) {
+
+        \NTRNX_MYSQLI\ntrnx_mysqli::log_info($msg,  $class, $line, $error_id);
+
+    }
+
+    private static function display_output($msg,  $class, $line, $error_id = NULL) {
 
         print NMYSQCC_DATETIME_SUFFIX
         . date(NMYSQCC_DATETIME_FORMAT)
         . NMYSQCC_DATETIME_PRAEFIX
         . NMYSQCC_LOG_SEPARATOR
         . $msg
+        . NMYSQCC_BLANK
+        . NMYSQCC_LEFT_PARENTHESIS
+        . $error_id
+        . NMYSQCC_RIGHT_PARENTHESIS 
         . NMYSQCC_LOG_SEPARATOR
         . $class
         . NMYSQCC_LOG_SEPARATOR

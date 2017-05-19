@@ -77,17 +77,13 @@ class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
             if ($flags) {
 
-                /* temporary message */
-                $error = TRUE;
-                $error_msg = $flags . "flags not supported";
+                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(71, get_called_class(), __LINE__);
 
             }
 
             if ($resultmode) {
 
-                /* temporary message */
-                $error = TRUE;
-                $error_msg = $resultmode . "resultmode not supported";
+                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(72, get_called_class(), __LINE__);
 
             }
 

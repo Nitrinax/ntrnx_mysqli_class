@@ -8,7 +8,7 @@
  * @author    René Zimmerling <nitrinax at googlemail dot com>
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @link      https://github.com/Nitrinax
- * @version   0.5.0.2-master
+ * @version   0.5.0.3-master
  */
 
 namespace NTRNX_MYSQLI;
@@ -25,11 +25,11 @@ class ntrnx_mysqli_data extends \NTRNX_MYSQLI\ntrnx_mysqli_config {
 	const _CLASS_VERSION_MAJOR = "0";
 	const _CLASS_VERSION_MINOR = "5";
 	const _CLASS_VERSION_BUILD = "0";
-	const _CLASS_VERSION_REVISION = "2";
+	const _CLASS_VERSION_REVISION = "3";
 	/* YYYY-MM-DD */
-	const _CLASS_DATE = "2017-05-18";
+	const _CLASS_DATE = "2017-05-19";
 	/* hh:mm:ss */
-	const _CLASS_TIME = "19:56:36";
+	const _CLASS_TIME = "08:52:12";
 
 	/*
 	* project branches

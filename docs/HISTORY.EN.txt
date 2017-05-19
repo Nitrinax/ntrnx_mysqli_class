@@ -1,3 +1,28 @@
+Version 0.5.0.3
+
+ADD
+
+    - complete error handling with raise_error in
+        - ntrnx_mysqli_insert
+
+    - add error handling with raise_error to
+        - ntrnx_mysqli_raw_query
+        - ntrnx_mysqli_connect
+        - ntrnx_mysqli_pconnect
+        - ntrnx_mysqli_ssl_get
+
+    - error_id to output of error handling
+
+CHG
+
+    - rewrote
+        - index.php
+        - ntrnx_mysqli_ssl_get
+
+REM
+
+    - remove some comments
+
 Version 0.5.0.2
 
 ADD
