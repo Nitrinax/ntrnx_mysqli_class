@@ -47,7 +47,14 @@ $old_build = NULL;
 $old_revision = NULL;
 
 /* read version file */
-$version_text = file(MAKE_DOCS_DIR . VERSION_FILE);
+if (!file_exists(MAKE_DOCS_DIR . VERSION_FILE)) {
+      $version_str = "0.0.0.0";
+ } else {
+      /* read version file */
+      $version_text = file(MAKE_DOCS_DIR . VERSION_FILE);
+      /* use 1st line */
+      $version_str = trim(substr($version_text[0],11));
+}
 /* use 1st line */
 $version_str = trim(substr($version_text[0],11));
 /* explode version string parts */

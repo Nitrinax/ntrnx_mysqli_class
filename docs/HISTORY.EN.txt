@@ -1,3 +1,17 @@
+Version 0.5.0.4
+
+CHG
+
+    - move function
+        - check_dependences from sysplugins/ntrnx_mysqli_core.php to sysplugins/ntrnx_mysqli_internal_dependences.php
+        - check_needed_functions from sysplugins/ntrnx_mysqli_core.php to sysplugins/ntrnx_mysqli_internal_needed_functions.php
+    - rework function state() in
+        - sysplugins/ntrnx_mysqli_internal_dependences.php
+        - sysplugins/ntrnx_mysqli_internal_needed_functions.php
+
+ADD
+    - filecheck in ___make/bump_build.php and ___make/bump_revision.php
+
 Version 0.5.0.3
 
 ADD
