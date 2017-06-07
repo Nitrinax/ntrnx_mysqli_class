@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_select extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     static $result = NULL;
 

@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_field_tell extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class field_tell extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5, PHP 7)
     //mysqli_result::$current_field -- mysqli_field_tell — Get current field offset of a result pointer

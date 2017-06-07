@@ -1,3 +1,39 @@
+Version 0.5.1.2
+
+CHG
+
+    - move sysplugins/ntrnx_autoloader.php to root directory of class
+    - update ntrnx_autoloader.php to use new path
+    - update ntrnx_mysqli_class.php for new path
+
+Version 0.5.1.1
+
+ADD
+    - const SHOW_CLASSDATA (TRUE/FALSE) in index.php to show class data
+    - const SHOW_QUERIES (TRUE/FALSE) in index.php to show queries
+    - colored output in index.php
+
+CHG
+
+    - move internal functions to file ntrnx_mysqli_core.php
+    - update index.php
+
+Version 0.5.1.0
+
+ADD
+
+    - autoloader file sysplugins/ntrnx_mysqli_autoloader.php
+    - makefiles for bump major and bump minor
+
+CHG
+
+    - all mysqli functions are loaded directly from function files by autoloader
+    - remove ntrnx_mysqli_ from all mysqli function names
+
+REM
+
+    - defining of mysqli functions in main class file
+
 Version 0.5.0.4
 
 CHG

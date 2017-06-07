@@ -3,7 +3,8 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_tables extends \NTRNX_MYSQLI\ntrnx_mysqli {
+
+class tables extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     // get all tables in a database
     static function show(

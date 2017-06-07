@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_real_query extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class real_query extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5, PHP 7)
     //mysqli::real_query -- mysqli_real_query — Execute an SQL query

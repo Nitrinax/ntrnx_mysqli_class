@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_get_charset extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class get_charset extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5 >= 5.1.0, PHP 7)
     //mysqli::get_charset -- mysqli_get_charset — Returns a character set object

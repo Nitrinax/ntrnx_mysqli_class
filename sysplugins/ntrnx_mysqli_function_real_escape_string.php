@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_real_escape_string extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class real_escape_string extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
 
     //(PHP 5, PHP 7)

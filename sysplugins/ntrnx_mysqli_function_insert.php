@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     static $result = NULL;
 
@@ -66,7 +66,7 @@ class ntrnx_mysqli_insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
             for ($i = 0; $i < $count_values; $i++) {
 
                 $value_statement .= NMYSQCC_VQ
-                . \NTRNX_MYSQLI\ntrnx_mysqli::real_escape_string($mysqli_handle, $values[$i])
+                . \NTRNX_MYSQLI\real_escape_string::link($mysqli_handle, $values[$i])
                 . NMYSQCC_VQ;
 
                 if ($i < $count_values - 1) { $value_statement .= NMYSQCC_COMMA . NMYSQCC_BLANK; }

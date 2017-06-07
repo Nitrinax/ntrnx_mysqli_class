@@ -14,10 +14,10 @@ class ntrnx_mysqli_db_config {
     const DB_FLAGS = MYSQLI_CLIENT_SSL;         /* always use ssl */
 
     /* paths to ssl key set */
-    const DB_KEY = "D:\Developer\Server\SAMP64\data\certs\server-key.pem";
-    const DB_CERT = "D:\Developer\Server\SAMP64\data\certs\server-cert.pem";
-    const DB_CA = "D:\Developer\Server\SAMP64\data\certs\ca.pem";
-    const DB_CAPATH = "D:\Developer\Server\SAMP64\data\certs";
+    const DB_KEY = "";
+    const DB_CERT = "";
+    const DB_CA = "";
+    const DB_CAPATH = "";
     const DB_CIPHER = NULL;
 
 } /* end of class ntrnx_mysqli_db_config */

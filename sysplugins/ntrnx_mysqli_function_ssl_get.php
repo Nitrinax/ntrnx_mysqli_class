@@ -3,10 +3,10 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //return ssl status for given connection
-    static function link(
+    static function resource(
 
         $mysqli_handle
 

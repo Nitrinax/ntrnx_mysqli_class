@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_init extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class init extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5, PHP 7)
     //mysqli::init -- mysqli_init — Initializes MySQLi and returns a resource for use with mysqli_real_connect()

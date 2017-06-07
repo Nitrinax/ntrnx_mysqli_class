@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_affected_fields extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class affected_fields extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5, PHP 7)
     //mysqli_affected_fields() {}

@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_ssl_set extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class ssl_set extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5, PHP 7)
     //mysqli::ssl_set -- mysqli_ssl_set — Used for establishing secure connections using SSL

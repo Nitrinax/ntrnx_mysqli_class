@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_real_pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class real_pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //mysqli::real_connect -- mysqli_real_connect — Opens a connection to a mysql server
     //http://php.net/manual/de/mysqli.real-connect.php

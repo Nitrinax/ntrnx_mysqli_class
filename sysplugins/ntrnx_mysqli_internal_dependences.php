@@ -52,10 +52,10 @@ class ntrnx_mysqli_internal_dependences extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
 				/* if php */
 				case "PHP":
-					/* check for needed version */
 
                     $result .= "<br/> - " .  $key . " " .  $value;
 
+					/* check for needed version */
 					if (version_compare(phpversion(), $value, "<")) {
 						$result .= $failed;
 					} else {

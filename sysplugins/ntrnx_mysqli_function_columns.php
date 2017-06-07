@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_columns extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class columns extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     // get all columns in a database table
     static function show(

@@ -8,6 +8,8 @@ echo "
 <head></head>
 <body>
 <div><table>
+<tr><td><a href=\"" . MAKE_DIR . "bump_major.php\">bump major</a></td></tr>
+<tr><td><a href=\"" . MAKE_DIR . "bump_minor.php\">bump minor</a></td></tr>
 <tr><td><a href=\"" . MAKE_DIR . "bump_build.php\">bump build</a></td></tr>
 <tr><td><a href=\"" . MAKE_DIR . "bump_revision.php\">bump revision</a></td></tr>
 </table></div>

@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_field_count extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class field_count extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5, PHP 7)
     //mysqli::$field_count -- mysqli_field_count — Returns the number of columns for the most recent query

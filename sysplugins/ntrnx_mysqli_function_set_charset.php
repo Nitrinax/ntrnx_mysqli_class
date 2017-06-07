@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_set_charset extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class set_charset extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     private static $result = FALSE;
 

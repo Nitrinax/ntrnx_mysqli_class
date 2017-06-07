@@ -3,7 +3,7 @@
 namespace NTRNX_MYSQLI;
 
 /* begin of class */
-class ntrnx_mysqli_close extends \NTRNX_MYSQLI\ntrnx_mysqli {
+class close extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     //(PHP 5, PHP 7)
     //mysqli::close -- mysqli_close — Closes a previously opened database connection
@@ -28,7 +28,7 @@ class ntrnx_mysqli_close extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 $thread_id = mysqli_thread_id ($mysqli_handle);
             
                 /* Kill connection */
-                mysqli_kill($mysqli_handle, $thread_id);
+                \NTRNX_MYSQLI\kill::link($mysqli_handle, $thread_id);
 
             }
 
