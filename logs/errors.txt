@@ -44,3 +44,8 @@
 [01/25/2018:15:01:24 CET +01:00] | Benutzer 'ntrnx_mysqli_class_test'@'localhost' hat keine Zugriffsberechtigung (verwendetes Passwort: Ja) (1045) | NTRNX_MYSQLI\connect | 32
 [01/25/2018:15:01:38 CET +01:00] | Benutzer 'ntrnx_mysqli_class_test'@'localhost' hat keine Zugriffsberechtigung (verwendetes Passwort: Ja) (1045) | NTRNX_MYSQLI\connect | 32
 [01/25/2018:15:01:18 CET +01:00] | Benutzer 'ntrnx_mysqli_class_test'@'localhost' hat keine Zugriffsberechtigung (verwendetes Passwort: Ja) (1045) | NTRNX_MYSQLI\connect | 32
+[01/25/2018:16:01:29 CET +01:00] | Benutzer 'ntrnx_mysqli_class_test'@'localhost' hat keine Zugriffsberechtigung (verwendetes Passwort: Ja) (1045) | NTRNX_MYSQLI\connect | 32
+[01/25/2018:16:01:49 CET +01:00] | Benutzer 'ntrnx_mysqli_class_test'@'localhost' hat keine Zugriffsberechtigung (verwendetes Passwort: Ja) (1045) | NTRNX_MYSQLI\connect | 32
+[01/25/2018:16:01:15 CET +01:00] | Benutzer 'ntrnx_mysqli_class_test'@'localhost' hat keine Zugriffsberechtigung (verwendetes Passwort: Ja) (1045) | NTRNX_MYSQLI\connect | 32
+[01/25/2018:16:01:44 CET +01:00] | Benutzer 'ntrnx_mysqli_class_test'@'localhost' hat keine Zugriffsberechtigung (verwendetes Passwort: Ja) (1045) | NTRNX_MYSQLI\connect | 32
+[01/25/2018:16:01:02 CET +01:00] | Benutzer 'ntrnx_mysqli_class_test'@'localhost' hat keine Zugriffsberechtigung (verwendetes Passwort: Ja) (1045) | NTRNX_MYSQLI\connect | 32

@@ -1,4 +1,10 @@
-Version 0.5.1.4
+Version 0.5.1.6
+
+FIX
+
+    - another fix for namespace of ntrnx_mysqli_autoloader because of a conflict with other classes that use autoloader (smarty)
+
+Version 0.5.1.5
 
 CHG
 

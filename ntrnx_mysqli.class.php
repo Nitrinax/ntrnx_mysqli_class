@@ -198,11 +198,11 @@ foreach ($ntrnx_mysqli_array_dir as &$ntrnx_mysqli_var_dir) {
 }
 
 /* setup autoloader */
-if (!defined("AUTOLOADER_NAMESPACE")) { define("AUTOLOADER_NAMESPACE", __NAMESPACE__); }
-if (!defined("AUTOLOADER_FILE_DIR")) { define("AUTOLOADER_FILE_DIR", NMYSQCC_SYSPLUGINS_DIR); }
-if (!defined("AUTOLOADER_FILE_SUFFIX")) { define("AUTOLOADER_FILE_SUFFIX", ".php"); }
-if (!defined("AUTOLOADER_INTERNAL_PART")) { define("AUTOLOADER_INTERNAL_PART", "internal"); }
-if (!defined("AUTOLOADER_FUNCTION_PART")) { define("AUTOLOADER_FUNCTION_PART", "function"); }
+if (!defined("NMYSQCC_AUTOLOADER_NAMESPACE")) { define("NMYSQCC_AUTOLOADER_NAMESPACE", __NAMESPACE__); }
+if (!defined("NMYSQCC_AUTOLOADER_FILE_DIR")) { define("NMYSQCC_AUTOLOADER_FILE_DIR", NMYSQCC_SYSPLUGINS_DIR); }
+if (!defined("NMYSQCC_AUTOLOADER_FILE_SUFFIX")) { define("NMYSQCC_AUTOLOADER_FILE_SUFFIX", ".php"); }
+if (!defined("NMYSQCC_AUTOLOADER_INTERNAL_PART")) { define("NMYSQCC_AUTOLOADER_INTERNAL_PART", "internal"); }
+if (!defined("NMYSQCC_AUTOLOADER_FUNCTION_PART")) { define("NMYSQCC_AUTOLOADER_FUNCTION_PART", "function"); }
 
 /* include autoloader */
 require_once("ntrnx_mysqli_autoloader.php");

@@ -2,6 +2,10 @@
 
 class ntrnx_mysqli_autoloader {
 
+    private $namespace;
+    
+    public function __construct($namespace = null) { $this->namespace = $namespace; }
+
     public static function register() {
         spl_autoload_register('ntrnx_mysqli_autoloader::autoload');
     }
@@ -11,22 +15,22 @@ class ntrnx_mysqli_autoloader {
         //echo "***** className : " . $class_name . "<br/>";
 
         /* set up vars from consts */
-        $autoloader_namespace = AUTOLOADER_NAMESPACE;
+        $autoloader_namespace = NMYSQCC_AUTOLOADER_NAMESPACE;
         //echo "***** autoloader_namespace : " . $autoloader_namespace . "<br/>";
 
-        $autoloader_file_dir = AUTOLOADER_FILE_DIR;
+        $autoloader_file_dir = NMYSQCC_AUTOLOADER_FILE_DIR;
         //echo "***** autoloader_file_dir : " . $autoloader_file_dir . "<br/>";
 
-        $autoloader_file_suffix = AUTOLOADER_FILE_SUFFIX;
+        $autoloader_file_suffix = NMYSQCC_AUTOLOADER_FILE_SUFFIX;
         //echo "***** autoloader_file_suffix : " . $autoloader_file_suffix . "<br/>";
 
         $autoloader_file_part = strtolower(substr($autoloader_namespace, 0)) . "_";
         //echo "***** autoloader_file_part : " . $autoloader_file_part . "<br/>";
 
-        $autoloader_internal_part = AUTOLOADER_INTERNAL_PART . "_";
+        $autoloader_internal_part = NMYSQCC_AUTOLOADER_INTERNAL_PART . "_";
         //echo "***** autoloader_internal_part : " . $autoloader_internal_part . "<br/>";
 
-        $autoloader_function_part = AUTOLOADER_FUNCTION_PART . "_";
+        $autoloader_function_part = NMYSQCC_AUTOLOADER_FUNCTION_PART . "_";
         //echo "***** autoloader_function_part : " . $autoloader_function_part . "<br/>";
 
         /* check if class name defined in namespace */
