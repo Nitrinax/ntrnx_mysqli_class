@@ -77,13 +77,13 @@ class insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
             if ($flags) {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(71, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(71, get_called_class(), __LINE__);
 
             }
 
             if ($resultmode) {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(72, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(72, get_called_class(), __LINE__);
 
             }
 
@@ -100,26 +100,26 @@ class insert extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                     if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
 
-                        \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                        \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
  
                     }
 
                 } else {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(3, get_called_class(), __LINE__);
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(3, get_called_class(), __LINE__);
 
                 }
 
             } else {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(2, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(2, get_called_class(), __LINE__);
 
             }
 
         /* if amount of columns and values do not match */
         } else {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(70, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(70, get_called_class(), __LINE__);
 
         }
 

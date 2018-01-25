@@ -1,3 +1,31 @@
+Version 0.5.1.4
+
+CHG
+
+    - rename ntrnx_autoloader to ntrnx_mysqli_autoloader because of a conflict with other classes that use autoloader
+    - changed code to use single class files instead the of the collected functions in the removed ntrnx_mysqli_core.php
+
+FIX
+
+    - index.php
+
+Version 0.5.1.3
+
+ADD
+
+    - the closing "?>" at the end of the php file
+    - files for user managment to install directory
+        - user_create.sql
+        - user_drop.sql
+        - user_require_ssl.sql
+
+CHG
+
+    - update autoloader
+    - update index.php
+    - fix typos
+    - move example_db.sql to install directory
+
 Version 0.5.1.2
 
 CHG

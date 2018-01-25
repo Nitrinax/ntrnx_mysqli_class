@@ -24,14 +24,14 @@ class ssl_set extends \NTRNX_MYSQLI\ntrnx_mysqli {
         $key = htmlspecialchars($key);
         if(!file_exists($key)) {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(40, get_called_class(), __LINE__, $key);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(40, get_called_class(), __LINE__, $key);
             return FALSE;
         }
 
         /* Specifies the path name to the certificate file */
         $cert = htmlspecialchars($cert);
         if(!file_exists($cert)) { 
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(40, get_called_class(), __LINE__, $cert);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(40, get_called_class(), __LINE__, $cert);
             return FALSE;
         }
 
@@ -39,7 +39,7 @@ class ssl_set extends \NTRNX_MYSQLI\ntrnx_mysqli {
         if (isset($ca)) {        
             $ca = htmlspecialchars($ca);
             if(!file_exists($ca)) { 
-                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(40, get_called_class(), __LINE__, $ca);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(40, get_called_class(), __LINE__, $ca);
                 return FALSE;
             }
         }
@@ -48,7 +48,7 @@ class ssl_set extends \NTRNX_MYSQLI\ntrnx_mysqli {
         if (isset($capath)) {
             $capath = htmlspecialchars($capath);
             if (!is_dir($capath)) {   
-                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(50, get_called_class(), __LINE__, $capath, "trusted SSL CA certificates");
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(50, get_called_class(), __LINE__, $capath, "trusted SSL CA certificates");
                 return FALSE;
             }
         }

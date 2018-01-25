@@ -1,0 +1,1 @@
+DROP USER 'ntrnx_mysqli_class_test'@'localhost';

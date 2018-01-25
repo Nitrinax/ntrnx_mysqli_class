@@ -1,7 +1,7 @@
 <?php
 
 const SHOW_CLASSDATA = TRUE;
-const SHOW_QUERIES = FALSE;
+const SHOW_QUERIES = TRUE;
 
 /* error reporting for classname */
 ini_set ("error_reporting", E_ALL & ~E_NOTICE);
@@ -29,43 +29,43 @@ if (SHOW_CLASSDATA === TRUE) {
 	echo "<br/>";
 
 	echo "class : "
-	. \NTRNX_MYSQLI\ntrnx_mysqli::get_name() . " "
-	. \NTRNX_MYSQLI\ntrnx_mysqli::get_version_major() . "."
-	. \NTRNX_MYSQLI\ntrnx_mysqli::get_version_minor() . "."
-	. \NTRNX_MYSQLI\ntrnx_mysqli::get_version_build() . "."
-	. \NTRNX_MYSQLI\ntrnx_mysqli::get_version_revision() . " ("
-	. \NTRNX_MYSQLI\ntrnx_mysqli::get_version_date() . ") ["
-	. \NTRNX_MYSQLI\ntrnx_mysqli::get_version_time() . "] loaded<br/>";
+	. \NTRNX_MYSQLI\ntrnx_mysqli_internal_name::get() . " "
+	. \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_major() . "."
+	. \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_minor() . "."
+	. \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_build() . "."
+	. \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_revision() . " ("
+	. \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_date() . ") ["
+	. \NTRNX_MYSQLI\ntrnx_mysqli_internal_version::get_time() . "] loaded<br/>";
 
-	echo "class api : " . \NTRNX_MYSQLI\ntrnx_mysqli::get_api() . "<br/>";
+	echo "class api : " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_api::get() . "<br/>";
 
-	echo "class author name: " . \NTRNX_MYSQLI\ntrnx_mysqli::get_author_name() . "<br/>";
-	echo "class author nick: " . \NTRNX_MYSQLI\ntrnx_mysqli::get_author_nick() . "<br/>";
-	echo "class author email: " . \NTRNX_MYSQLI\ntrnx_mysqli::get_author_email() . "<br/>";
-	echo "class author url: " . \NTRNX_MYSQLI\ntrnx_mysqli::get_author_url() . "<br/>";
-	echo "class branch : " . \NTRNX_MYSQLI\ntrnx_mysqli::get_branch() . "<br/>";
-	echo "class buildchannel : " . \NTRNX_MYSQLI\ntrnx_mysqli::get_buildchannel() . "<br/>";
-	echo "class project url : " . \NTRNX_MYSQLI\ntrnx_mysqli::get_project_url() . "<br/>";
-	echo "class source url : " . \NTRNX_MYSQLI\ntrnx_mysqli::get_source_url() . "<br/>";
-	echo "class version url : " . \NTRNX_MYSQLI\ntrnx_mysqli::get_version_url() . "<br/>";
-	echo "class update url : " . \NTRNX_MYSQLI\ntrnx_mysqli::get_update_url() . "<br/>";
-	echo "class manual url : " . \NTRNX_MYSQLI\ntrnx_mysqli::get_manual_url() . "<br/>";
+	echo "class author name: " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_name() . "<br/>";
+	echo "class author nick: " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_nick() . "<br/>";
+	echo "class author email: " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_email() . "<br/>";
+	echo "class author url: " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_author::get_url() . "<br/>";
+	echo "class branch : " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_build::get_branch() . "<br/>";
+	echo "class buildchannel : " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_build::get_build_channel() . "<br/>";
+	echo "class project url : " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_project_url() . "<br/>";
+	echo "class source url : " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_source_url() . "<br/>";
+	echo "class version url : " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_version_url() . "<br/>";
+	echo "class update url : " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_update_url() . "<br/>";
+	echo "class manual url : " . \NTRNX_MYSQLI\ntrnx_mysqli_internal_url::get_manual_url() . "<br/>";
 
 	echo "class dependences_state : ";
 
-	if (\NTRNX_MYSQLI\ntrnx_mysqli::get_dependences_state()===TRUE) {
+	if (\NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::state()===TRUE) {
 		echo "ON<br/>";
-		echo "class dependences list :" . \NTRNX_MYSQLI\ntrnx_mysqli::check_dependences() . "<br/>";
+		echo "class dependences list :" . \NTRNX_MYSQLI\ntrnx_mysqli_internal_dependences::check() . "<br/>";
 	} else {
 		echo "OFF<br/>";
 	}
 
 	echo "class needed functions state : ";
 
-	if (\NTRNX_MYSQLI\ntrnx_mysqli::get_needed_functions_state()===TRUE) {
+	if (\NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::state()===TRUE) {
 
 		echo "ON<br/>";
-		echo "class needed function list :" . \NTRNX_MYSQLI\ntrnx_mysqli::check_needed_functions() ."<br/>";
+		echo "class needed function list :" . \NTRNX_MYSQLI\ntrnx_mysqli_internal_needed_functions::check() ."<br/>";
 	} else {
 		echo "OFF<br/>";
 	}
@@ -85,13 +85,26 @@ if (get_server_os() === "windows") {
 	$task = "mysqld";
 }
 
-/* windows */
 if (check_if_task_run($task)===TRUE) {
 
-	echo " - connect : "; if ($db_handle = \NTRNX_MYSQLI\connect::db()) { echo STATE_PASSED; }
-	echo " - close : "; if ($db_handle) { \NTRNX_MYSQLI\close::link($db_handle); echo STATE_PASSED . "<br/>"; }
-	echo " - pconnect : "; if ($db_handle = \NTRNX_MYSQLI\pconnect::db()) { echo STATE_PASSED; }
-	echo " - close : "; if ($db_handle) { \NTRNX_MYSQLI\close::link($db_handle); echo STATE_PASSED . "<br/>"; }
+	echo "testing unsecure connection<br/>";
+	echo "<br/>";
+
+	echo " - connect : "; if ($db_handle = \NTRNX_MYSQLI\connect::db()) { echo STATE_PASSED;
+
+		echo " - close : "; if ($db_handle) { \NTRNX_MYSQLI\close::link($db_handle); echo STATE_PASSED . "<br/>"; } else { echo "<br/>"; }
+		echo " - pconnect : "; if ($db_handle = \NTRNX_MYSQLI\pconnect::db()) { echo STATE_PASSED; }
+		echo " - close : "; if ($db_handle) { \NTRNX_MYSQLI\close::link($db_handle); echo STATE_PASSED . "<br/>"; } else { echo "<br/>"; }
+
+	} else {
+
+		echo "<font color=\"red\"> - no unsecure connections allowed</font><br/><br/>";
+
+	}
+
+	echo "testing secure connection<br/>";
+	echo "<br/>";
+
 	echo " - init : "; if ($db_handle = \NTRNX_MYSQLI\init::resource()) { echo STATE_PASSED; }
 	echo " - ssl_set : "; if (\NTRNX_MYSQLI\ssl_set::link($db_handle) === TRUE) { echo STATE_PASSED; }
 

@@ -24,15 +24,15 @@ class real_pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* check porrt value */
         if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
 
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(30, get_called_class(), __LINE__ , $port, "DB_PORT");
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(31, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(30, get_called_class(), __LINE__ , $port, "DB_PORT");
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(31, get_called_class(), __LINE__);
 
         } else {
 
             /* create connection */
             if (!@mysqli_real_connect($mysqli_handle, "p:" . $host, $username, $passwd, $dbname, $port, $socket, $flags)) {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(mysqli_connect_errno(), get_called_class(), __LINE__, mysqli_connect_error());
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_connect_errno(), get_called_class(), __LINE__, mysqli_connect_error());
 
             } else {
 

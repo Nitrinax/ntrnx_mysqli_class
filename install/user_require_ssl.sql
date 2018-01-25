@@ -1,0 +1,1 @@
+ALTER USER 'ntrnx_mysqli_class_test'@'localhost' IDENTIFIED BY '1234567890' REQUIRE SSL;

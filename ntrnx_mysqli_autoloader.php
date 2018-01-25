@@ -1,21 +1,24 @@
 <?php
 
-class ntrnx_autoloader {
+class ntrnx_mysqli_autoloader {
 
     public static function register() {
-        spl_autoload_register('ntrnx_autoloader::autoload');
+        spl_autoload_register('ntrnx_mysqli_autoloader::autoload');
     }
 
     public static function autoload($class_name) {
 
         //echo "***** className : " . $class_name . "<br/>";
 
-        /* set up vars froms consts */
+        /* set up vars from consts */
         $autoloader_namespace = AUTOLOADER_NAMESPACE;
         //echo "***** autoloader_namespace : " . $autoloader_namespace . "<br/>";
 
-        $autoloader_file_dir = AUTOLOADER_CLASS_DIR;
+        $autoloader_file_dir = AUTOLOADER_FILE_DIR;
         //echo "***** autoloader_file_dir : " . $autoloader_file_dir . "<br/>";
+
+        $autoloader_file_suffix = AUTOLOADER_FILE_SUFFIX;
+        //echo "***** autoloader_file_suffix : " . $autoloader_file_suffix . "<br/>";
 
         $autoloader_file_part = strtolower(substr($autoloader_namespace, 0)) . "_";
         //echo "***** autoloader_file_part : " . $autoloader_file_part . "<br/>";
@@ -49,7 +52,7 @@ class ntrnx_autoloader {
             //echo "***** filename : " . $filename . "<br/>";
 
             /* combine file path and file name */
-            $filepath = $autoloader_file_dir . $filename . AUTOLOADER_FILE_SUFFIX;
+            $filepath = $autoloader_file_dir . $filename . $autoloader_file_suffix;
             //echo "filepath : " . $filepath . "<br/>";
 
             /* check if file exists */

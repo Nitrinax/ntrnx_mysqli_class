@@ -130,7 +130,7 @@ class ntrnx_mysqli_internal_error extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     private static function write_error($msg,  $class, $line, $error_id = NULL) {
 
-        \NTRNX_MYSQLI\ntrnx_mysqli::log_error($msg,  $class, $line, $error_id);
+        \NTRNX_MYSQLI\ntrnx_mysqli_internal_log::log_error($msg,  $class, $line, $error_id);
 
     }
 

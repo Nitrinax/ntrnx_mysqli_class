@@ -231,7 +231,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                         } else {
 
-                            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(80, get_called_class(), __LINE__);
+                            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(80, get_called_class(), __LINE__);
 
                         }
                         
@@ -256,8 +256,8 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                             default:
 
-                                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(81, get_called_class(), __LINE__);
-                                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(82, get_called_class(), __LINE__, $join_expression[$i+5]);
+                                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(81, get_called_class(), __LINE__);
+                                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(82, get_called_class(), __LINE__, $join_expression[$i+5]);
 
                             break;
 
@@ -649,7 +649,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
             /* prepare group_statement  */
             if ($having_condition) {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(83, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(83, get_called_class(), __LINE__);
 
             }
 
@@ -720,7 +720,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* [PROCEDURE procedure_name(argument_list)] */
         if ($procedure) {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(84, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(84, get_called_class(), __LINE__);
 
         }
 
@@ -728,7 +728,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* [INTO OUTFILE 'file_name' [CHARACTER SET charset_name] export_options | INTO DUMPFILE 'file_name' | INTO var_name [, var_name]] */
         if ($into_target) {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(85, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(85, get_called_class(), __LINE__);
 
         }
 
@@ -736,7 +736,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* [FOR UPDATE | LOCK IN SHARE MODE]] */
         if ($for_options) {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(86, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(86, get_called_class(), __LINE__);
     
         }
 
@@ -774,19 +774,19 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                 if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 }
 
             } else {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(3, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(3, get_called_class(), __LINE__);
 
             }
 
         } else {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(2, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(2, get_called_class(), __LINE__);
 
         }
 

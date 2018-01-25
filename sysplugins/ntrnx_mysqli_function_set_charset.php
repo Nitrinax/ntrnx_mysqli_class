@@ -25,7 +25,7 @@ class set_charset extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 /* change character set to $charset */
                 if (!mysqli_set_charset ($mysqli_handle, $charset)) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(20, get_called_class(), __LINE__);
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(20, get_called_class(), __LINE__);
 
                 } else {
 
@@ -35,13 +35,13 @@ class set_charset extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
             } else {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(3, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(3, get_called_class(), __LINE__);
 
             }
 
         } else {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli::raise_error(2, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(2, get_called_class(), __LINE__);
 
         }
 
