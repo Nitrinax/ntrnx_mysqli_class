@@ -18,7 +18,7 @@ class init extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* check if error */
         if (!$mysqli_handle) {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(1, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_MYSQLI_INIT_FAILED, get_called_class(), __LINE__);
 
             return FALSE;
 

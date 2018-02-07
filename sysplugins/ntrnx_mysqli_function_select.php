@@ -136,7 +136,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
             $i++;
 
         }
-        //print "<pre>" . $select_statement . "</pre>";
+        //echo "<pre>" . $select_statement . "</pre>";
 
         /* prepare from_statement */
         $from_statement = NMYSQCC_FROM;
@@ -202,7 +202,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
 
         }
-        //print "<pre>" . $from_statement . "</pre>";
+        //echo "<pre>" . $from_statement . "</pre>";
 
         /* prepare join_statement */
         if ($join_expression) {
@@ -231,7 +231,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                         } else {
 
-                            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(80, get_called_class(), __LINE__);
+                            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_JOIN_SYNTAX, get_called_class(), __LINE__);
 
                         }
                         
@@ -256,8 +256,8 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                             default:
 
-                                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(81, get_called_class(), __LINE__);
-                                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(82, get_called_class(), __LINE__, $join_expression[$i+5]);
+                                \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_JOIN_EXPRESSION, get_called_class(), __LINE__);
+                                \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_OPERATOR_NOT_SUPPORTED, get_called_class(), __LINE__, $join_expression[$i+5]);
 
                             break;
 
@@ -403,7 +403,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
 
         }
-        //print "<pre>" . $join_statement . "</pre>";
+        //echo "<pre>" . $join_statement . "</pre>";
 
         /* prepare where_statement */
         if ($where_condition) {
@@ -605,7 +605,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
 
         }
-        //print "<pre>" . $where_statement . "</pre>";
+        //echo "<pre>" . $where_statement . "</pre>";
 
         /* prepare group_statement  */
         if ($group_condition) {
@@ -649,12 +649,12 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
             /* prepare group_statement  */
             if ($having_condition) {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(83, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_HAVING_CONDITION_NOT_SUPPORTED, get_called_class(), __LINE__);
 
             }
 
         }
-        //print "<pre>" . $group_statement . "</pre>";
+        //echo "<pre>" . $group_statement . "</pre>";
 
         /* prepare order_statement */
         if ($order_condition) {
@@ -703,7 +703,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
 
         }
-        //print "<pre>" . $order_statement . "</pre>";
+        //echo "<pre>" . $order_statement . "</pre>";
 
         /* prepare limit_statement */
         if ($limit) {
@@ -714,13 +714,13 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
             . $limit;
 
         }
-        //print "<pre>" . $limit_statement . "</pre>";
+        //echo "<pre>" . $limit_statement . "</pre>";
 
         /* prepare procedure_name */
         /* [PROCEDURE procedure_name(argument_list)] */
         if ($procedure) {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(84, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_PROCEDURE_NOT_SUPPORTED, get_called_class(), __LINE__);
 
         }
 
@@ -728,7 +728,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* [INTO OUTFILE 'file_name' [CHARACTER SET charset_name] export_options | INTO DUMPFILE 'file_name' | INTO var_name [, var_name]] */
         if ($into_target) {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(85, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_INTO_TARGET_NOT_SUPPORTED, get_called_class(), __LINE__);
 
         }
 
@@ -736,7 +736,7 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* [FOR UPDATE | LOCK IN SHARE MODE]] */
         if ($for_options) {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(86, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_FOR_OPTIONS_NOT_SUPPORTED, get_called_class(), __LINE__);
     
         }
 
@@ -764,6 +764,8 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         //if ($for_options) { $statement .= $for_options; }
 
+        $statement .= ";";
+
         self::$last_query = $statement;
 
         /* check for mysqli handle */
@@ -774,19 +776,19 @@ class select extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                 if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 }
 
             } else {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(3, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_NOT_CONNECTED, get_called_class(), __LINE__);
 
             }
 
         } else {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(2, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED, get_called_class(), __LINE__);
 
         }
 

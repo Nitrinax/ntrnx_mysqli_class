@@ -1,3 +1,28 @@
+Version 0.5.1.9
+
+CHG
+
+    - replaced print with echo
+
+Version 0.5.1.8
+
+CHG
+
+    - ntrnx_mysqli_internal_error::raisere renamed to ntrnx_mysqli_internal_raise::error
+    - changed code of subclasses to use the new name
+    - ntrnx_mysqli_autoloader.php renamed to ntrnx_mysqli.autoloader.php
+    - added code to check if autoloader exists
+    - consts for error messages NMYSQCC_ERROR_ renamed to NMYSQCC_ERROR_MSG_
+    - added const NMYSQCC_ERROR_ for error codes
+    - replaced all functions raise::error(<error code>) to raise::error(<error const>)
+
+Version 0.5.1.7
+
+FIX
+
+    - add ; to queries of select, insert, update, delete, columns, tables
+    - fix a missing $ in insert_id
+
 Version 0.5.1.6
 
 FIX

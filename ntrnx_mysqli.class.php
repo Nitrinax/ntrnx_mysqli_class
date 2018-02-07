@@ -85,18 +85,56 @@ if (!defined("NMYSQCC_NR_JOIN")) {     define("NMYSQCC_NR_JOIN",  " NATURAL RIGH
 if (!defined("NMYSQCC_NLO_JOIN")) {    define("NMYSQCC_NLO_JOIN", " NATURAL LEFT OUTER JOIN "); }
 if (!defined("NMYSQCC_NRO_JOIN")) {    define("NMYSQCC_NRO_JOIN", " NATURAL RIGHT OUTER JOIN "); }
 
+/* set error const */
+const NMYSQCC_ERROR_MYSQLI_INIT_FAILED = -1;
+const NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED = -2;
+const NMYSQCC_ERROR_NOT_CONNECTED = -3;
+
+const NMYSQCC_ERROR_ON_LOADING_CHARACTER_SET = -10;
+const NMYSQCC_ERROR_CLIENT_CHARACTER_SET_WAS_CHANGED = -11;
+
+const NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION = -20;
+const NMYSQCC_ERROR_VALUE_MUST_BE_INTEGER = -21;
+const NMYSQCC_ERROR_VALUE_MUST_BE_BOOLEAN = -22;
+const NMYSQCC_ERROR_VALUE_MUST_BE_STRING = -23;
+
+const NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_FILE = -30;
+const NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_DIR = -31;
+
+const NMYSQCC_ERROR_SSL_IS_ENABLED = -40;
+const NMYSQCC_ERROR_SSL_IS_DISABLED = -41;
+
+const NMYSQCC_ERROR_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH = -50;
+const NMYSQCC_ERROR_FLAGS_NOT_SUPPORTED = -51;
+const NMYSQCC_ERROR_RESULTMODE_NOT_SUPPORTED = -52;
+
+const NMYSQCC_ERROR_JOIN_SYNTAX = -60;
+const NMYSQCC_ERROR_JOIN_EXPRESSION = -61;
+const NMYSQCC_ERROR_OPERATOR_NOT_SUPPORTED = -62;
+const NMYSQCC_ERROR_HAVING_CONDITION_NOT_SUPPORTED = -63;
+const NMYSQCC_ERROR_PROCEDURE_NOT_SUPPORTED = -64;
+const NMYSQCC_ERROR_INTO_TARGET_NOT_SUPPORTED = -65;
+const NMYSQCC_ERROR_FOR_OPTIONS_NOT_SUPPORTED = -66;
+
+const NMYSQCC_ERROR_ACCESS_DENIED_FOR_USER_TO_DATABASE = 1044;
+const NMYSQCC_ERROR_ACCESS_DENIED_FOR_USER_USING_PASSWORD = 1045;
+const NMYSQCC_ERROR_UNKNOWN_COLUMN = 1054;
+const NMYSQCC_ERROR_TABLE_DOESNT_EXIST = 1146;
+const NMYSQCC_ERROR_CANT_CONNECT_TO_LOCAL_MYSQL_SERVER_THROUGH_SOCKET = 2002;
+const NMYSQCC_ERROR_UNKNOWN_MYSQL_SERVER_HOST = 2005;
+
 /* ### set error messages ### */
 
 /* mysqli class errors */
-if (!defined("NMYSQCC_ERROR_DIRECTORY_DOES_NOT_EXISTS")) { define("NMYSQCC_ERROR_DIRECTORY_DOES_NOT_EXISTS", "Directory \"%s\" does not exist."); }
-if (!defined("NMYSQCC_ERROR_FILE_DOES_NOT_EXISTS")) { define("NMYSQCC_ERROR_FILE_DOES_NOT_EXISTS", "File \"%s\" does not exist."); }
+if (!defined("NMYSQCC_ERROR_MSG_DIRECTORY_DOES_NOT_EXISTS")) { define("NMYSQCC_ERROR_MSG_DIRECTORY_DOES_NOT_EXISTS", "Directory \"%s\" does not exist."); }
+if (!defined("NMYSQCC_ERROR_MSG_FILE_DOES_NOT_EXISTS")) { define("NMYSQCC_ERROR_MSG_FILE_DOES_NOT_EXISTS", "File \"%s\" does not exist."); }
 
 /* ntrnx_mysqli_init */
-if (!defined("NMYSQCC_ERROR_MYSQLI_INIT_FAILED")) { define("NMYSQCC_ERROR_MYSQLI_INIT_FAILED", "Mysqli_init failed."); }
+if (!defined("NMYSQCC_ERROR_MSG_MYSQLI_INIT_FAILED")) { define("NMYSQCC_ERROR_MSG_MYSQLI_INIT_FAILED", "Mysqli_init failed."); }
 
 /* ntrnx_mysqli_insert */
-if (!defined("NMYSQCC_ERROR_FLAGS_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_FLAGS_NOT_SUPPORTED", "flags not supported"); }
-if (!defined("NMYSQCC_ERROR_RESULTMODE_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_RESULTMODE_NOT_SUPPORTED", "resultmode not supported"); }
+if (!defined("NMYSQCC_ERROR_MSG_FLAGS_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_MSG_FLAGS_NOT_SUPPORTED", "flags not supported"); }
+if (!defined("NMYSQCC_ERROR_MSG_RESULTMODE_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_MSG_RESULTMODE_NOT_SUPPORTED", "resultmode not supported"); }
 
 /* 
 * - ntrnx_mysqli_columns
@@ -106,7 +144,7 @@ if (!defined("NMYSQCC_ERROR_RESULTMODE_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_
 * - ntrnx_mysqli_tables
 * - ntrnx_mysqli_update
 */
-if (!defined("NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED")) { define("NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED", "DB handle not initialized."); }
+if (!defined("NMYSQCC_ERROR_MSG_DB_HANDLE_NOT_INITIALIZED")) { define("NMYSQCC_ERROR_MSG_DB_HANDLE_NOT_INITIALIZED", "DB handle not initialized."); }
 
 /* 
 * - ntrnx_mysqli_columns
@@ -116,13 +154,13 @@ if (!defined("NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED")) { define("NMYSQCC_ERROR
 * - ntrnx_mysqli_tables
 * - ntrnx_mysqli_update
 */
-if (!defined("NMYSQCC_ERROR_NOT_CONNECTED")) { define("NMYSQCC_ERROR_NOT_CONNECTED", "Connection Error: Not connected."); }
+if (!defined("NMYSQCC_ERROR_MSG_NOT_CONNECTED")) { define("NMYSQCC_ERROR_MSG_NOT_CONNECTED", "Connection Error: Not connected."); }
 
 /* ntrnx_mysqli_insert */
-if (!defined("NMYSQCC_ERROR_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH")) { define("NMYSQCC_ERROR_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH", "Number of columns and number of values ​​do not match."); }
+if (!defined("NMYSQCC_ERROR_MSG_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH")) { define("NMYSQCC_ERROR_MSG_NUMBER_OF_COLUMNS_AND_NUMBER_OF_VALUES_DO_NOT_MATCH", "Number of columns and number of values ​​do not match."); }
 
 /* ntrnx_mysqli_set_charset */
-if (!defined("NMYSQCC_ERROR_ON_LOADING_CHARACTER_SET")) { define("NMYSQCC_ERROR_ON_LOADING_CHARACTER_SET", "Error loading character set : \"%s\"."); }
+if (!defined("NMYSQCC_ERROR_MSG_ON_LOADING_CHARACTER_SET")) { define("NMYSQCC_ERROR_MSG_ON_LOADING_CHARACTER_SET", "Error loading character set : \"%s\"."); }
 
 /*
 * - ntrnx_mysqli_connect
@@ -130,7 +168,7 @@ if (!defined("NMYSQCC_ERROR_ON_LOADING_CHARACTER_SET")) { define("NMYSQCC_ERROR_
 * - ntrnx_mysqli_pconnect
 * - ntrnx_mysqli_real_connect
 */
-if (!defined("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION")) { define("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION", "Error on setting value \"{VALUE}\" for option \"{OPTION}\"."); }
+if (!defined("NMYSQCC_ERROR_MSG_ON_SETTINGS_VALUE_FOR_OPTION")) { define("NMYSQCC_ERROR_MSG_ON_SETTINGS_VALUE_FOR_OPTION", "Error on setting value \"{VALUE}\" for option \"{OPTION}\"."); }
 
 /*
 * - ntrnx_mysqli_connect
@@ -138,32 +176,32 @@ if (!defined("NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION")) { define("NMYSQCC_ER
 * - ntrnx_mysqli_pconnect
 * - ntrnx_mysqli_real_connect
 */
-if (!defined("NMYSQCC_ERROR_VALUE_MUST_BE_INTEGER")) { define("NMYSQCC_ERROR_VALUE_MUST_BE_INTEGER", "Value must be integer."); }
+if (!defined("NMYSQCC_ERROR_MSG_VALUE_MUST_BE_INTEGER")) { define("NMYSQCC_ERROR_MSG_VALUE_MUST_BE_INTEGER", "Value must be integer."); }
 
 /* ntrnx_mysqli_options */
-if (!defined("NMYSQCC_ERROR_VALUE_MUST_BE_BOOLEAN")) { define("NMYSQCC_ERROR_VALUE_MUST_BE_BOOLEAN", "Value must be boolean."); }
-if (!defined("NMYSQCC_ERROR_VALUE_MUST_BE_STRING")) { define("NMYSQCC_ERROR_VALUE_MUST_BE_STRING", "Value must be string."); }
+if (!defined("NMYSQCC_ERROR_MSG_VALUE_MUST_BE_BOOLEAN")) { define("NMYSQCC_ERROR_MSG_VALUE_MUST_BE_BOOLEAN", "Value must be boolean."); }
+if (!defined("NMYSQCC_ERROR_MSG_VALUE_MUST_BE_STRING")) { define("NMYSQCC_ERROR_MSG_VALUE_MUST_BE_STRING", "Value must be string."); }
 
 /* ntrnx_mysqli_ssl_get */
-if (!defined("NMYSQCC_ERROR_SSL_IS_ENABLED")) { define("NMYSQCC_ERROR_SSL_IS_ENABLED", "SSL to database is enabled."); }
-if (!defined("NMYSQCC_ERROR_SSL_IS_DISABLED")) { define("NMYSQCC_ERROR_SSL_IS_DISABLED", "SSL to database is disabled."); }
+if (!defined("NMYSQCC_ERROR_MSG_SSL_IS_ENABLED")) { define("NMYSQCC_ERROR_MSG_SSL_IS_ENABLED", "SSL to database is enabled."); }
+if (!defined("NMYSQCC_ERROR_MSG_SSL_IS_DISABLED")) { define("NMYSQCC_ERROR_MSG_SSL_IS_DISABLED", "SSL to database is disabled."); }
 
 /* ntrnx_mysqli_ssl_set */
-if (!defined("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_FILE")) { define("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_FILE", "Error on setting path to file \"{FILE}\"."); }
-if (!defined("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_DIR")) { define("NMYSQCC_ERROR_ON_SETTINGS_PATH_TO_DIR", "Error on setting path to dir \"{DIR}\" that contains \"{FILE}\"."); }
+if (!defined("NMYSQCC_ERROR_MSG_ON_SETTINGS_PATH_TO_FILE")) { define("NMYSQCC_ERROR_MSG_ON_SETTINGS_PATH_TO_FILE", "Error on setting path to file \"{FILE}\"."); }
+if (!defined("NMYSQCC_ERROR_MSG_ON_SETTINGS_PATH_TO_DIR")) { define("NMYSQCC_ERROR_MSG_ON_SETTINGS_PATH_TO_DIR", "Error on setting path to dir \"{DIR}\" that contains \"{FILE}\"."); }
 
 /* ntrnx_mysqli_select */
-if (!defined("NMYSQCC_ERROR_JOIN_SYNTAX")) { define("NMYSQCC_ERROR_JOIN_SYNTAX", "Error on JOIN syntax."); }
-if (!defined("NMYSQCC_ERROR_JOIN_EXPRESSION")) { define("NMYSQCC_ERROR_JOIN_EXPRESSION", "Error on JOIN expression."); }
-if (!defined("NMYSQCC_ERROR_OPERATOR_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_OPERATOR_NOT_SUPPORTED", "Operator \"%s\" not supported."); }
-if (!defined("NMYSQCC_ERROR_HAVING_CONDITION_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_HAVING_CONDITION_NOT_SUPPORTED", "having_condition not supported."); }
+if (!defined("NMYSQCC_ERROR_MSG_JOIN_SYNTAX")) { define("NMYSQCC_ERROR_MSG_JOIN_SYNTAX", "Error on JOIN syntax."); }
+if (!defined("NMYSQCC_ERROR_MSG_JOIN_EXPRESSION")) { define("NMYSQCC_ERROR_MSG_JOIN_EXPRESSION", "Error on JOIN expression."); }
+if (!defined("NMYSQCC_ERROR_MSG_OPERATOR_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_MSG_OPERATOR_NOT_SUPPORTED", "Operator \"%s\" not supported."); }
+if (!defined("NMYSQCC_ERROR_MSG_HAVING_CONDITION_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_MSG_HAVING_CONDITION_NOT_SUPPORTED", "having_condition not supported."); }
 
-if (!defined("NMYSQCC_ERROR_PROCEDURE_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_PROCEDURE_NOT_SUPPORTED", "procedure not supported."); }
-if (!defined("NMYSQCC_ERROR_INTO_TARGET_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_INTO_TARGET_NOT_SUPPORTED", "into_target not supported."); }
-if (!defined("NMYSQCC_ERROR_FOR_OPTIONS_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_FOR_OPTIONS_NOT_SUPPORTED", "for_options not supported."); }
+if (!defined("NMYSQCC_ERROR_MSG_PROCEDURE_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_MSG_PROCEDURE_NOT_SUPPORTED", "procedure not supported."); }
+if (!defined("NMYSQCC_ERROR_MSG_INTO_TARGET_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_MSG_INTO_TARGET_NOT_SUPPORTED", "into_target not supported."); }
+if (!defined("NMYSQCC_ERROR_MSG_FOR_OPTIONS_NOT_SUPPORTED")) { define("NMYSQCC_ERROR_MSG_FOR_OPTIONS_NOT_SUPPORTED", "for_options not supported."); }
 
 /* ntrnx_mysqli_set_charset */
-if (!defined("NMYSQCC_MSG_CLIENT_CHARACTER_SET_WAS_CHANGED")) { define("NMYSQCC_MSG_CLIENT_CHARACTER_SET_WAS_CHANGED", "Client character set was changed to : \"%s\"."); }
+if (!defined("NMYSQCC_ERROR_MSG_CLIENT_CHARACTER_SET_WAS_CHANGED")) { define("NMYSQCC_ERROR_MSG_CLIENT_CHARACTER_SET_WAS_CHANGED", "Client character set was changed to : \"%s\"."); }
 
 /* set DIR to absolute path to library files */
 if (!defined("NMYSQCC_DIR")) { define("NMYSQCC_DIR", dirname(__FILE__) . NMYSQCC_DS); }
@@ -205,8 +243,13 @@ if (!defined("NMYSQCC_AUTOLOADER_INTERNAL_PART")) { define("NMYSQCC_AUTOLOADER_I
 if (!defined("NMYSQCC_AUTOLOADER_FUNCTION_PART")) { define("NMYSQCC_AUTOLOADER_FUNCTION_PART", "function"); }
 
 /* include autoloader */
-require_once("ntrnx_mysqli_autoloader.php");
-\ntrnx_mysqli_autoloader::register();
+$ntrnx_mysqli_autoloader = NMYSQCC_DIR . "ntrnx_mysqli.autoloader.php";
+if (file_exists($ntrnx_mysqli_autoloader)) {
+	include_once($ntrnx_mysqli_autoloader);
+	\ntrnx_mysqli_autoloader::register();
+} else {
+	die( "file " . $ntrnx_mysqli_autoloader . " not found" . NMYSQCC_BR);
+}
 
 /* check and load config and subclasses */
 if (!defined("NMYSQCC_CONFIG_FILE")) { define("NMYSQCC_CONFIG_FILE", NMYSQCC_CONFIG_DIR . "ntrnx_mysqli_config.php"); }

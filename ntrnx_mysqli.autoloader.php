@@ -63,7 +63,7 @@ class ntrnx_mysqli_autoloader {
             if (file_exists($filepath)) {
 
                 /* include file */
-                require_once($filepath);
+                include_once($filepath);
 
                 /* check if class exists */
                 if (class_exists($class_name)) {

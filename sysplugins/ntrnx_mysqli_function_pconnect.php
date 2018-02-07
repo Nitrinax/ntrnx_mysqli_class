@@ -20,8 +20,8 @@ class pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
         /* check porrt value */
         if ($port != NULL && filter_var($port, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE) === NULL) { 
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(30, get_called_class(), __LINE__ , $port, "DB_PORT");
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(31, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_ON_SETTINGS_VALUE_FOR_OPTION, get_called_class(), __LINE__ , $port, "DB_PORT");
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_VALUE_MUST_BE_INTEGER, get_called_class(), __LINE__);
 
         } else {
 
@@ -29,7 +29,7 @@ class pconnect extends \NTRNX_MYSQLI\ntrnx_mysqli {
             $mysqli_handle = @mysqli_connect ("p:" . $host, $username, $passwd, $dbname, $port, $socket);
             if (!$mysqli_handle) {
                 
-                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_connect_errno(), get_called_class(), __LINE__, mysqli_connect_error());
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_connect_errno(), get_called_class(), __LINE__, mysqli_connect_error());
                 
             } else {
 

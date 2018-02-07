@@ -13,7 +13,7 @@ class insert_id extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     ) {
 
-        return mysqli_insert_id (mysqli_handle);
+        return mysqli_insert_id ($mysqli_handle);
 
     }
 

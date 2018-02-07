@@ -7,7 +7,7 @@ const SHOW_QUERIES = TRUE;
 ini_set ("error_reporting", E_ALL & ~E_NOTICE);
 ini_set ("display_errors", 1);
 
-require "ntrnx_mysqli.class.php";
+include_once "ntrnx_mysqli.class.php";
 
 $my_tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
@@ -115,9 +115,9 @@ if (check_if_task_run($task)===TRUE) {
 
 		echo " - ssl_get : ";
 		if (\NTRNX_MYSQLI\ssl_get::resource($db_handle) === TRUE) {
-			echo "<font color=\"green\">" . NMYSQCC_ERROR_SSL_IS_ENABLED . "</font>";
+			echo "<font color=\"green\">" . NMYSQCC_ERROR_MSG_SSL_IS_ENABLED . "</font>";
 		} else {
-			echo "<font color=\"red\">" . NMYSQCC_ERROR_SSL_IS_DISABLED . "</font>";
+			echo "<font color=\"red\">" . NMYSQCC_ERROR_MSG_SSL_IS_DISABLED . "</font>";
 		}
 		echo "<br/>";
 

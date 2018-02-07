@@ -29,7 +29,7 @@ class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 /* check have_openssl */
                 if (!$result_openssl = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'have_openssl';")) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 } else {
 
@@ -46,7 +46,7 @@ class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 /* check have_ssl */
                 if (!$result_ssl = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'have_ssl';")) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 } else {
 
@@ -63,7 +63,7 @@ class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 /* check Ssl_cipher */
                 if (!$result_ssl_cipher = mysqli_query ($mysqli_handle, "SHOW SESSION STATUS LIKE 'Ssl_cipher';")) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 } else {
 
@@ -80,7 +80,7 @@ class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 /* check Ssl_version */
                 if (!$result_ssl_version = mysqli_query ($mysqli_handle, "SHOW SESSION STATUS LIKE 'Ssl_version';")) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 } else {
 
@@ -97,7 +97,7 @@ class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 /* check ssl_key */
                 if (!$result_ssl_key = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'ssl_key';")) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 } else {
 
@@ -114,7 +114,7 @@ class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 /* check ssl_cert */
                 if (!$result_ssl_cert = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'ssl_cert';")) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 } else {
 
@@ -131,7 +131,7 @@ class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
                 /* check ssl_ca */
                 if (!$result_ssl_ca = mysqli_query ($mysqli_handle, "SHOW SESSION VARIABLES LIKE 'ssl_ca';")) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 } else {
 
@@ -148,13 +148,13 @@ class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
             } else {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(3, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_NOT_CONNECTED, get_called_class(), __LINE__);
 
             }
 
         } else {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(2, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED, get_called_class(), __LINE__);
 
         }
 
@@ -166,13 +166,13 @@ class ssl_get extends \NTRNX_MYSQLI\ntrnx_mysqli {
             $have_cert == TRUE &&
             $have_ca == TRUE) {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(60, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_SSL_IS_ENABLED, get_called_class(), __LINE__);
             
             return TRUE;
 
         } else {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(61, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_SSL_IS_DISABLED, get_called_class(), __LINE__);
 
             return FALSE;
 

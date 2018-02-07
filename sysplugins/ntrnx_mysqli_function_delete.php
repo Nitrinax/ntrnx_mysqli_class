@@ -37,7 +37,7 @@ class delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
             . NMYSQCC_IQ
             . $table_reference
             . NMYSQCC_IQ;
-        //print "<pre>" . $delete_statement . "</pre>";
+        //echo "<pre>" . $delete_statement . "</pre>";
 
         /* prepare where_statement */
         if ($where_condition) {
@@ -234,7 +234,7 @@ class delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
 
         }
-        //print "<pre>" . $where_statement . "</pre>";
+        //echo "<pre>" . $where_statement . "</pre>";
         
         /* prepare order_statement */
         if ($order_condition) {
@@ -283,7 +283,7 @@ class delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
 
         }
-        //print "<pre>" . $order_statement . "</pre>";
+        //echo "<pre>" . $order_statement . "</pre>";
 
         /* prepare limit_statement */
         if ($limit) {
@@ -294,7 +294,7 @@ class delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
             . $limit;
 
         }
-        //print "<pre>" . $limit_statement . "</pre>";
+        //echo "<pre>" . $limit_statement . "</pre>";
 
         /* prepare complete statement */
         $statement = $delete_statement
@@ -312,6 +312,8 @@ class delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
         if ($limit) { $statement .= $limit_statement; }
 
+        $statement .= ";";
+
         self::$last_query = $statement;
 
         /* check for mysqli handle */
@@ -322,21 +324,21 @@ class delete extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                 if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
                     $result = FALSE;
 
                 }
 
             } else {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(3, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_NOT_CONNECTED, get_called_class(), __LINE__);
                 $result = FALSE;
 
             }
 
         } else {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(2, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED, get_called_class(), __LINE__);
             $result = FALSE;
 
         }

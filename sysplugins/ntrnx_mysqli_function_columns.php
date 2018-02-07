@@ -13,7 +13,9 @@ class columns extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
     ) {
 
-        $statement = NMYSQCC_COLUMNS . NMYSQCC_IQ . self::$dbname . NMYSQCC_IQ . NMYSQCC_DOT . NMYSQCC_IQ . $table . NMYSQCC_IQ . ";";
+        $statement = NMYSQCC_COLUMNS . NMYSQCC_IQ . self::$dbname . NMYSQCC_IQ . NMYSQCC_DOT . NMYSQCC_IQ . $table . NMYSQCC_IQ;
+
+        $statement .= ";";
 
         self::$last_query = $statement;
 
@@ -25,19 +27,19 @@ class columns extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                 if (!$result = mysqli_query ($mysqli_handle, $statement)) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
 
                 }
 
             } else {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(3, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_NOT_CONNECTED, get_called_class(), __LINE__);
 
             }
 
         } else {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(2, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED, get_called_class(), __LINE__);
 
         }
 

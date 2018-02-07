@@ -42,7 +42,7 @@ class update extends \NTRNX_MYSQLI\ntrnx_mysqli {
             . NMYSQCC_IQ
             . $table_reference
             . NMYSQCC_IQ;
-        //print "<pre>" . $update_statement . "</pre>";
+        //echo "<pre>" . $update_statement . "</pre>";
 
         /* create set expression */
         $count_set = count($set_expression);
@@ -69,7 +69,7 @@ class update extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
 
         }
-        //print "<pre>" . $set_statement . "</pre>";
+        //echo "<pre>" . $set_statement . "</pre>";
 
         /* create where_condition */
         $count_where = count($where_condition);
@@ -106,7 +106,7 @@ class update extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
 
         }
-        //print "<pre>" . $where_statement . "</pre>";
+        //echo "<pre>" . $where_statement . "</pre>";
 
         /* prepare order_statement */
         if ($order_condition) {
@@ -155,7 +155,7 @@ class update extends \NTRNX_MYSQLI\ntrnx_mysqli {
             }
 
         }
-        //print "<pre>" . $order_statement . "</pre>";
+        //echo "<pre>" . $order_statement . "</pre>";
 
         /* prepare limit_statement */
         if ($limit) {
@@ -166,7 +166,7 @@ class update extends \NTRNX_MYSQLI\ntrnx_mysqli {
             . $limit;
 
         }
-        //print "<pre>" . $limit_statement . "</pre>";
+        //echo "<pre>" . $limit_statement . "</pre>";
 
         /* prepare complete statement */
         $statement = $update_statement
@@ -176,6 +176,8 @@ class update extends \NTRNX_MYSQLI\ntrnx_mysqli {
         if ($order_condition) { $statement .= $order_statement; }
 
         if ($limit) { $statement .= $limit_statement; }
+
+        $statement .= ";";
 
         self::$last_query = $statement;
 
@@ -187,21 +189,21 @@ class update extends \NTRNX_MYSQLI\ntrnx_mysqli {
 
                 if (!$result = mysqli_query ($mysqli_handle, $statement, $resultmode)) {
 
-                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
+                    \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(mysqli_errno($mysqli_handle), get_called_class(), __LINE__, mysqli_error ($mysqli_handle));
                     $result = FALSE;
 
                 }
 
             } else {
 
-                \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(3, get_called_class(), __LINE__);
+                \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_NOT_CONNECTED, get_called_class(), __LINE__);
                 $result = FALSE;
 
             }
 
         } else {
 
-            \NTRNX_MYSQLI\ntrnx_mysqli_internal_error::raise(2, get_called_class(), __LINE__);
+            \NTRNX_MYSQLI\ntrnx_mysqli_internal_raise::error(NMYSQCC_ERROR_DB_HANDLE_NOT_INITIALIZED, get_called_class(), __LINE__);
             $result = FALSE;
 
         }
